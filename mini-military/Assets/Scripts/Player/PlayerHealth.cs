@@ -96,5 +96,8 @@ public class PlayerHealth : MonoBehaviour {
         // Turn off the movement and shooting scripts.
         playerMovement.enabled = false;
         //playerShooting.enabled = false;
+
+        //Drop weapon from hand
+        playerMovement.DetachWeapon();
     }
 }

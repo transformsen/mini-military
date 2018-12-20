@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     public float speed = 6f;            // The speed that the player will move at.
+    public GameObject weapon;           // The Weapon object for attaching to player.
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     Animator anim;                      // Reference to the animator component.
     Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
+    GameObject rightHandContainer;      // Right hand container to hold weapon
 
     void Awake()
     {
@@ -19,6 +21,16 @@ public class PlayerMovement : MonoBehaviour {
         // Set up references.
         anim = GetComponent<Animator>();
         playerRigidbody = GetComponent<Rigidbody>();
+        rightHandContainer = transform.
+                                Find("Bip001").
+                                Find("Bip001 Pelvis").
+                                Find("Bip001 Spine").
+                                Find("Bip001 R Clavicle").
+                                Find("Bip001 R UpperArm").
+                                Find("Bip001 R Forearm").
+                                Find("Bip001 R Hand").
+                                Find("R_hand_container").gameObject;
+        
     }
 
 
@@ -36,6 +48,9 @@ public class PlayerMovement : MonoBehaviour {
 
         // Animate the player.
         Animating(h, v);
+
+        //Attaching weapon
+        AttachWeapon();
     }
 
     void Move(float h, float v)
@@ -84,4 +99,20 @@ public class PlayerMovement : MonoBehaviour {
         anim.SetBool("isRunning", running);
     }
 
+    void AttachWeapon()
+    {
+        //Assignning weapon to right hand container
+        weapon.transform.SetParent(rightHandContainer.transform);
+    }
+
+    public void DetachWeapon()
+    {
+        //TODO: drop position needs to fixed on the ground
+        //Vector3 rightHandlePosition = rightHandContainer.transform.position;
+        //Vector3 droppedWeaponPosition = rightHandlePosition;
+        //weapon.transform.position = droppedWeaponPosition;
+
+        //Detach weapon from its parent hand object.
+        rightHandContainer.transform.DetachChildren();
+    }
 }
