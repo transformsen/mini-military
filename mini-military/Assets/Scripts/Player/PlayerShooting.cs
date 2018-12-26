@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShooting : MonoBehaviour {
 
     public int damagePerShot = 20;                  // The damage inflicted by each bullet.
     public float timeBetweenBullets = 0.15f;        // The time between each shot.
     public float range = 100f;                      // The distance the gun can fire.
+    public int numberOfBullets = 25;                // Number bullets per load
+    int reloadIntervel = 30;                        // Time Intervel between each reload;
+    public Button reloadButton;                     // The reload button
 
     float timer;                                    // A timer to determine when to fire.
     Ray shootRay;                                   // A ray from the gun end forwards.
@@ -17,6 +21,7 @@ public class PlayerShooting : MonoBehaviour {
     AudioSource gunAudio;                           // Reference to the audio source.
     Light gunLight;                                 // Reference to the light component.
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
+    System.DateTime reloadStartTime = System.DateTime.Now;
 
     void Awake()
     {
@@ -28,6 +33,9 @@ public class PlayerShooting : MonoBehaviour {
         gunLine = GetComponent<LineRenderer>();
         gunAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
+
+        reloadButton.onClick.AddListener(reloadGun);
+
     }
 
     void Update()
@@ -38,8 +46,11 @@ public class PlayerShooting : MonoBehaviour {
         // If the Fire1 button is being press and it's time to fire...
         if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
         {
-            // ... shoot the gun.
-            Shoot();
+            // ... shoot the gun only if it has bullets.
+            if(numberOfBullets > 0)
+            {
+                Shoot();
+            }            
         }
 
         // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
@@ -59,6 +70,9 @@ public class PlayerShooting : MonoBehaviour {
 
     void Shoot()
     {
+        //Bullets wasted
+        numberOfBullets--;
+
         // Reset the timer.
         timer = 0f;
 
@@ -102,5 +116,18 @@ public class PlayerShooting : MonoBehaviour {
             // ... set the second position of the line renderer to the fullest extent of the gun's range.
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
         }
+    }
+
+    public void reloadGun()
+    {
+        Debug.Log("reloading.....");
+        System.DateTime currentTime = System.DateTime.Now;
+        int timeDiffBetweenReloads = (currentTime - reloadStartTime).Seconds;
+        Debug.Log(timeDiffBetweenReloads);
+        if (timeDiffBetweenReloads > reloadIntervel)
+        {
+            numberOfBullets = 25;
+            reloadStartTime = currentTime;
+        }        
     }
 }

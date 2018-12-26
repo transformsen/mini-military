@@ -101,8 +101,11 @@ public class PlayerMovement : MonoBehaviour {
 
     void AttachWeapon()
     {
+        //Enable required object
+        weapon.transform.Find("w_rifle").gameObject.SetActive(true);
+
         //Assignning weapon to right hand container
-        weapon.transform.SetParent(rightHandContainer.transform);
+        weapon.transform.SetParent(rightHandContainer.transform);        
     }
 
     public void DetachWeapon()
@@ -113,6 +116,7 @@ public class PlayerMovement : MonoBehaviour {
         //weapon.transform.position = droppedWeaponPosition;
 
         //Detach weapon from its parent hand object.
-        rightHandContainer.transform.DetachChildren();
+        rightHandContainer.transform.DetachChildren(); 
+        
     }
 }
