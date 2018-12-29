@@ -44,7 +44,7 @@ public class PlayerShooting : MonoBehaviour {
         timer += Time.deltaTime;
 
         // If the Fire1 button is being press and it's time to fire...
-        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
+        if (Input.GetKeyDown("space") && timer >= timeBetweenBullets)
         {
             // ... shoot the gun only if it has bullets.
             if(numberOfBullets > 0)
