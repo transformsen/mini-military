@@ -11,6 +11,7 @@ public class PlayerShooting : MonoBehaviour {
     public int numberOfBullets = 25;                // Number bullets per load
     int reloadIntervel = 30;                        // Time Intervel between each reload;
     public Button reloadButton;                     // The reload button
+    public PlayerMovement playerMovement;
 
     float timer;                                    // A timer to determine when to fire.
     Ray shootRay;                                   // A ray from the gun end forwards.
@@ -22,6 +23,7 @@ public class PlayerShooting : MonoBehaviour {
     Light gunLight;                                 // Reference to the light component.
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
     System.DateTime reloadStartTime = System.DateTime.Now;
+
 
     void Awake()
     {
@@ -46,11 +48,16 @@ public class PlayerShooting : MonoBehaviour {
         // If the Fire1 button is being press and it's time to fire...
         if (Input.GetKeyDown("space") && timer >= timeBetweenBullets)
         {
+            playerMovement.ShootAnim(true);
             // ... shoot the gun only if it has bullets.
-            if(numberOfBullets > 0)
+            if (numberOfBullets > 0)
             {
                 Shoot();
-            }            
+            }
+        }
+        else
+        {
+            playerMovement.ShootAnim(false);
         }
 
         // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
@@ -70,6 +77,8 @@ public class PlayerShooting : MonoBehaviour {
 
     void Shoot()
     {
+        
+
         //Bullets wasted
         numberOfBullets--;
 

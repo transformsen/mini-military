@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -384,6 +384,34 @@ Transform:
   - {fileID: 621850397}
   m_Father: {fileID: 303045494}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &184629705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 184629706}
+  m_Layer: 0
+  m_Name: BombSpanPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &184629706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 184629705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.036, y: 0.125, z: -0.363}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 883365139}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &195819526
 GameObject:
@@ -1540,7 +1568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &608818575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2592,7 +2620,8 @@ Transform:
   m_LocalRotation: {x: -0.7068252, y: -0.000000010540906, z: -0.000000010532516, w: 0.7073882}
   m_LocalPosition: {x: -0.13800707, y: 0, z: -0.00000009689331}
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 184629706}
   m_Father: {fileID: 1485422287}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8312,6 +8341,7 @@ MonoBehaviour:
   range: 100
   numberOfBullets: 25
   reloadButton: {fileID: 694534032}
+  playerMovement: {fileID: 2095412559}
 --- !u!1 &1368693870
 GameObject:
   m_ObjectHideFlags: 0
@@ -9385,6 +9415,7 @@ GameObject:
   - component: {fileID: 2095412562}
   - component: {fileID: 2095412559}
   - component: {fileID: 2095412561}
+  - component: {fileID: 2095412563}
   m_Layer: 0
   m_Name: PlayerArmy
   m_TagString: Player
@@ -9566,6 +9597,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2095412563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2095412556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4699cb2d7ac76a1419f8ee6547433e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombPrefab: {fileID: 1482998822075820, guid: 84196ff1ca18f4a4395102c1383515da, type: 2}
+  bombSpawn: {fileID: 184629706}
+  timeBetweenBullets: 0.2
 --- !u!1 &2120111932
 GameObject:
   m_ObjectHideFlags: 0

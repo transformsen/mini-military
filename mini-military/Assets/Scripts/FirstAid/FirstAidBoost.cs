@@ -22,6 +22,7 @@ public class FirstAidBoost : MonoBehaviour {
         if (other.gameObject == player)
         {            
             playerHealth.currentHealth = playerHealth.startingHealth;
+            playerHealth.healthSlider.value = playerHealth.startingHealth;
         }
     }
     

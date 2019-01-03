@@ -76,6 +76,8 @@ public class PlayerMovement : MonoBehaviour {
         //// Move the player to it's current position plus the movement.
         //playerRigidbody.MovePosition(transform.position + movement);
 
+        //https://unity3d.com/learn/tutorials/topics/scripting/translate-and-rotate
+
         Vector3 movement = new Vector3(-h, 0.0f, -v);
         if (movement != Vector3.zero)
         {
@@ -153,5 +155,10 @@ public class PlayerMovement : MonoBehaviour {
         //Detach weapon from its parent hand object.
         rightHandContainer.transform.DetachChildren(); 
         
+    }
+
+    public void ShootAnim(bool enable)
+    {
+        anim.SetBool("isShooting", enable);
     }
 }
