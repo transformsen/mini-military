@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour {
     void AttachWeapon()
     {
         //Enable required object
-        weapon.transform.Find("w_rifle").gameObject.SetActive(true);
+        //weapon.transform.Find("ScuFigun").gameObject.SetActive(true);
 
         //Assignning weapon to right hand container
         weapon.transform.SetParent(rightHandContainer.transform);        

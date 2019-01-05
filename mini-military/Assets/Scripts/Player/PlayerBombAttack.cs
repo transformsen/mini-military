@@ -6,7 +6,8 @@ public class PlayerBombAttack : MonoBehaviour {
 
     public GameObject bombPrefab;
     public Transform bombSpawn;
-    public float timeBetweenBullets = .1f;        // The time between each shot.
+    public float timeBetweenBullets = .15f;        // The time between each shot.
+    public float bombspeed = 9f;
 
     float timer;                                    // A timer to determine when to fire.
 
@@ -14,7 +15,7 @@ public class PlayerBombAttack : MonoBehaviour {
     void Update () {
         
         timer += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.A) && timer >= timeBetweenBullets)
+        if (Input.GetButtonDown("Fire3") && timer >= timeBetweenBullets)
         {
             Debug.Log("THrowing Bomb!");
             ThrowBomb();
@@ -30,7 +31,7 @@ public class PlayerBombAttack : MonoBehaviour {
            bombSpawn.position,
            bombSpawn.rotation);
         Rigidbody rb = bomb.GetComponent<Rigidbody>();        
-        rb.AddForce(transform.forward * 12, ForceMode.VelocityChange);
+        rb.AddForce(transform.forward * bombspeed, ForceMode.VelocityChange);
 
     }
 }

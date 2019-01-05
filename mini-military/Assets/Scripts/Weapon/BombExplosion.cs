@@ -5,20 +5,22 @@ using UnityEngine;
 public class BombExplosion : MonoBehaviour {
 
     public float delay = 3f;
-    public GameObject explosionEffect;
+    public GameObject explosionEffectPreFab;
     public float radius = 5f;
     public float fource = 300f;
+    public float lifeTime = 0.8f;
 
+    AudioSource blastAudio;
     bool hasExploeded = false;
     float countDown;
 	// Use this for initialization
 	void Start () {
         countDown = delay;
-
+        blastAudio = GetComponent<AudioSource>();
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    // Update is called once per frame
+    void FixedUpdate () {
         countDown -= Time.deltaTime;
         if(countDown <= 0f && !hasExploeded)
         {
@@ -31,7 +33,9 @@ public class BombExplosion : MonoBehaviour {
     void Explode()
     {
         
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        GameObject explosionEffect = Instantiate(explosionEffectPreFab, transform.position, transform.rotation);
+
+        blastAudio.Play();
 
         Collider [] colliders = Physics.OverlapSphere(transform.position, radius);
 
@@ -49,6 +53,7 @@ public class BombExplosion : MonoBehaviour {
             }
         }
         
-        Destroy(this.gameObject);
+        Destroy(this.gameObject, lifeTime);
+        Destroy(explosionEffect, 3f);
     }
 }

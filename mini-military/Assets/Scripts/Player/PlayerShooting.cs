@@ -11,6 +11,7 @@ public class PlayerShooting : MonoBehaviour {
     public int numberOfBullets = 25;                // Number bullets per load
     int reloadIntervel = 30;                        // Time Intervel between each reload;
     public Button reloadButton;                     // The reload button
+    public Button fireButton;                     // The reload button
     public PlayerMovement playerMovement;
 
     float timer;                                    // A timer to determine when to fire.
@@ -37,6 +38,7 @@ public class PlayerShooting : MonoBehaviour {
         gunLight = GetComponent<Light>();
 
         reloadButton.onClick.AddListener(reloadGun);
+        //fireButton.onClick.AddListener(prepareShoot);
 
     }
 
@@ -46,7 +48,33 @@ public class PlayerShooting : MonoBehaviour {
         timer += Time.deltaTime;
 
         // If the Fire1 button is being press and it's time to fire...
-        if (Input.GetKeyDown("space") && timer >= timeBetweenBullets)
+        if (Input.GetButtonDown("Fire2")   && timer >= timeBetweenBullets)
+        {
+            Debug.Log("Shooting!");
+            playerMovement.ShootAnim(true);
+            // ... shoot the gun only if it has bullets.
+            if (numberOfBullets > 0)
+            {
+                Shoot();
+            }
+        }
+        else
+        {
+            playerMovement.ShootAnim(false);
+        }
+
+        // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
+        if (timer >= timeBetweenBullets * effectsDisplayTime)
+        {
+            // ... disable the effects.
+            DisableEffects();
+        }
+    }
+
+    public void prepareShoot()
+    {
+        // If the Fire1 button is being press and it's time to fire...
+        if (timer >= timeBetweenBullets)
         {
             playerMovement.ShootAnim(true);
             // ... shoot the gun only if it has bullets.
