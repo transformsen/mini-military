@@ -20,6 +20,7 @@ public class PlayerShooting : MonoBehaviour {
     int shootableMask;                              // A layer mask so the raycast only hits things on the shootable layer.
     ParticleSystem gunParticles;                    // Reference to the particle system.
     LineRenderer gunLine;                           // Reference to the line renderer.
+    TrailRenderer gunTrail;                           // Reference to the line renderer.
     AudioSource gunAudio;                           // Reference to the audio source.
     Light gunLight;                                 // Reference to the light component.
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
@@ -34,6 +35,7 @@ public class PlayerShooting : MonoBehaviour {
         // Set up the references.
         gunParticles = GetComponent<ParticleSystem>();
         gunLine = GetComponent<LineRenderer>();
+        gunTrail = GetComponent<TrailRenderer>();
         gunAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
 
@@ -101,6 +103,8 @@ public class PlayerShooting : MonoBehaviour {
         // Disable the line renderer and the light.
         gunLine.enabled = false;
         gunLight.enabled = false;
+
+        gunTrail.enabled = false;
     }
 
     void Shoot()
@@ -118,6 +122,7 @@ public class PlayerShooting : MonoBehaviour {
 
         // Enable the light.
         gunLight.enabled = true;
+        //gunTrail.enabled = true;
 
         // Stop the particles from playing if they were, then start the particles.
         gunParticles.Stop();
@@ -127,9 +132,13 @@ public class PlayerShooting : MonoBehaviour {
         gunLine.enabled = true;
         gunLine.SetPosition(0, transform.position);
 
+        //gunTrail.enabled = true;
+        //gunTrail.SetPosition(0, transform.position);
+
         // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
-        shootRay.origin = transform.position;
-        shootRay.direction = transform.forward;
+        //shootRay.origin = transform.position;
+        //shootRay.direction = transform.forward;
+        shootRay = new Ray(transform.position, transform.forward);
 
         // Perform the raycast against gameobjects on the shootable layer and if it hits something...
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
@@ -146,12 +155,14 @@ public class PlayerShooting : MonoBehaviour {
 
             // Set the second position of the line renderer to the point the raycast hit.
             gunLine.SetPosition(1, shootHit.point);
+            //gunTrail.SetPosition(0, shootHit.point);
         }
         // If the raycast didn't hit anything on the shootable layer...
         else
         {
             // ... set the second position of the line renderer to the fullest extent of the gun's range.
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
+            //gunTrail.SetPosition(0, shootRay.origin + shootRay.direction * range);
         }
     }
 

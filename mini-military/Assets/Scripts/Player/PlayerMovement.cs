@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour {
     RotateGestureRecognizer rotateGesture;
 
     Joystick joystick;
+    WeaponSwitch weaponSwitch;
 
     void Awake()
     {
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour {
         //SetupGesture();
 
         joystick = FindObjectOfType<Joystick>();
+        weaponSwitch = weapon.GetComponent<WeaponSwitch>();
     }
 
 
@@ -153,12 +155,18 @@ public class PlayerMovement : MonoBehaviour {
         //weapon.transform.position = droppedWeaponPosition;
 
         //Detach weapon from its parent hand object.
-        rightHandContainer.transform.DetachChildren(); 
-        
+        weapon.GetComponent<WeaponSwitch>().enableTrigger = true;
+        Destroy(weapon.gameObject, 10f);
+        rightHandContainer.transform.DetachChildren();         
     }
 
     public void ShootAnim(bool enable)
     {
         anim.SetBool("isShooting", enable);
+    }
+
+    public void SwitchWeapon(string weaponName)
+    {
+        weaponSwitch.SwitchWeapon(weaponName);
     }
 }
