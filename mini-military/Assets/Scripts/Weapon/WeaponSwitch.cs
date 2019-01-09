@@ -62,10 +62,12 @@ public class WeaponSwitch : MonoBehaviour {
                 if (weaponName.Equals(w.name))
                 {                    
                     w.gameObject.SetActive(true);
+                    w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = true;
                 }
                 else
                 {
                     w.gameObject.SetActive(false);
+                    w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
                 }
 
             }
@@ -77,7 +79,7 @@ public class WeaponSwitch : MonoBehaviour {
         foreach (Transform w in transform)
         {
            w.gameObject.SetActive(false);
-           
+            w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
         }
 
     }

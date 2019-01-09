@@ -3078,7 +3078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31672640a22dd414c9a1f2b35ee8554d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: w_rifle
+  weaponName: rifle_medium_power
   enableTrigger: 0
 --- !u!136 &1012035250
 CapsuleCollider:
@@ -3474,8 +3474,8 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: afa0b7585ef67a6479e945c7fae8eaa9, type: 2}
-  - {fileID: 2100000, guid: 3fb502b572d231d41a4934d5b1f1a13c, type: 2}
+  - {fileID: 2100000, guid: cf7b833cd9483db4b9499626a8110587, type: 2}
+  - {fileID: 2100000, guid: 039f08be80f638148b8c3053e9d44dfc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8215,6 +8215,7 @@ MonoBehaviour:
   reloadButton: {fileID: 694534032}
   fireButton: {fileID: 451075773}
   playerMovement: {fileID: 2095412559}
+  isActiveWeapon: 0
 --- !u!82 &1120973545
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13801,6 +13802,7 @@ MonoBehaviour:
   reloadButton: {fileID: 694534032}
   fireButton: {fileID: 451075773}
   playerMovement: {fileID: 2095412559}
+  isActiveWeapon: 0
 --- !u!96 &1253687127
 TrailRenderer:
   serializedVersion: 2
@@ -18685,6 +18687,7 @@ MonoBehaviour:
   reloadButton: {fileID: 694534032}
   fireButton: {fileID: 451075773}
   playerMovement: {fileID: 2095412559}
+  isActiveWeapon: 0
 --- !u!82 &1313244733
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20114,8 +20117,8 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: afa0b7585ef67a6479e945c7fae8eaa9, type: 2}
-  - {fileID: 2100000, guid: 3fb502b572d231d41a4934d5b1f1a13c, type: 2}
+  - {fileID: 2100000, guid: 349a8f31ea9e151418cf3db753d32717, type: 2}
+  - {fileID: 2100000, guid: 349a8f31ea9e151418cf3db753d32717, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20341,7 +20344,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.9622642, g: 0.60404885, b: 0.05900679, a: 1}
+      maxColor: {r: 0.0588235, g: 0.9607843, b: 0.11783486, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24855,6 +24858,7 @@ MonoBehaviour:
   reloadButton: {fileID: 694534032}
   fireButton: {fileID: 451075773}
   playerMovement: {fileID: 2095412559}
+  isActiveWeapon: 0
 --- !u!82 &1895682709
 AudioSource:
   m_ObjectHideFlags: 0

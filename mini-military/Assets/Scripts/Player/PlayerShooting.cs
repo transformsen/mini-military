@@ -13,6 +13,7 @@ public class PlayerShooting : MonoBehaviour {
     public Button reloadButton;                     // The reload button
     public Button fireButton;                     // The reload button
     public PlayerMovement playerMovement;
+    public bool isActiveWeapon = false;
 
     float timer;                                    // A timer to determine when to fire.
     Ray shootRay;                                   // A ray from the gun end forwards.
@@ -50,7 +51,7 @@ public class PlayerShooting : MonoBehaviour {
         timer += Time.deltaTime;
 
         // If the Fire1 button is being press and it's time to fire...
-        if (Input.GetButtonDown("Fire2")   && timer >= timeBetweenBullets)
+        if (Input.GetButtonDown("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
         {
             Debug.Log("Shooting!");
             playerMovement.ShootAnim(true);
