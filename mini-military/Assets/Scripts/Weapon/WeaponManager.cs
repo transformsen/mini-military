@@ -24,17 +24,21 @@ public class WeaponManager : MonoBehaviour {
 
         
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        GameObject weapon = Instantiate(weaponPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        if(weaponPrefab != null)
+        {
+            GameObject weapon = Instantiate(weaponPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 
-        int weaponIndex = Random.Range(0, weapon.transform.childCount);
-        Debug.Log("spawnPointIndex=" + spawnPointIndex+ " weaponIndex=" + weaponIndex +"-"+ weapon.transform.GetChild(weaponIndex).gameObject.name);
-        weapon.gameObject.GetComponent<WeaponSwitch>().resetSelection();
-        weapon.transform.GetChild(weaponIndex).gameObject.SetActive(true);
-        weapon.gameObject.GetComponent<WeaponSwitch>().enableTrigger = true;
+            int weaponIndex = Random.Range(0, weapon.transform.childCount);
+            Debug.Log("spawnPointIndex=" + spawnPointIndex + " weaponIndex=" + weaponIndex + "-" + weapon.transform.GetChild(weaponIndex).gameObject.name);
+            weapon.gameObject.GetComponent<WeaponSwitch>().resetSelection();
+            weapon.transform.GetChild(weaponIndex).gameObject.SetActive(true);
+            weapon.gameObject.GetComponent<WeaponSwitch>().enableTrigger = true;
 
-        weapon.transform.SetPositionAndRotation(new Vector3(weapon.transform.position.x, 0f, weapon.transform.position.y),
-            new Quaternion(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.transform.rotation.z,0f));
+            weapon.transform.SetPositionAndRotation(new Vector3(weapon.transform.position.x, 0f, weapon.transform.position.y),
+                new Quaternion(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.transform.rotation.z, 0f));
 
-        Destroy(weapon, lifeTime);
+            Destroy(weapon, lifeTime);
+        }
+        
     }
 }

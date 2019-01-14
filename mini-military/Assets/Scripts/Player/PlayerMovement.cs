@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DigitalRubyShared;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovement : MonoBehaviour {
     public float speed = 6f;            // The speed that the player will move at.
@@ -47,11 +48,11 @@ public class PlayerMovement : MonoBehaviour {
     void FixedUpdate()
     {
         // Store the input axes.
-        //float h = Input.GetAxisRaw("Horizontal");
-        //float v = Input.GetAxisRaw("Vertical");
+        float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+        float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
-        float h = joystick.Horizontal;
-        float v = joystick.Vertical;
+        //float h = joystick.Horizontal;
+        //float v = joystick.Vertical;
 
 
         // Move the player around the scene.
