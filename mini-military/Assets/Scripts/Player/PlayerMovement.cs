@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using DigitalRubyShared;
 using System.Collections.Generic;
 using UnityEngine;
-using DigitalRubyShared;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovement : MonoBehaviour {
@@ -163,6 +162,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public void ShootAnim(bool enable)
     {
+        Debug.Log("anim=" + anim);
         anim.SetBool("isShooting", enable);
     }
 

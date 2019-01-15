@@ -14,7 +14,8 @@ public class PlayerShooting : MonoBehaviour {
     int reloadIntervel = 30;                        // Time Intervel between each reload;
     public Button reloadButton;                     // The reload button
     public Button fireButton;                     // The reload button
-    public PlayerMovement playerMovement;
+    PlayerMovement playerMovement;
+    GameObject player;
     public bool isActiveWeapon = false;
     public int totalBullets = 25;
     public Text totalBulletsText;
@@ -51,7 +52,10 @@ public class PlayerShooting : MonoBehaviour {
         //reloadButton.onClick.AddListener(reloadGun);
         //fireButton.onClick.AddListener(prepareShoot);
         numberOfBullets = totalBullets;
-        
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerMovement = player.GetComponent<PlayerMovement>();
+
     }
 
     void Update()

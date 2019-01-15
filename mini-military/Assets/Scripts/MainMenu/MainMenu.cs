@@ -10,6 +10,11 @@ public class MainMenu : MonoBehaviour {
         SceneManager.LoadScene("GameScene");
     }
 
+    public void OpenAvatarSelection()
+    {
+        SceneManager.LoadScene("AvatarSelectionScene"); 
+    }
+
     public void ExitGame()
     {
     #if UNITY_EDITOR
