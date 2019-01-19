@@ -13,7 +13,12 @@ public class CameraFollow : MonoBehaviour {
     public float smoothFactor = 0.5f;
 
     Vector3 offset;                     // The initial offset from the target.
-    
+
+    public FixedTouchField touchField;
+
+    float camaraAngle;
+    public float caramaAngleSpeed = 1f;
+
     void Start()
     {
         // Calculate the initial offset.
@@ -26,10 +31,15 @@ public class CameraFollow : MonoBehaviour {
     void FixedUpdate()
     {
         // Create a postion the camera is aiming for based on the offset from the target.
-        Vector3 targetCamPos = target.position + offset;
+        //Vector3 targetCamPos = target.position + offset;
 
         // Smoothly interpolate between the camera's current position and it's target position.
-        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        //transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+
+        camaraAngle += touchField.TouchDist.x * caramaAngleSpeed;
+
+        transform.position = target.position + Quaternion.AngleAxis(camaraAngle, Vector3.up) * new Vector3(0, 5, 6);
+        transform.rotation = Quaternion.LookRotation(target.position + Vector3.up * 2f - transform.position, Vector3.up);
     }
 
     //private void LateUpdate()

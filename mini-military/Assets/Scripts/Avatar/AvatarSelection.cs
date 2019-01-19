@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AvatarSelection : MonoBehaviour {
+
+    public Button confirmButton;
 
     private GameObject[] avatars;
     private int index = 0;
@@ -18,6 +21,9 @@ public class AvatarSelection : MonoBehaviour {
             avatars[i] = avatar;
         }
         avatars[index].SetActive(true);
+        if(confirmButton != null){
+            confirmButton.enabled = false;
+        }
 	}
 
     public void ToggleLeft()
@@ -28,7 +34,7 @@ public class AvatarSelection : MonoBehaviour {
         {
             index = avatars.Length - 1;
         }
-        avatars[index].SetActive(true);
+        avatars[index].SetActive(true);        
     }
 
     public void ToggleRight()

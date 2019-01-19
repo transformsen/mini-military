@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour {
 
@@ -91,6 +92,8 @@ public class EnemyHealth : MonoBehaviour {
         enemyAudio.clip = deathClip;
         enemyAudio.Play();
         StartSinking();
+
+        ScoreManager.score++;
     }
 
 

@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour {
     public float rotationSpeed = 5f;            // The speed that the player will move at.
     public GameObject weapon;           // The Weapon object for attaching to player.
 
+    [SerializeField] float m_MovingTurnSpeed = 360;
+    [SerializeField] float m_StationaryTurnSpeed = 180;
+    [SerializeField] float m_MoveSpeedMultiplier = 1f;
+
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     Animator anim;                      // Reference to the animator component.
     Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
@@ -18,6 +22,12 @@ public class PlayerMovement : MonoBehaviour {
 
     Joystick joystick;
     WeaponSwitch weaponSwitch;
+
+    private Transform m_Cam;
+    private Vector3 m_CamForward;             // The current forward direction of the camera
+    private Vector3 m_Move;
+    float m_TurnAmount;
+    float m_ForwardAmount;
 
     void Awake()
     {
@@ -41,6 +51,12 @@ public class PlayerMovement : MonoBehaviour {
 
         joystick = FindObjectOfType<Joystick>();
         weaponSwitch = weapon.GetComponent<WeaponSwitch>();
+
+        // get the transform of the main camera
+        if (Camera.main != null)
+        {
+            m_Cam = Camera.main.transform;
+        }
     }
 
 
@@ -53,9 +69,28 @@ public class PlayerMovement : MonoBehaviour {
         //float h = joystick.Horizontal;
         //float v = joystick.Vertical;
 
+        if (m_Cam != null)
+        {
+            // calculate camera relative direction to move:
+            // calculate camera relative direction to move:
+            m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
+            m_Move = v * m_CamForward + h * m_Cam.right;
+        }
+        else
+        {
+            // we use world-relative directions in the case of no main camera
+            m_Move = v * Vector3.forward + h * Vector3.right;
+        }
 
         // Move the player around the scene.
+        //Move(h, v);
+        if (m_Move.magnitude > 1f) m_Move.Normalize();
+        m_Move = transform.InverseTransformDirection(m_Move);
+      
+        m_TurnAmount = Mathf.Atan2(m_Move.x, m_Move.z);
+        ApplyExtraTurnRotation();
         Move(h, v);
+
 
         // Turn the player to face the mouse cursor.
         //Turning();
@@ -65,6 +100,16 @@ public class PlayerMovement : MonoBehaviour {
 
         //Attaching weapon
         AttachWeapon();
+    }
+
+
+    void ApplyExtraTurnRotation()
+    {
+        // help the character turn faster (this is in addition to root rotation in the animation)
+        float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
+        transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
+
+        //transform.Translate(m_Move * speed * Time.deltaTime, Space.World);
     }
 
     void Move(float h, float v)
@@ -80,10 +125,20 @@ public class PlayerMovement : MonoBehaviour {
 
         //https://unity3d.com/learn/tutorials/topics/scripting/translate-and-rotate
 
-        Vector3 movement = new Vector3(-h, 0.0f, -v);
+        Vector3 camF = m_Cam.forward;
+        Vector3 camR = m_Cam.right;
+        camF.y = 0;
+        camR.y = 0;
+
+        camR.Normalize();
+        camF.Normalize();
+
+        Vector3 movement = camR * h + camF * v;
+
+        //Vector3 movement = new Vector3(-h, 0.0f, -v);
         if (movement != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(movement);
+            //transform.rotation = Quaternion.LookRotation(movement);
             transform.Translate(movement * speed * Time.deltaTime, Space.World);
         }
 
@@ -134,9 +189,10 @@ public class PlayerMovement : MonoBehaviour {
         // Create a boolean that is true if either of the input axes is non-zero.
         bool running = h != 0f || v != 0f;
 
-        // Tell the animator whether or not the player is walking.
+        // Tell the animator whether or not the player is walking.        
         anim.SetBool("isRunning", running);
     }
+
 
     void AttachWeapon()
     {
