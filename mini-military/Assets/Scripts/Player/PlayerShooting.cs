@@ -35,7 +35,8 @@ public class PlayerShooting : MonoBehaviour {
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
     System.DateTime reloadStartTime = System.DateTime.Now;
 
-
+    public GameObject crossHiarPrefab;
+    public GameObject crossHair;
 
     void Awake()
     {
@@ -55,6 +56,16 @@ public class PlayerShooting : MonoBehaviour {
 
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
+
+        if(crossHiarPrefab!= null)
+        {
+            
+            if(crossHair == null)
+            {
+                crossHair = Instantiate(crossHiarPrefab);
+            }
+            ToggleCrossHair(false);
+        }
 
     }
 
@@ -102,12 +113,49 @@ public class PlayerShooting : MonoBehaviour {
         }
 
         reloadGun();
-        
 
+        if (!isActiveWeapon)
+        {
+            ToggleCrossHair(false);
+        }
+
+        positionCrossHair();
 
     }
 
- 
+    public void ToggleCrossHair(bool enabled)
+    {
+        enabled = isActiveWeapon && enabled;
+        if (crossHair != null)
+        {
+            crossHair.SetActive(enabled);
+        }
+    }
+
+    public void positionCrossHair()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        Transform spawn = transform;
+        Vector3 spwnPosition = spawn.position;
+        Vector3 dir = ray.GetPoint(range);
+        if (Physics.Raycast(ray, out hit, range, shootableMask))
+        {
+            if (crossHair != null)
+            {
+                Debug.Log("Hitting shottable");
+                ToggleCrossHair(true);
+                crossHair.transform.position = hit.point;
+                crossHair.transform.LookAt(Camera.main.transform);
+            }
+        }
+        else
+        {
+            Debug.Log("Not Hitting shottable");
+            ToggleCrossHair(false);
+        }
+
+    }
 
     public void DisableEffects()
     {
@@ -150,7 +198,7 @@ public class PlayerShooting : MonoBehaviour {
         //shootRay.origin = transform.position;
         //shootRay.direction = transform.forward;
         shootRay = new Ray(transform.position, transform.forward);
-
+        
         // Perform the raycast against gameobjects on the shootable layer and if it hits something...
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
         {

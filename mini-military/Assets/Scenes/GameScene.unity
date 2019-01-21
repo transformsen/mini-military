@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -265,6 +265,10 @@ Prefab:
         type: 2}
       propertyPath: m_Constraints
       value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917936023669482, guid: 1540e8d309a01c54a87885a8fba92d66, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1540e8d309a01c54a87885a8fba92d66, type: 2}
@@ -1567,7 +1571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &608818575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1830,7 +1834,7 @@ GameObject:
   - component: {fileID: 662750687}
   - component: {fileID: 662750686}
   - component: {fileID: 662750685}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2058,7 +2062,7 @@ GameObject:
   - component: {fileID: 697717748}
   - component: {fileID: 697717747}
   - component: {fileID: 697717746}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: wall2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2582,7 +2586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &854294430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3091,7 +3095,7 @@ GameObject:
   - component: {fileID: 1060744400}
   - component: {fileID: 1060744399}
   - component: {fileID: 1060744398}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8169,6 +8173,8 @@ MonoBehaviour:
   currentBulletsText: {fileID: 452979702}
   realoadingInText: {fileID: 2067813196}
   weapon2D: {fileID: 143311025}
+  crossHiarPrefab: {fileID: 0}
+  crossHair: {fileID: 0}
 --- !u!82 &1120973545
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13754,6 +13760,9 @@ MonoBehaviour:
   currentBulletsText: {fileID: 452979702}
   realoadingInText: {fileID: 2067813196}
   weapon2D: {fileID: 1180868904}
+  crossHiarPrefab: {fileID: 1967577308537686, guid: 69562c15d4421a74cbbe40cc22cbedb2,
+    type: 2}
+  crossHair: {fileID: 0}
 --- !u!96 &1253687127
 TrailRenderer:
   serializedVersion: 2
@@ -18643,6 +18652,8 @@ MonoBehaviour:
   currentBulletsText: {fileID: 452979702}
   realoadingInText: {fileID: 2067813196}
   weapon2D: {fileID: 1989962593}
+  crossHiarPrefab: {fileID: 0}
+  crossHair: {fileID: 0}
 --- !u!82 &1313244733
 AudioSource:
   m_ObjectHideFlags: 0
@@ -18892,7 +18903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1331408983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19157,7 +19168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1373215443
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19733,7 +19744,7 @@ GameObject:
   - component: {fileID: 1679094732}
   - component: {fileID: 1679094731}
   - component: {fileID: 1679094730}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25019,6 +25030,8 @@ MonoBehaviour:
   currentBulletsText: {fileID: 452979702}
   realoadingInText: {fileID: 2067813196}
   weapon2D: {fileID: 1086797399}
+  crossHiarPrefab: {fileID: 0}
+  crossHair: {fileID: 0}
 --- !u!82 &1895682709
 AudioSource:
   m_ObjectHideFlags: 0
@@ -30115,6 +30128,8 @@ MonoBehaviour:
   currentBulletsText: {fileID: 452979702}
   realoadingInText: {fileID: 2067813196}
   weapon2D: {fileID: 99200771}
+  crossHiarPrefab: {fileID: 0}
+  crossHair: {fileID: 0}
 --- !u!82 &1954352998
 AudioSource:
   m_ObjectHideFlags: 0
