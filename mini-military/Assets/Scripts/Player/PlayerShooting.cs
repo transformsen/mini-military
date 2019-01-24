@@ -22,6 +22,8 @@ public class PlayerShooting : MonoBehaviour {
     public Text currentBulletsText;
     public Text realoadingInText;
     public Image weapon2D;
+    public Sprite imageforWeanpon;
+    public string weaponName;
 
     float timer;                                    // A timer to determine when to fire.
     Ray shootRay;                                   // A ray from the gun end forwards.
@@ -75,7 +77,7 @@ public class PlayerShooting : MonoBehaviour {
         timer += Time.deltaTime;
 
         // If the Fire1 button is being press and it's time to fire...
-        if (CrossPlatformInputManager.GetButtonDown("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
+        if (CrossPlatformInputManager.GetButton("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
         {
             Debug.Log("Shooting!");
             playerMovement.ShootAnim(true);
@@ -105,12 +107,13 @@ public class PlayerShooting : MonoBehaviour {
             }
 
             totalBulletsText.text = "" + totalBullets;
-            weapon2D.enabled = true;
+            if(weapon2D != null)
+            weapon2D.sprite = imageforWeanpon;
         }
-        else
-        {
-            weapon2D.enabled = false;
-        }
+        //else
+        //{
+        //    weapon2D.enabled = false;
+        //}
 
         reloadGun();
 
@@ -229,7 +232,7 @@ public class PlayerShooting : MonoBehaviour {
 
     void OnDestroy()
     {
-        weapon2D.enabled = false;
+        //weapon2D.enabled = false;
     }
 
     public void reloadGun()
@@ -241,7 +244,7 @@ public class PlayerShooting : MonoBehaviour {
         if(numberOfBullets <= 0)
         {
             //if((reloadIntervel - timeDiffBetweenReloads) > 0)
-            realoadingInText.text = "Reloading in " + (reloadIntervel - timeDiffBetweenReloads);
+            realoadingInText.text = "RELOADING IN " + (reloadIntervel - timeDiffBetweenReloads);
         }
         else
         {

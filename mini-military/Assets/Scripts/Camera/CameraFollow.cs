@@ -8,6 +8,8 @@ public class CameraFollow : MonoBehaviour {
     Transform target;            // The position that that camera will be following.
     public float smoothing = 5f;        // The speed with which the camera will be following.
     public float rotationSpeed = 4f;    // Spped of the camera to rotate.
+    public float y = 5f;
+    public float z = 6f;
 
     [Range(0.1f, 1.0f)]
     public float smoothFactor = 0.5f;
@@ -38,7 +40,7 @@ public class CameraFollow : MonoBehaviour {
 
         camaraAngle += touchField.TouchDist.x * caramaAngleSpeed;
 
-        transform.position = target.position + Quaternion.AngleAxis(camaraAngle, Vector3.up) * new Vector3(0, 5, 6);
+        transform.position = target.position + Quaternion.AngleAxis(camaraAngle, Vector3.up) * new Vector3(0, y, z);
         transform.rotation = Quaternion.LookRotation(target.position + Vector3.up * 2f - transform.position, Vector3.up);
     }
 
