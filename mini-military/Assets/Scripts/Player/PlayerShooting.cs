@@ -233,6 +233,10 @@ public class PlayerShooting : MonoBehaviour {
     void OnDestroy()
     {
         //weapon2D.enabled = false;
+        //if (crossHair != null)
+        //{
+        //    Destroy(crossHair);
+        //}
     }
 
     public void reloadGun()

@@ -63,11 +63,13 @@ public class WeaponSwitch : MonoBehaviour {
                 {                    
                     w.gameObject.SetActive(true);
                     w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = true;
+                    w.Find("Rings").gameObject.SetActive(false);
                 }
                 else
                 {
                     w.gameObject.SetActive(false);
                     w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
+                    w.Find("Rings").gameObject.SetActive(true);
                 }
 
             }
