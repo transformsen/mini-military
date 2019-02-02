@@ -23,7 +23,6 @@ public class PlayerBombAttack : MonoBehaviour {
         if (CrossPlatformInputManager.GetButtonDown("Fire3") && timer >= timeBetweenBullets && numberOfBombs >0)
         {
             numberOfBombs--;
-            Debug.Log("THrowing Bomb!");
             ThrowBomb();
             
         }
