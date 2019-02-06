@@ -37,6 +37,7 @@ public class UnityAdsButton : MonoBehaviour
         {
             adButton.interactable = Monetization.IsReady(placementId);
         }
+        confirmButton.enabled = true;
     }
 
     void ShowAd()

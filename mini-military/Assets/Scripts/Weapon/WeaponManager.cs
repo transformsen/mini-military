@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour {
 
-    public float spawnTime = 20f;            // How long between each spawn.
+    public float spawnTime = 20f;           // How long between each spawn.
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
-    public GameObject weaponPrefab;                // The enemy prefab to be spawned.
-    public float lifeTime = 8f;
+    public GameObject weaponPrefab;         // The enemy prefab to be spawned.
+    public float lifeTime = 8f;             // Life Time of the Gun wait for player to pick.
 
     void Start()
     {
@@ -29,7 +29,6 @@ public class WeaponManager : MonoBehaviour {
             GameObject weapon = Instantiate(weaponPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 
             int weaponIndex = Random.Range(0, weapon.transform.childCount);
-            Debug.Log("spawnPointIndex=" + spawnPointIndex + " weaponIndex=" + weaponIndex + "-" + weapon.transform.GetChild(weaponIndex).gameObject.name);
             weapon.gameObject.GetComponent<WeaponSwitch>().resetSelection();
             weapon.transform.GetChild(weaponIndex).gameObject.SetActive(true);
             weapon.gameObject.GetComponent<WeaponSwitch>().enableTrigger = true;

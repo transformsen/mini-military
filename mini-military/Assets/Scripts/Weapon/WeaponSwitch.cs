@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour {
 
-    // Use this for initialization
-    GameObject player;                          // Reference to the player GameObject.
-    PlayerMovement playerMovement;
     public string weaponName = null;
     public bool enableTrigger = false;
 
+    GameObject player;                          // Reference to the player GameObject.
+    PlayerMovement playerMovement;
+
     void Awake()
     {
-        // Setting up the references.
+        //TODO: How this will work in Multi player Networking?
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
         SwitchWeapon(weaponName);
     }
 
-    // Update is called once per frame
-    void Update () {
-
-        
-    }
+   
 
     void OnTriggerEnter(Collider other)
     {
@@ -30,9 +26,7 @@ public class WeaponSwitch : MonoBehaviour {
         
         if (enableTrigger && other.gameObject == player)
         {
-            Debug.Log("PLayer In Range");
             string activeWeapon = GetActiveWeaponName();
-            Debug.Log("PLayer In Range activeWeapon"+ activeWeapon);
             playerMovement.SwitchWeapon(activeWeapon);
             Destroy(gameObject);
         }
