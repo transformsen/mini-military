@@ -5,9 +5,8 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovement : MonoBehaviour {
     public float speed = 6f;            // The speed that the player will move at.
-
-    //TODO: weapon GameObject needs to created from prefab.
     public GameObject weapon;           // The Weapon object for attaching to player.
+    GameObject weaponObj;
 
     [SerializeField] float m_MovingTurnSpeed = 360;
     [SerializeField] float m_StationaryTurnSpeed = 180;
@@ -45,18 +44,24 @@ public class PlayerMovement : MonoBehaviour {
                                 Find("Bip001 R Hand").
                                 Find("R_hand_container").gameObject;
 
-        
-        weaponSwitch = weapon.GetComponent<WeaponSwitch>();
+        weaponObj = rightHandContainer.transform.                                
+                                Find("GunSpwnPoint").
+                                Find("Weapons").gameObject;
+
+        weaponSwitch = weaponObj.GetComponent<WeaponSwitch>();
 
         if (Camera.main != null)
         {
             m_Cam = Camera.main.transform;
         }
+        
     }
 
+   
 
     void FixedUpdate()
     {
+        
         // Store the input axes.
         float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
@@ -84,8 +89,7 @@ public class PlayerMovement : MonoBehaviour {
         // Animate the player.
         Animating(h, v);
 
-        //Attaching weapon
-        AttachWeapon();
+       
     }
 
 
@@ -129,14 +133,14 @@ public class PlayerMovement : MonoBehaviour {
 
     void AttachWeapon()
     {
-        weapon.transform.SetParent(rightHandContainer.transform);        
+        weapon.transform.SetParent(rightHandContainer.transform);               
     }
 
     public void DetachWeapon()
     {
-        weapon.GetComponent<WeaponSwitch>().enableTrigger = true;
-        Destroy(weapon.gameObject, 10f);
-        rightHandContainer.transform.DetachChildren();         
+        weaponObj.GetComponent<WeaponSwitch>().enableTrigger = true;
+        rightHandContainer.transform.DetachChildren();      
+        Destroy(weaponObj, 2f);   
     }
 
     public void ShootAnim(bool enable)

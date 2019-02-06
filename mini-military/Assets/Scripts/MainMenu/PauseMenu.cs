@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour {
 
     public void goToMainMenu()
     {
+        Debug.Log("LGo to start");
         SceneManager.LoadScene("StartScene");
+        
     }
 }

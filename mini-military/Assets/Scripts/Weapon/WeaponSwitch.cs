@@ -49,21 +49,26 @@ public class WeaponSwitch : MonoBehaviour {
 
     public void SwitchWeapon(string weaponName)
     {
-        if(weaponName != null)
+        if(weaponName != null && (!weaponName.Equals("Backup") || !weaponName.Equals("GunStatusCanvas")))
         {
             foreach (Transform w in transform)
             {                
                 if (weaponName.Equals(w.name))
                 {                    
-                    w.gameObject.SetActive(true);
-                    w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = true;
-                    w.Find("Rings").gameObject.SetActive(false);
+                    if(w != null && w.gameObject != null && w.Find("BarrelEnd") != null && w.Find("BarrelEnd").GetComponent<PlayerShooting>() != null){
+                        w.gameObject.SetActive(true);
+                        w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = true;
+                        w.Find("Rings").gameObject.SetActive(false);
+                    }
+
                 }
                 else
                 {
-                    w.gameObject.SetActive(false);
-                    w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
-                    w.Find("Rings").gameObject.SetActive(true);
+                    if(w != null && w.gameObject != null && w.Find("BarrelEnd") != null && w.Find("BarrelEnd").GetComponent<PlayerShooting>() != null){
+                        w.gameObject.SetActive(false);
+                        w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
+                        w.Find("Rings").gameObject.SetActive(true);
+                    }
                 }
 
             }
@@ -74,8 +79,13 @@ public class WeaponSwitch : MonoBehaviour {
     {
         foreach (Transform w in transform)
         {
-           w.gameObject.SetActive(false);
-            w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
+            if(w != null && w.Find("BarrelEnd") != null && w.Find("BarrelEnd").GetComponent<PlayerShooting>() != null){
+                // string weaponName = w.name;
+                // if(!weaponName.Equals("Backup") || !weaponName.Equals("GunStatusCanvas")){
+                    w.gameObject.SetActive(false);
+                    w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
+                //}
+            }           
         }
 
     }

@@ -55,7 +55,7 @@ public class PlayerShooting : MonoBehaviour {
         //TODO: How will this work in multi player Networking?
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
-
+        crossHiarPrefab = null;
         if(crossHiarPrefab!= null)
         {
             
@@ -100,11 +100,18 @@ public class PlayerShooting : MonoBehaviour {
             if (numberOfBullets >= 0)
             {
                 //TODO: How to get the reference If this beacme prefab? 
-                currentBulletsText.text = "" + numberOfBullets;
+                if(currentBulletsText != null){
+                    currentBulletsText.text = "" + numberOfBullets;
+                }
+                
             }
 
-            totalBulletsText.text = "" + totalBullets;
+            if(totalBulletsText != null){
+                totalBulletsText.text = "" + totalBullets;
 
+            }
+
+            
             //TODO: How to get the reference If this beacme prefab? 
             if (weapon2D != null)
             {
@@ -231,17 +238,21 @@ public class PlayerShooting : MonoBehaviour {
     {
         System.DateTime currentTime = System.DateTime.Now;
         int timeDiffBetweenReloads = (currentTime - reloadStartTime).Seconds;
-        Debug.Log(timeDiffBetweenReloads);
         if(numberOfBullets <= 0)
         {
-            realoadingInText.text = "RELOADING IN " + (reloadIntervel - timeDiffBetweenReloads);
+            if(realoadingInText != null){
+                realoadingInText.text = "RELOADING IN " + (reloadIntervel - timeDiffBetweenReloads);
+            }
+            
         }
         
         if (timeDiffBetweenReloads > reloadIntervel)
         {
             numberOfBullets = totalBullets;
             reloadStartTime = currentTime;
-            realoadingInText.text = "";
+            if(realoadingInText != null){
+                realoadingInText.text = "";
+            }
         }        
     }
 }
