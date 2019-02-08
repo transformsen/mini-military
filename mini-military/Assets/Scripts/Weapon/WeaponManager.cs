@@ -28,7 +28,7 @@ public class WeaponManager : MonoBehaviour {
         {
             GameObject weapon = Instantiate(weaponPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
 
-            int weaponIndex = Random.Range(0, weapon.transform.childCount);
+            int weaponIndex = Random.Range(0, 5/*weapon.transform.childCount*/);
             weapon.gameObject.GetComponent<WeaponSwitch>().resetSelection();
             weapon.transform.GetChild(weaponIndex).gameObject.SetActive(true);
             weapon.gameObject.GetComponent<WeaponSwitch>().enableTrigger = true;

@@ -48,6 +48,8 @@ public class PlayerMovement : MonoBehaviour {
                                 Find("GunSpwnPoint").
                                 Find("Weapons").gameObject;
 
+        weaponObj.transform.GetChild(7).gameObject.SetActive(true);
+
         weaponSwitch = weaponObj.GetComponent<WeaponSwitch>();
 
         if (Camera.main != null)

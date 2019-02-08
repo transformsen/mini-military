@@ -55,7 +55,7 @@ public class PlayerShooting : MonoBehaviour {
         //TODO: How will this work in multi player Networking?
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
-        crossHiarPrefab = null;
+        
         if(crossHiarPrefab!= null)
         {
             

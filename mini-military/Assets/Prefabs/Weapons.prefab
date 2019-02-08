@@ -165,7 +165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6720661409846558486
 Transform:
   m_ObjectHideFlags: 0
@@ -115126,6 +115126,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GunStatusCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452709569073525876, guid: e3bc5ae9d5332104ea4ccd13d85d04b5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3452709569073525872, guid: e3bc5ae9d5332104ea4ccd13d85d04b5,
         type: 3}
