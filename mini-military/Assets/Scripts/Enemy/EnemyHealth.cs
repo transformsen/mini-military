@@ -59,11 +59,7 @@ public class EnemyHealth : MonoBehaviour {
 
 
         if(hitPoint != Vector3.zero)
-        {
-            // Set the position of the particle system to where the hit was sustained.
-            //hitParticles.transform.position = hitPoint;
-
-            // And play the particles.
+        {   
             hitParticles.Play();
         }
         

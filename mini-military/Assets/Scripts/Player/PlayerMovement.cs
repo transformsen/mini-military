@@ -5,7 +5,8 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovement : MonoBehaviour {
     public float speed = 6f;            // The speed that the player will move at.
-    public float rotationSpeed = 5f;            // The speed that the player will move at.
+
+    //TODO: weapon GameObject needs to created from prefab.
     public GameObject weapon;           // The Weapon object for attaching to player.
 
     [SerializeField] float m_MovingTurnSpeed = 360;
@@ -18,10 +19,7 @@ public class PlayerMovement : MonoBehaviour {
     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
     GameObject rightHandContainer;      // Right hand container to hold weapon
-    RotateGestureRecognizer rotateGesture;
-
-    Joystick joystick;
-    WeaponSwitch weaponSwitch;
+    WeaponSwitch weaponSwitch;          // Reference to Weapon Switch Script
 
     private Transform m_Cam;
     private Vector3 m_CamForward;             // The current forward direction of the camera
@@ -47,12 +45,9 @@ public class PlayerMovement : MonoBehaviour {
                                 Find("Bip001 R Hand").
                                 Find("R_hand_container").gameObject;
 
-        //SetupGesture();
-
-        joystick = FindObjectOfType<Joystick>();
+        
         weaponSwitch = weapon.GetComponent<WeaponSwitch>();
 
-        // get the transform of the main camera
         if (Camera.main != null)
         {
             m_Cam = Camera.main.transform;
@@ -66,13 +61,9 @@ public class PlayerMovement : MonoBehaviour {
         float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
-        //float h = joystick.Horizontal;
-        //float v = joystick.Vertical;
-
         if (m_Cam != null)
         {
-            // calculate camera relative direction to move:
-            // calculate camera relative direction to move:
+            //Camara control for supporting turn
             m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
             m_Move = v * m_CamForward + h * m_Cam.right;
         }
@@ -83,17 +74,12 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         // Move the player around the scene.
-        //Move(h, v);
         if (m_Move.magnitude > 1f) m_Move.Normalize();
         m_Move = transform.InverseTransformDirection(m_Move);
       
         m_TurnAmount = Mathf.Atan2(m_Move.x, m_Move.z);
         ApplyExtraTurnRotation();
         Move(h, v);
-
-
-        // Turn the player to face the mouse cursor.
-        //Turning();
 
         // Animate the player.
         Animating(h, v);
@@ -108,23 +94,11 @@ public class PlayerMovement : MonoBehaviour {
         // help the character turn faster (this is in addition to root rotation in the animation)
         float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
         transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
-
-        //transform.Translate(m_Move * speed * Time.deltaTime, Space.World);
     }
 
     void Move(float h, float v)
     {
-        //// Set the movement vector based on the axis input.
-        //movement.Set(h, 0f, v);
-
-        //// Normalise the movement vector and make it proportional to the speed per second.
-        //movement = movement.normalized * speed * Time.deltaTime;
-
-        //// Move the player to it's current position plus the movement.
-        //playerRigidbody.MovePosition(transform.position + movement);
-
-        //https://unity3d.com/learn/tutorials/topics/scripting/translate-and-rotate
-
+        
         Vector3 camF = m_Cam.forward;
         Vector3 camR = m_Cam.right;
         camF.y = 0;
@@ -134,55 +108,14 @@ public class PlayerMovement : MonoBehaviour {
         camF.Normalize();
 
         Vector3 movement = camR * h + camF * v;
-
-        //Vector3 movement = new Vector3(-h, 0.0f, -v);
+        
         if (movement != Vector3.zero)
         {
-            //transform.rotation = Quaternion.LookRotation(movement);
             transform.Translate(movement * speed * Time.deltaTime, Space.World);
         }
 
     }
 
-    void SetupGesture()
-    {
-        rotateGesture = new RotateGestureRecognizer();
-        rotateGesture.Updated += RotateGestureCallBack;
-        FingersScript.Instance.AddGesture(rotateGesture);
-    }
-
-    void RotateGestureCallBack(GestureRecognizer gesture, ICollection<GestureTouch> touches)
-    {
-        if (gesture.State == GestureRecognizerState.Executing)
-        {
-            transform.RotateAround(transform.position, Vector3.up, rotateGesture.RotationDegreesDelta * rotationSpeed);
-        }
-    }
-
-    void Turning()
-    {
-        // Create a ray from the mouse cursor on screen in the direction of the camera.
-        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        // Create a RaycastHit variable to store information about what was hit by the ray.
-        RaycastHit floorHit;
-
-        // Perform the raycast and if it hits something on the floor layer...
-        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
-        {
-            // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-            Vector3 playerToMouse = floorHit.point - transform.position;
-
-            // Ensure the vector is entirely along the floor plane.
-            playerToMouse.y = 0f;
-
-            // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-            Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-
-            // Set the player's rotation to this new rotation.
-            playerRigidbody.MoveRotation(newRotation);
-        }
-    }
 
     void Animating(float h, float v)
     {
@@ -196,21 +129,11 @@ public class PlayerMovement : MonoBehaviour {
 
     void AttachWeapon()
     {
-        //Enable required object
-        //weapon.transform.Find("ScuFigun").gameObject.SetActive(true);
-
-        //Assignning weapon to right hand container
         weapon.transform.SetParent(rightHandContainer.transform);        
     }
 
     public void DetachWeapon()
     {
-        //TODO: drop position needs to fixed on the ground
-        //Vector3 rightHandlePosition = rightHandContainer.transform.position;
-        //Vector3 droppedWeaponPosition = rightHandlePosition;
-        //weapon.transform.position = droppedWeaponPosition;
-
-        //Detach weapon from its parent hand object.
         weapon.GetComponent<WeaponSwitch>().enableTrigger = true;
         Destroy(weapon.gameObject, 10f);
         rightHandContainer.transform.DetachChildren();         
@@ -218,7 +141,6 @@ public class PlayerMovement : MonoBehaviour {
 
     public void ShootAnim(bool enable)
     {
-        Debug.Log("anim=" + anim);
         anim.SetBool("isShooting", enable);
     }
 

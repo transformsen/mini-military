@@ -11,11 +11,7 @@ public class PlayerShooting : MonoBehaviour {
     public float timeBetweenBullets = 0.15f;        // The time between each shot.
     public float range = 100f;                      // The distance the gun can fire.
     public int numberOfBullets = 0;                // Number bullets per load
-    int reloadIntervel = 30;                        // Time Intervel between each reload;
-    public Button reloadButton;                     // The reload button
-    public Button fireButton;                     // The reload button
-    PlayerMovement playerMovement;
-    GameObject player;
+
     public bool isActiveWeapon = false;
     public int totalBullets = 25;
     public Text totalBulletsText;
@@ -25,20 +21,23 @@ public class PlayerShooting : MonoBehaviour {
     public Sprite imageforWeanpon;
     public string weaponName;
 
+    public GameObject crossHiarPrefab;
+    GameObject crossHair;
+
+    int reloadIntervel = 30;                        // Time Intervel between each reload;
+    PlayerMovement playerMovement;
+    GameObject player;   
+
     float timer;                                    // A timer to determine when to fire.
     Ray shootRay;                                   // A ray from the gun end forwards.
     RaycastHit shootHit;                            // A raycast hit to get information about what was hit.
     int shootableMask;                              // A layer mask so the raycast only hits things on the shootable layer.
     ParticleSystem gunParticles;                    // Reference to the particle system.
     LineRenderer gunLine;                           // Reference to the line renderer.
-    TrailRenderer gunTrail;                           // Reference to the line renderer.
     AudioSource gunAudio;                           // Reference to the audio source.
     Light gunLight;                                 // Reference to the light component.
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
     System.DateTime reloadStartTime = System.DateTime.Now;
-
-    public GameObject crossHiarPrefab;
-    public GameObject crossHair;
 
     void Awake()
     {
@@ -48,14 +47,12 @@ public class PlayerShooting : MonoBehaviour {
         // Set up the references.
         gunParticles = GetComponent<ParticleSystem>();
         gunLine = GetComponent<LineRenderer>();
-        gunTrail = GetComponent<TrailRenderer>();
         gunAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
 
-        //reloadButton.onClick.AddListener(reloadGun);
-        //fireButton.onClick.AddListener(prepareShoot);
         numberOfBullets = totalBullets;
 
+        //TODO: How will this work in multi player Networking?
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
 
@@ -76,10 +73,9 @@ public class PlayerShooting : MonoBehaviour {
         // Add the time since Update was last called to the timer.
         timer += Time.deltaTime;
 
-        // If the Fire1 button is being press and it's time to fire...
+        // If the Fire2 button is being press and it's time to fire...
         if (CrossPlatformInputManager.GetButton("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
         {
-            Debug.Log("Shooting!");
             playerMovement.ShootAnim(true);
             // ... shoot the gun only if it has bullets.
             if (numberOfBullets > 0)
@@ -103,17 +99,20 @@ public class PlayerShooting : MonoBehaviour {
         {
             if (numberOfBullets >= 0)
             {
+                //TODO: How to get the reference If this beacme prefab? 
                 currentBulletsText.text = "" + numberOfBullets;
             }
 
             totalBulletsText.text = "" + totalBullets;
-            if(weapon2D != null)
-            weapon2D.sprite = imageforWeanpon;
+
+            //TODO: How to get the reference If this beacme prefab? 
+            if (weapon2D != null)
+            {
+                weapon2D.sprite = imageforWeanpon;
+            }
+            
         }
-        //else
-        //{
-        //    weapon2D.enabled = false;
-        //}
+        
 
         reloadGun();
 
@@ -135,6 +134,8 @@ public class PlayerShooting : MonoBehaviour {
         }
     }
 
+
+    //TODO: find the better way. Instanitate everytime Or Active FAlse. 
     public void positionCrossHair()
     {
         Ray ray = new Ray(transform.position, transform.forward);
@@ -146,7 +147,6 @@ public class PlayerShooting : MonoBehaviour {
         {
             if (crossHair != null)
             {
-                Debug.Log("Hitting shottable");
                 ToggleCrossHair(true);
                 crossHair.transform.position = hit.point;
                 crossHair.transform.LookAt(Camera.main.transform);
@@ -154,7 +154,6 @@ public class PlayerShooting : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Not Hitting shottable");
             ToggleCrossHair(false);
         }
 
@@ -165,8 +164,6 @@ public class PlayerShooting : MonoBehaviour {
         // Disable the line renderer and the light.
         gunLine.enabled = false;
         gunLight.enabled = false;
-
-        gunTrail.enabled = false;
     }
 
     void Shoot()
@@ -194,12 +191,7 @@ public class PlayerShooting : MonoBehaviour {
         gunLine.enabled = true;
         gunLine.SetPosition(0, transform.position);
 
-        //gunTrail.enabled = true;
-        //gunTrail.SetPosition(0, transform.position);
-
         // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
-        //shootRay.origin = transform.position;
-        //shootRay.direction = transform.forward;
         shootRay = new Ray(transform.position, transform.forward);
         
         // Perform the raycast against gameobjects on the shootable layer and if it hits something...
@@ -218,22 +210,18 @@ public class PlayerShooting : MonoBehaviour {
 
             // Set the second position of the line renderer to the point the raycast hit.
             gunLine.SetPosition(1, shootHit.point);
-            //gunTrail.SetPosition(0, shootHit.point);
         }
         // If the raycast didn't hit anything on the shootable layer...
         else
         {
             // ... set the second position of the line renderer to the fullest extent of the gun's range.
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
-            
-            //gunTrail.SetPosition(0, shootRay.origin + shootRay.direction * range);
         }
     }
 
     void OnDestroy()
     {
-        //weapon2D.enabled = false;
-        //if (crossHair != null)
+        //TODO : During Perfromace tuning...
         //{
         //    Destroy(crossHair);
         //}
@@ -241,19 +229,14 @@ public class PlayerShooting : MonoBehaviour {
 
     public void reloadGun()
     {
-        Debug.Log("reloading.....");
         System.DateTime currentTime = System.DateTime.Now;
         int timeDiffBetweenReloads = (currentTime - reloadStartTime).Seconds;
         Debug.Log(timeDiffBetweenReloads);
         if(numberOfBullets <= 0)
         {
-            //if((reloadIntervel - timeDiffBetweenReloads) > 0)
             realoadingInText.text = "RELOADING IN " + (reloadIntervel - timeDiffBetweenReloads);
         }
-        else
-        {
-            //realoadingInText.text = "";
-        }
+        
         if (timeDiffBetweenReloads > reloadIntervel)
         {
             numberOfBullets = totalBullets;
