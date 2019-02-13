@@ -3063,6 +3063,7 @@ GameObject:
   - component: {fileID: 114477907813521842}
   - component: {fileID: 114484879355884052}
   - component: {fileID: 114917167482178830}
+  - component: {fileID: 7525076700606765356}
   m_Layer: 0
   m_Name: PlayerArmy
   m_TagString: Player
@@ -3286,6 +3287,39 @@ MonoBehaviour:
   bombspeed: 9
   numberOfBombs: 5
   bombCountText: {fileID: 7195030759734560434}
+--- !u!114 &7525076700606765356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917936023669482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!1 &1927108958835338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3628,6 +3662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4617672978336922}
   - component: {fileID: 114602621948984340}
+  - component: {fileID: 8083173564574095811}
   m_Layer: 0
   m_Name: Players
   m_TagString: Untagged
@@ -3664,6 +3699,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   confirmButton: {fileID: 0}
+--- !u!114 &8083173564574095811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937961069058882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!1 &1948443631649786
 GameObject:
   m_ObjectHideFlags: 0

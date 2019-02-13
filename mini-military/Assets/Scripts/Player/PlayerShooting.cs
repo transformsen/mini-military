@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityStandardAssets.CrossPlatformInput;
+//using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerShooting : MonoBehaviour {
 
@@ -74,7 +74,7 @@ public class PlayerShooting : MonoBehaviour {
         timer += Time.deltaTime;
 
         // If the Fire2 button is being press and it's time to fire...
-        if (CrossPlatformInputManager.GetButton("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
+        if (Input.GetButton("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
         {
             playerMovement.ShootAnim(true);
             // ... shoot the gun only if it has bullets.

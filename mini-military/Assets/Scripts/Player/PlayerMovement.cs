@@ -1,9 +1,10 @@
 ﻿using DigitalRubyShared;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
+//using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.Networking;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : NetworkBehaviour {
     public float speed = 6f;            // The speed that the player will move at.
     public GameObject weapon;           // The Weapon object for attaching to player.
     GameObject weaponObj;
@@ -59,14 +60,25 @@ public class PlayerMovement : MonoBehaviour {
         
     }
 
+    void Start(){
+         if (isLocalPlayer)
+        {
+            CameraFollow.target = transform;
+        }
+    }
+
    
 
     void FixedUpdate()
     {
-        
+        if (!isLocalPlayer)
+        {
+            // exit from update if this is not the local player
+            return;
+        }
         // Store the input axes.
-        float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-        float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
 
         if (m_Cam != null)
         {

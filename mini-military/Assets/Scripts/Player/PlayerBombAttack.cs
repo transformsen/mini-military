@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityStandardAssets.CrossPlatformInput;
+//using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerBombAttack : MonoBehaviour {
 
@@ -20,7 +20,7 @@ public class PlayerBombAttack : MonoBehaviour {
         
         timer += Time.deltaTime;
         bombCountText.text = (numberOfBombs > 0) ? "" + numberOfBombs : "";
-        if (CrossPlatformInputManager.GetButtonDown("Fire3") && timer >= timeBetweenBullets && numberOfBombs >0)
+        if (Input.GetButtonDown("Fire3") && timer >= timeBetweenBullets && numberOfBombs >0)
         {
             numberOfBombs--;
             ThrowBomb();
