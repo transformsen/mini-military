@@ -32,8 +32,10 @@ public class BombExplosion : MonoBehaviour {
 
     void Explode()
     {
-        
-        GameObject explosionEffect = Instantiate(explosionEffectPreFab, transform.position, transform.rotation);
+        if(explosionEffectPreFab!= null){
+            GameObject explosionEffect = Instantiate(explosionEffectPreFab, transform.position, transform.rotation);
+            Destroy(explosionEffect, 3f);
+        }
 
         blastAudio.Play();
 
@@ -54,6 +56,6 @@ public class BombExplosion : MonoBehaviour {
         }
         
         Destroy(this.gameObject, lifeTime);
-        Destroy(explosionEffect, 3f);
+        
     }
 }

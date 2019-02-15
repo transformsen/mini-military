@@ -8,8 +8,7 @@ public class EnemyMovement : MonoBehaviour {
     PlayerHealth playerHealth;      // Reference to the player's health.
     EnemyHealth enemyHealth;        // Reference to this enemy's health.
     UnityEngine.AI.NavMeshAgent nav;               // Reference to the nav mesh agent.
-
-
+    
     void Awake()
     {
         // Set up the references.
@@ -22,6 +21,7 @@ public class EnemyMovement : MonoBehaviour {
 
     void Update()
     {
+         
         // If the enemy and the player have health left...
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
         {
