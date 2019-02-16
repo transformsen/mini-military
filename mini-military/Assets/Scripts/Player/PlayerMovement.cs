@@ -48,8 +48,9 @@ public class PlayerMovement : NetworkBehaviour {
         weaponObj = rightHandContainer.transform.                                
                                 Find("GunSpwnPoint").
                                 Find("Weapons").gameObject;
-
-        weaponObj.transform.GetChild(7).gameObject.SetActive(true);
+								
+								
+        weaponObj.transform.GetChild(6).gameObject.SetActive(true);
 
         weaponSwitch = weaponObj.GetComponent<WeaponSwitch>();
 
@@ -64,6 +65,8 @@ public class PlayerMovement : NetworkBehaviour {
          if (isLocalPlayer)
         {
             CameraFollow.target = transform;
+			transform. Find("HUDCanvas").gameObject.SetActive(true);
+
         }
     }
 
@@ -159,7 +162,10 @@ public class PlayerMovement : NetworkBehaviour {
 
     public void ShootAnim(bool enable)
     {
-        anim.SetBool("isShooting", enable);
+		if(anim != null){
+			anim.SetBool("isShooting", enable);
+		}
+        
     }
 
     public void SwitchWeapon(string weaponName)

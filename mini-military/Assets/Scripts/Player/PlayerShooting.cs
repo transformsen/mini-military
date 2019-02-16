@@ -74,7 +74,7 @@ public class PlayerShooting : MonoBehaviour {
         timer += Time.deltaTime;
 
         // If the Fire2 button is being press and it's time to fire...
-        if (Input.GetButton("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
+        /*if (Input.GetButton("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
         {
             playerMovement.ShootAnim(true);
             // ... shoot the gun only if it has bullets.
@@ -86,7 +86,7 @@ public class PlayerShooting : MonoBehaviour {
         else
         {
             playerMovement.ShootAnim(false);
-        }
+        }*/
 
         // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
         if (timer >= timeBetweenBullets * effectsDisplayTime)
@@ -172,6 +172,13 @@ public class PlayerShooting : MonoBehaviour {
         gunLine.enabled = false;
         gunLight.enabled = false;
     }
+	
+	public void PShoot(){
+		
+		if(timer >= timeBetweenBullets && isActiveWeapon){
+			Shoot();
+		}
+	}
 
     void Shoot()
     {
@@ -214,7 +221,21 @@ public class PlayerShooting : MonoBehaviour {
                 // ... the enemy should take damage.
                 enemyHealth.TakeDamage(damagePerShot, shootHit.point);
             }
-
+			
+			// Try and find an EnemyHealth script on the gameobject hit.
+            PlayerHealth playerHealth = shootHit.collider.GetComponent<PlayerHealth>();
+			Debug.Log("Player playerHealth"+playerHealth);
+            // If the EnemyHealth component exist...
+            if (playerHealth != null)
+            {
+                Debug.Log("Player InRange");
+				// ... the enemy should take damage.
+                playerHealth.TakeDamage(damagePerShot);
+				
+            }else{
+				Debug.Log("Player NULL");
+			}
+			
             // Set the second position of the line renderer to the point the raycast hit.
             gunLine.SetPosition(1, shootHit.point);
         }

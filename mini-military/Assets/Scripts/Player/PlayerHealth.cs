@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : NetworkBehaviour {
 
-    public int startingHealth = 100;                            // The amount of health the player starts the game with.
-    public int currentHealth;                                   // The current health the player has.
+	private NetworkStartPosition[] spawnPoints; 
+    
     public Slider healthSlider;                                 // Reference to the UI's health bar.
     public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
     public AudioClip deathClip;                                 // The audio clip to play when the player dies.
@@ -21,17 +22,24 @@ public class PlayerHealth : MonoBehaviour {
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
 
+	public bool destroyOnDeath = false;
+	
+	public int startingHealth = 100;                            // The amount of health the player starts the game with.
+    public int currentHealth;
 
     void Awake()
     {
+		if (isLocalPlayer)
+        {
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        }
         // Setting up the references.
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         playerMovement = GetComponent<PlayerMovement>();
         //playerShooting = GetComponentInChildren<PlayerShooting>();
-
-        // Set the initial health of the player.
-        currentHealth = startingHealth;
+		
+		currentHealth = startingHealth;
     }
 
 
@@ -52,19 +60,24 @@ public class PlayerHealth : MonoBehaviour {
 
         // Reset the damaged flag.
         damaged = false;
+		
+		healthSlider.value = currentHealth;
     }
 
 
     public void TakeDamage(int amount)
     {
+		
+		Debug.Log("Player TakeDamage"+amount);
+		if (!isServer)
+        {
+            return;
+        }
         // Set the damaged flag so the screen will flash.
         damaged = true;
 
         // Reduce the current health by the damage amount.
         currentHealth -= amount;
-
-        // Set the health bar's value to the current health.
-        healthSlider.value = currentHealth;
 
         // Play the hurt sound effect.
         playerAudio.Play();
@@ -87,17 +100,46 @@ public class PlayerHealth : MonoBehaviour {
         //playerShooting.DisableEffects();
 
         // Tell the animator that the player is dead.
-        anim.SetTrigger("death");
+        //anim.SetTrigger("death");
 
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         playerAudio.clip = deathClip;
         playerAudio.Play();
 
         // Turn off the movement and shooting scripts.
-        playerMovement.enabled = false;
+        //playerMovement.enabled = false;
         //playerShooting.enabled = false;
 
         //Drop weapon from hand
-        playerMovement.DetachWeapon();
+        //playerMovement.DetachWeapon();
+		
+        if (destroyOnDeath)
+        {
+            //Destroy(gameObject);
+        }
+		currentHealth = startingHealth;
+		isDead = false;
+		RpcRespawn();
+    }
+	
+	
+	[ClientRpc]
+    void RpcRespawn()
+    {
+		Debug.Log("RpcRespawn");
+        if (isLocalPlayer)
+        {
+            // Set the spawn point to origin as a default value
+            Vector3 spawnPoint = Vector3.zero;
+
+            // If there is a spawn point array and the array is not empty, pick a spawn point at random
+            if (spawnPoints != null && spawnPoints.Length > 0)
+            {
+                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+            }
+
+            // Set the player’s position to the chosen spawn point
+            transform.position = spawnPoint;
+        }
     }
 }
