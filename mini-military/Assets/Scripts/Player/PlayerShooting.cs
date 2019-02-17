@@ -242,6 +242,7 @@ public class PlayerShooting : MonoBehaviour {
         // If the raycast didn't hit anything on the shootable layer...
         else
         {
+			 Debug.Log("Player out of Range");
             // ... set the second position of the line renderer to the fullest extent of the gun's range.
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
         }

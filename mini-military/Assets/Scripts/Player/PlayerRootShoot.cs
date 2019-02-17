@@ -25,6 +25,7 @@ public class PlayerRootShoot : NetworkBehaviour
 		}
     }
 	
+	
 	Transform FindActiveweapon(){
 		GameObject rightHandContainer = transform.
                                 Find("Bip001").

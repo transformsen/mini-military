@@ -6,8 +6,6 @@ using UnityEngine.Networking;
 
 public class PlayerMovement : NetworkBehaviour {
     public float speed = 6f;            // The speed that the player will move at.
-    public GameObject weapon;           // The Weapon object for attaching to player.
-    GameObject weaponObj;
 
     [SerializeField] float m_MovingTurnSpeed = 360;
     [SerializeField] float m_StationaryTurnSpeed = 180;
@@ -18,8 +16,7 @@ public class PlayerMovement : NetworkBehaviour {
     Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
-    GameObject rightHandContainer;      // Right hand container to hold weapon
-    WeaponSwitch weaponSwitch;          // Reference to Weapon Switch Script
+    
 
     private Transform m_Cam;
     private Vector3 m_CamForward;             // The current forward direction of the camera
@@ -35,25 +32,8 @@ public class PlayerMovement : NetworkBehaviour {
         // Set up references.
         anim = GetComponent<Animator>();
         playerRigidbody = GetComponent<Rigidbody>();
-        rightHandContainer = transform.
-                                Find("Bip001").
-                                Find("Bip001 Pelvis").
-                                Find("Bip001 Spine").
-                                Find("Bip001 R Clavicle").
-                                Find("Bip001 R UpperArm").
-                                Find("Bip001 R Forearm").
-                                Find("Bip001 R Hand").
-                                Find("R_hand_container").gameObject;
-
-        weaponObj = rightHandContainer.transform.                                
-                                Find("GunSpwnPoint").
-                                Find("Weapons").gameObject;
+        						
 								
-								
-        weaponObj.transform.GetChild(6).gameObject.SetActive(true);
-
-        weaponSwitch = weaponObj.GetComponent<WeaponSwitch>();
-
         if (Camera.main != null)
         {
             m_Cam = Camera.main.transform;
@@ -148,28 +128,4 @@ public class PlayerMovement : NetworkBehaviour {
     }
 
 
-    void AttachWeapon()
-    {
-        weapon.transform.SetParent(rightHandContainer.transform);               
-    }
-
-    public void DetachWeapon()
-    {
-        weaponObj.GetComponent<WeaponSwitch>().enableTrigger = true;
-        rightHandContainer.transform.DetachChildren();      
-        Destroy(weaponObj, 2f);   
-    }
-
-    public void ShootAnim(bool enable)
-    {
-		if(anim != null){
-			anim.SetBool("isShooting", enable);
-		}
-        
-    }
-
-    public void SwitchWeapon(string weaponName)
-    {
-        weaponSwitch.SwitchWeapon(weaponName);
-    }
 }

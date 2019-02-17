@@ -1986,9 +1986,15 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1667292058322722, guid: 52bc305cf30f201458a19e3ebf4b1e0e, type: 3}
-  - {fileID: 8597904621042240600, guid: 8efa7bae3f77f444db53f9bdb9f7f8c8, type: 3}
   - {fileID: 1331120343550058, guid: e5900401287f33b448531508896b185b, type: 3}
+  - {fileID: 7591910946843705044, guid: e5190a520718b914c8d578e9ec91c7a1, type: 3}
   - {fileID: 1198362129135812, guid: 55b76a9e4da901049b0832e2e57295c0, type: 3}
+  - {fileID: 2204489062526476338, guid: 21eafc184c9c3c4408a5293c7d5785a2, type: 3}
+  - {fileID: 5457105972900617552, guid: b7e2ef1d38fd2064d9aeee892fbf3482, type: 3}
+  - {fileID: 6014175707651663239, guid: 09b3b76035bd2834ca8362757993ec4d, type: 3}
+  - {fileID: 3814116370271256779, guid: 26f1fa282531e584dab4bdb34ca8d285, type: 3}
+  - {fileID: 3679668531190919696, guid: d78bed5614ec23f4697ac6e6bcca5ad1, type: 3}
+  - {fileID: 1488429422946597494, guid: a6f67e89c13d8c84b8ff56f8344a0050, type: 3}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -2843,7 +2849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1885438876
 Transform:
   m_ObjectHideFlags: 0
