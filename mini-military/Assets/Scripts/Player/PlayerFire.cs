@@ -7,38 +7,30 @@ using UnityEngine.Networking;
 public class PlayerFire : NetworkBehaviour
 {
 	public WeaponSettingsDictionary weaponBareel;
-	
-	GameObject rightHandContainer;      // Right hand container to hold weapon
-	GameObject weaponObj;
-	
-	Animator anim;                      // Reference to the animator component.
-	
-	float timer;                                    // A timer to determine when to fire.
-    Ray shootRay;                                   // A ray from the gun end forwards.
-    RaycastHit shootHit;                            // A raycast hit to get information about what was hit.
-    int shootableMask;                              // A layer mask so the raycast only hits things on the shootable layer.
-    ParticleSystem gunParticles;                    // Reference to the particle system.
-    LineRenderer gunLine;                           // Reference to the line renderer.
-    AudioSource gunAudio;                           // Reference to the audio source.
-    Light gunLight;                                 // Reference to the light component.
-    float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
-    System.DateTime reloadStartTime = System.DateTime.Now;
-	
 	public string activeWeaponName = "Pistel";
+	public GameObject crossHiarPrefab;
 	
-	int numberOfBulletsLeft = 0;              // Number bullets per load
-	
-	GameObject barrelPreFab;   
-    int damagePerShot = 20;                  // The damage inflicted by each bullet.
-    float timeBetweenBullets = 0.15f;        // The time between each shot.
-    float range = 100f;                      // The distance the gun can fire.   
+	GameObject barrelPreFab;       
+    float timeBetweenBullets = 0.15f;        		// The time between each shot.
     int totalNumberOfBullets = 25;      
     Sprite imageforWeanpon;
-
+	int numberOfBulletsLeft = 0;              		// Number bullets per load
+	float range = 100f;                      // The distance the gun can fire. 
+	
+	GameObject rightHandContainer;      			// Right hand container to hold weapon
+	GameObject weaponObj;
+	GameObject crossHair;
+	
+	int shootableMask;                              // A layer mask so the raycast only hits things on the shootable layer.
+	Animator anim;                      			// Reference to the animator component.
+	
+	System.DateTime reloadStartTime = System.DateTime.Now;
+	float timer;                                    // A timer to determine when to fire.
 	
     void Awake()
     {
 		// Set up references.
+		shootableMask = LayerMask.GetMask("Shootable");
         anim = GetComponent<Animator>();
 		
         rightHandContainer = transform.
@@ -56,12 +48,16 @@ public class PlayerFire : NetworkBehaviour
                                 Find("Weapons").gameObject;
 		
 		SetPower(activeWeaponName);
-
+		
+		InstanitateCrossHair();
     }
 
     // Update is called once per frame
     void Update()
     {
+		if(isServer){
+			RpcPositionCrossHair();
+		}
 		
 		if (!isLocalPlayer)
         {
@@ -84,6 +80,7 @@ public class PlayerFire : NetworkBehaviour
         }else{
 			ShootAnim(false);
 		}
+		
     }
 	
 	[Command]
@@ -105,74 +102,60 @@ public class PlayerFire : NetworkBehaviour
         numberOfBulletsLeft--;
 
         // Reset the timer.
-        timer = 0f;
-		
-		
+        timer = 0f;		
+	}
 	
-		ParticleSystem gunParticles = fireObject.GetComponent<ParticleSystem>();
-        LineRenderer gunLine = fireObject.GetComponent<LineRenderer>();
-        AudioSource gunAudio = fireObject.GetComponent<AudioSource>();
-        Light gunLight = fireObject.GetComponent<Light>();
+	public void ToggleCrossHair(bool enabled)
+    {
+        if (crossHair != null)
+        {
+            crossHair.SetActive(enabled);
+        }
+    }
 
-        // Play the gun shot audioclip.
-        gunAudio.Play();
-
-        // Enable the light.
-        gunLight.enabled = true;
-        //gunTrail.enabled = true;
-
-        // Stop the particles from playing if they were, then start the particles.
-        gunParticles.Stop();
-        gunParticles.Play();
-
-        // Enable the line renderer and set it's first position to be the end of the gun.
-        gunLine.enabled = true;
-        gunLine.SetPosition(0, transform.position);
-
-        // Set the shootRay so that it starts at the end of the gun and points forward from the barrel.
-        shootRay = new Ray(barrelEnd.position, barrelEnd.forward);
-        
-        // Perform the raycast against gameobjects on the shootable layer and if it hits something...
-        if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
+	
+	public void InstanitateCrossHair(){
+		Debug.Log("RpcInstanitateCrossHair");
+		if(crossHiarPrefab!= null)
         {
             
-            // Try and find an EnemyHealth script on the gameobject hit.
-            EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
-
-            // If the EnemyHealth component exist...
-            if (enemyHealth != null)
+            if(crossHair == null)
             {
-                // ... the enemy should take damage.
-                enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+                crossHair = Instantiate(crossHiarPrefab);
             }
-			
-			// Try and find an EnemyHealth script on the gameobject hit.
-            PlayerHealth playerHealth = shootHit.collider.GetComponent<PlayerHealth>();
-			Debug.Log("Player playerHealth"+playerHealth);
-            // If the EnemyHealth component exist...
-            if (playerHealth != null)
-            {
-                Debug.Log("Player InRange");
-				// ... the enemy should take damage.
-                playerHealth.TakeDamage(damagePerShot);
-				
-            }else{
-				Debug.Log("Player NULL");
-			}
-			
-            // Set the second position of the line renderer to the point the raycast hit.
-            gunLine.SetPosition(1, shootHit.point);
+            ToggleCrossHair(false);
         }
-        // If the raycast didn't hit anything on the shootable layer...
+	}
+
+    //TODO: find the better way. Instanitate everytime Or Active FAlse. 
+	[ClientRpc]
+    public void RpcPositionCrossHair()
+    {
+		Debug.Log("RpcPositionCrossHair");
+		Transform barrelEnd = weaponObj.transform.                                
+                                Find(activeWeaponName).
+                                Find("BarrelEnd").gameObject.transform;
+								
+        Ray ray = new Ray(barrelEnd.position, barrelEnd.forward);
+        RaycastHit hit;
+        Transform spawn = barrelEnd;
+        Vector3 spwnPosition = spawn.position;
+        Vector3 dir = ray.GetPoint(range);
+        if (Physics.Raycast(ray, out hit, range, shootableMask))
+        {
+            if (crossHair != null)
+            {
+                ToggleCrossHair(true);
+                crossHair.transform.position = hit.point;
+                crossHair.transform.LookAt(Camera.main.transform);
+            }
+        }
         else
         {
-			 Debug.Log("Player out of Range");
-            // ... set the second position of the line renderer to the fullest extent of the gun's range.
-            gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
+            ToggleCrossHair(false);
         }
-		
-		
-	}
+
+    }
 	
 	public void ShootAnim(bool enable)
     {
@@ -185,18 +168,18 @@ public class PlayerFire : NetworkBehaviour
 	void SetPower(string weaponName){
 		
 		numberOfBulletsLeft = weaponBareel[weaponName].totalNumberOfBullets;
-		barrelPreFab = weaponBareel[weaponName].barrelPreFab;   
-		damagePerShot = weaponBareel[weaponName].damagePerShot;                 
-		timeBetweenBullets = weaponBareel[weaponName].timeBetweenBullets;        
-		range = weaponBareel[weaponName].range;                      
+		barrelPreFab = weaponBareel[weaponName].barrelPreFab;                
+		timeBetweenBullets = weaponBareel[weaponName].timeBetweenBullets;   
 		totalNumberOfBullets = weaponBareel[weaponName].totalNumberOfBullets;      
 		imageforWeanpon = weaponBareel[weaponName].imageforWeanpon;
+		range = weaponBareel[weaponName].range;
 	}
 	
 	
 	public void WeaponSwitch(string weaponName)
     {
-		activeWeaponName = weaponName;
+	   activeWeaponName = weaponName;
+	   SetPower(activeWeaponName);
        foreach (Transform w in weaponObj.transform)
        {                
                 if (weaponName.Equals(w.name)){
