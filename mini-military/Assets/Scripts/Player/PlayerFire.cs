@@ -10,12 +10,16 @@ public class PlayerFire : NetworkBehaviour
 	public string activeWeaponName = "Pistel";
 	public GameObject crossHiarPrefab;
 	
-	GameObject barrelPreFab;       
-    float timeBetweenBullets = 0.15f;        		// The time between each shot.
-    int totalNumberOfBullets = 25;      
-    Sprite imageforWeanpon;
-	int numberOfBulletsLeft = 0;              		// Number bullets per load
+	GameObject barrelPreFab;   
+	
+    public float timeBetweenBullets = 0.15f;        		// The time between each shot.
+    public int totalNumberOfBullets = 25;      
+    public Sprite imageforWeanpon;
+	[SyncVar]
+	public int numberOfBulletsLeft = 0;              		// Number bullets per load
+	public string realoadingInText;
 	float range = 100f;                      // The distance the gun can fire. 
+	int reloadIntervel = 30;                        // Time Intervel between each reload;
 	
 	GameObject rightHandContainer;      			// Right hand container to hold weapon
 	GameObject weaponObj;
@@ -51,6 +55,14 @@ public class PlayerFire : NetworkBehaviour
 		
 		InstanitateCrossHair();
     }
+	
+	void Start(){
+         if (isLocalPlayer)
+        {
+			Debug.Log("Setting for Local Player");
+            GunStatusManager.playerGO = gameObject;
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -81,6 +93,8 @@ public class PlayerFire : NetworkBehaviour
 			ShootAnim(false);
 		}
 		
+		reloadGun();
+		
     }
 	
 	[Command]
@@ -104,6 +118,8 @@ public class PlayerFire : NetworkBehaviour
         // Reset the timer.
         timer = 0f;		
 	}
+	
+	
 	
 	public void ToggleCrossHair(bool enabled)
     {
@@ -188,6 +204,24 @@ public class PlayerFire : NetworkBehaviour
                 else{   
 					w.gameObject.SetActive(false);
                 }
+        }        
+    }
+	
+	public void reloadGun()
+    {
+        System.DateTime currentTime = System.DateTime.Now;
+        int timeDiffBetweenReloads = (currentTime - reloadStartTime).Seconds;
+        if(numberOfBulletsLeft <= 0)
+        {
+            realoadingInText = "RELOADING IN " + (reloadIntervel - timeDiffBetweenReloads);
+            
+        }
+        
+        if (timeDiffBetweenReloads > reloadIntervel)
+        {
+            numberOfBulletsLeft = totalNumberOfBullets;
+            reloadStartTime = currentTime;
+            realoadingInText = "";
         }        
     }
 }
