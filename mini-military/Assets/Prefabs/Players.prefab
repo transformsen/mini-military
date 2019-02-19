@@ -3246,7 +3246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  weapon: {fileID: 8597904621042240600, guid: 8efa7bae3f77f444db53f9bdb9f7f8c8, type: 3}
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_MoveSpeedMultiplier: 1
@@ -3262,13 +3261,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd1cf66e41fb9e4197f2f520c4f1509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
-  currentHealth: 0
   healthSlider: {fileID: 5772304764086522259}
   damageImage: {fileID: 5772304765394333588}
   deathClip: {fileID: 8300000, guid: 5ed017b53ef416742995de0c6900aafb, type: 3}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  destroyOnDeath: 0
+  startingHealth: 100
+  currentHealth: 0
 --- !u!114 &114917167482178830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3534,13 +3534,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd1cf66e41fb9e4197f2f520c4f1509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
-  currentHealth: 0
   healthSlider: {fileID: 5772304764086522259}
   damageImage: {fileID: 5772304765394333588}
   deathClip: {fileID: 8300000, guid: 5ed017b53ef416742995de0c6900aafb, type: 3}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  destroyOnDeath: 0
+  startingHealth: 100
+  currentHealth: 0
 --- !u!114 &114599404225395694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3554,7 +3555,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  weapon: {fileID: 8597904621042240600, guid: 8efa7bae3f77f444db53f9bdb9f7f8c8, type: 3}
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_MoveSpeedMultiplier: 1

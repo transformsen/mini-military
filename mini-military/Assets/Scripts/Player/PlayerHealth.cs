@@ -25,7 +25,12 @@ public class PlayerHealth : NetworkBehaviour {
 	public bool destroyOnDeath = false;
 	
 	public int startingHealth = 100;                            // The amount of health the player starts the game with.
+	[SyncVar(hook = "OnChangeHealth")]
     public int currentHealth;
+	
+	[SyncVar]
+	bool isSinking = false;                             // Whether the enemy has started sinking through the floor.
+	public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
 
     void Awake()
     {
@@ -45,6 +50,8 @@ public class PlayerHealth : NetworkBehaviour {
 
     void Update()
     {
+		
+		
         // If the player has just been damaged...
         if (damaged)
         {
@@ -59,20 +66,28 @@ public class PlayerHealth : NetworkBehaviour {
         }
 
         // Reset the damaged flag.
-        damaged = false;
+        damaged = false;	
+
+		// If the enemy should be sinking...
+        if (isSinking)
+        {
+            // ... move the enemy down by the sinkSpeed per second.
+            transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
+        }		
 		
-		healthSlider.value = currentHealth;
     }
 
-
+	void OnChangeHealth(int health){
+		healthSlider.value = health;
+	}
+	
     public void TakeDamage(int amount)
     {
 		
 		Debug.Log("Player TakeDamage"+amount);
 		if (!isServer)
         {
-			Debug.Log("Server");
-			CmdRespawn1();
+			Debug.Log("Server");			
             return;
         }
         // Set the damaged flag so the screen will flash.
@@ -122,48 +137,54 @@ public class PlayerHealth : NetworkBehaviour {
         {
             //Destroy(gameObject);
         }
-		currentHealth = startingHealth;
-		isDead = false;
+		
 		RpcRespawn();
     }
 	
-	[Command]
-	void CmdRespawn1()
-    {
-		Debug.Log("RpcRespawn");
-        if (isLocalPlayer)
-        {
-            // Set the spawn point to origin as a default value
-            Vector3 spawnPoint = Vector3.zero;
-
-            // If there is a spawn point array and the array is not empty, pick a spawn point at random
-            if (spawnPoints != null && spawnPoints.Length > 0)
-            {
-                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
-            }
-
-            // Set the player’s position to the chosen spawn point
-            transform.position = spawnPoint;
-        }
-    }
+	
 	
 	[ClientRpc]
     void RpcRespawn()
     {
 		Debug.Log("RpcRespawn");
+		//anim.SetTrigger("death");
+		StartSinking();
         if (isLocalPlayer)
         {
-            // Set the spawn point to origin as a default value
-            Vector3 spawnPoint = Vector3.zero;
-
-            // If there is a spawn point array and the array is not empty, pick a spawn point at random
-            if (spawnPoints != null && spawnPoints.Length > 0)
-            {
-                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
-            }
-
-            // Set the player’s position to the chosen spawn point
-            transform.position = spawnPoint;
+            Invoke("RespawnLocalPlayer", 3);
         }
+    }
+	
+	void RespawnLocalPlayer(){
+		Debug.Log("RespawnLocalPlayer");
+		GetComponent<Rigidbody>().isKinematic = false;
+		isSinking = false;
+		//anim.ResetTrigger("death");
+		//anim.SetBool("Reset", true);
+		currentHealth = startingHealth;
+		isDead = false;
+		
+		// Set the spawn point to origin as a default value
+		Vector3 spawnPoint = Vector3.zero;
+
+		// If there is a spawn point array and the array is not empty, pick a spawn point at random
+		if (spawnPoints != null && spawnPoints.Length > 0)
+		{
+			spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+		}
+
+		// Set the player’s position to the chosen spawn point
+		transform.position = spawnPoint;
+	}
+	
+	public void StartSinking()
+    {
+       
+        GetComponent<Rigidbody>().isKinematic = true;
+
+        // The enemy should no sink.
+        isSinking = true;
+
+        
     }
 }

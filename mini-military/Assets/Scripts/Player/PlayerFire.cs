@@ -7,6 +7,8 @@ using UnityEngine.Networking;
 public class PlayerFire : NetworkBehaviour
 {
 	public WeaponSettingsDictionary weaponBareel;
+	
+	[SyncVar(hook = "OnActiveWeaponName")]
 	public string activeWeaponName = "Pistel";
 	public GameObject crossHiarPrefab;
 	
@@ -131,7 +133,7 @@ public class PlayerFire : NetworkBehaviour
 
 	
 	public void InstanitateCrossHair(){
-		Debug.Log("RpcInstanitateCrossHair");
+		
 		if(crossHiarPrefab!= null)
         {
             
@@ -143,11 +145,11 @@ public class PlayerFire : NetworkBehaviour
         }
 	}
 
-    //TODO: find the better way. Instanitate everytime Or Active FAlse. 
+   
 	[ClientRpc]
     public void RpcPositionCrossHair()
     {
-		Debug.Log("RpcPositionCrossHair");
+		
 		Transform barrelEnd = weaponObj.transform.                                
                                 Find(activeWeaponName).
                                 Find("BarrelEnd").gameObject.transform;
@@ -194,9 +196,13 @@ public class PlayerFire : NetworkBehaviour
 	
 	public void WeaponSwitch(string weaponName)
     {
+		Debug.Log("WeaponSwitch, weaponName="+weaponName);
 	   activeWeaponName = weaponName;
-	   SetPower(activeWeaponName);
-       foreach (Transform w in weaponObj.transform)
+	   SetPower(activeWeaponName);             
+    }
+	
+	void OnActiveWeaponName(string weaponName){
+		foreach (Transform w in weaponObj.transform)
        {                
                 if (weaponName.Equals(w.name)){
                     w.gameObject.SetActive(true);
@@ -204,8 +210,8 @@ public class PlayerFire : NetworkBehaviour
                 else{   
 					w.gameObject.SetActive(false);
                 }
-        }        
-    }
+        }  
+	}
 	
 	public void reloadGun()
     {
