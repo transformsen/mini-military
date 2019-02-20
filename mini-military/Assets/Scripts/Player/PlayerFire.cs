@@ -33,6 +33,9 @@ public class PlayerFire : NetworkBehaviour
 	System.DateTime reloadStartTime = System.DateTime.Now;
 	float timer;                                    // A timer to determine when to fire.
 	
+	[SerializeField] public int maxZoom = 1;
+	
+	
     void Awake()
     {
 		// Set up references.
@@ -64,6 +67,11 @@ public class PlayerFire : NetworkBehaviour
 			Debug.Log("Setting for Local Player");
             GunStatusManager.playerGO = gameObject;
         }
+		
+		if (isLocalPlayer)
+		{
+			CameraFollow.targetPower = gameObject;
+		}
     }
 
     // Update is called once per frame
@@ -71,8 +79,9 @@ public class PlayerFire : NetworkBehaviour
     {
 		if(isServer){
 			RpcPositionCrossHair();
-		}
+		}		
 		
+			
 		if (!isLocalPlayer)
         {
             // exit from update if this is not the local player
@@ -191,12 +200,13 @@ public class PlayerFire : NetworkBehaviour
 		totalNumberOfBullets = weaponBareel[weaponName].totalNumberOfBullets;      
 		imageforWeanpon = weaponBareel[weaponName].imageforWeanpon;
 		range = weaponBareel[weaponName].range;
+		maxZoom = weaponBareel[weaponName].maxZoom;
 	}
 	
 	
 	public void WeaponSwitch(string weaponName)
     {
-		Debug.Log("WeaponSwitch, weaponName="+weaponName);
+	   Debug.Log("WeaponSwitch, weaponName="+weaponName);
 	   activeWeaponName = weaponName;
 	   SetPower(activeWeaponName);             
     }

@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class CameraFollow : MonoBehaviour {
 
                // The position that that camera will be following.
-    public float y = 5f;
-    public float z = 6f;
-    public int maxZoom = 3;
+    public float y = 3f;
+    public float z = 10f;
+    public int maxZoom = 1;
     public Text zoomXText;
     public FixedTouchField touchField;
     public float caramaAngleSpeed = 1f;
@@ -20,6 +20,7 @@ public class CameraFollow : MonoBehaviour {
     float camaraAngle;
     GameObject player;
     static public Transform target;
+	static public GameObject targetPower;
 
     void Start()
     {
@@ -42,6 +43,15 @@ public class CameraFollow : MonoBehaviour {
         {
             zoomXText.text = currentZoom + "X";
         }
+		
+		if(targetPower != null){
+			PlayerFire power = targetPower.GetComponent<PlayerFire>();
+			maxZoom = power.maxZoom;
+		}
+		
+		if(currentZoom > maxZoom){
+			resetZoom();
+		}
         
 
         camaraAngle += touchField.TouchDist.x * caramaAngleSpeed;
@@ -61,12 +71,19 @@ public class CameraFollow : MonoBehaviour {
             y = y + 7f;
             z = z + 7f;
         }
-        else
+        else 
         {
-            currentZoom = 1;
-            y = y - 14f;
-            z = z - 14f;
+			resetZoom();
+            //currentZoom = 1;
+            //y = y - 14f;
+            //z = z - 14f;
         }
         
     }
+	
+	public void resetZoom(){
+		y = 3f;
+		z = 10f;		
+		currentZoom = 1;
+	}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour {
 
+	public string gunName = "";
     
     void OnTriggerEnter(Collider collision)
     {
@@ -12,7 +13,7 @@ public class WeaponSwitch : MonoBehaviour {
 		
         if (playerFire != null)
         {
-			string activeWeapon = GetActiveWeaponName();
+			string activeWeapon = gunName;
 			playerFire.WeaponSwitch(activeWeapon);
 			Destroy(gameObject);
 			

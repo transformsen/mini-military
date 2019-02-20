@@ -15,4 +15,6 @@ public class WeaponSettings
    public int totalNumberOfBullets = 25;
       
    public Sprite imageforWeanpon;
+   
+   public int maxZoom = 1;
 }

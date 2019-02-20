@@ -2499,6 +2499,12 @@ MonoBehaviour:
   - {fileID: 3814116370271256779, guid: 26f1fa282531e584dab4bdb34ca8d285, type: 3}
   - {fileID: 3679668531190919696, guid: d78bed5614ec23f4697ac6e6bcca5ad1, type: 3}
   - {fileID: 1488429422946597494, guid: a6f67e89c13d8c84b8ff56f8344a0050, type: 3}
+  - {fileID: 965471283993273587, guid: 28d501949b5048949be596dbee748858, type: 3}
+  - {fileID: 2412859980364535411, guid: ca3750cb919bdf54fa953fbba62aa6fe, type: 3}
+  - {fileID: 3834107219898084461, guid: fde07aff4aaa0b0479abcb9182124966, type: 3}
+  - {fileID: 2563118459522608083, guid: 6d970fd0a98ac11419d94be9fa3754f4, type: 3}
+  - {fileID: 1544100595992679641, guid: 3dfce0403fcc51b47baf31d376678a87, type: 3}
+  - {fileID: 7818270695158467087, guid: 994767e2fcd0d3442843d39a7f7a5db3, type: 3}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -3552,6 +3558,13 @@ MonoBehaviour:
   weaponPrefab: {fileID: 7591910946843705044, guid: e5190a520718b914c8d578e9ec91c7a1,
     type: 3}
   lifeTime: 10
+  gunPrefabs:
+  - {fileID: 965471283993273587, guid: 28d501949b5048949be596dbee748858, type: 3}
+  - {fileID: 2412859980364535411, guid: ca3750cb919bdf54fa953fbba62aa6fe, type: 3}
+  - {fileID: 3834107219898084461, guid: fde07aff4aaa0b0479abcb9182124966, type: 3}
+  - {fileID: 2563118459522608083, guid: 6d970fd0a98ac11419d94be9fa3754f4, type: 3}
+  - {fileID: 1544100595992679641, guid: 3dfce0403fcc51b47baf31d376678a87, type: 3}
+  - {fileID: 7818270695158467087, guid: 994767e2fcd0d3442843d39a7f7a5db3, type: 3}
 --- !u!114 &1885438878
 MonoBehaviour:
   m_ObjectHideFlags: 0

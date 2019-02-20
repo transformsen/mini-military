@@ -9,9 +9,8 @@ public class WeaponManager : NetworkBehaviour {
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
     public GameObject weaponPrefab;         // The enemy prefab to be spawned.
     public float lifeTime = 8f;             // Life Time of the Gun wait for player to pick.
+	public GameObject[] gunPrefabs;
 	
-	[SyncVar]
-	int weaponIndex;
 
     public override void OnStartServer()
     {
@@ -28,18 +27,20 @@ public class WeaponManager : NetworkBehaviour {
 
         
         // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-        if(weaponPrefab != null)
-        {
-            GameObject weapon = Instantiate(weaponPrefab, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+        //if(weaponPrefab != null)
+        //{
+			
+            GameObject weapon = Instantiate(gunPrefabs[Random.Range(0, gunPrefabs.Length)], spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
             
-            weaponIndex = Random.Range(0, weapon.transform.childCount);
-            weapon.gameObject.GetComponent<WeaponSwitch>().resetSelection();
-            weapon.transform.GetChild(weaponIndex).gameObject.SetActive(true);		
+            //int weaponIndex = Random.Range(0, weapon.transform.childCount);
+            //weapon.gameObject.GetComponent<WeaponSwitch>().resetSelection();
+            //CmdActivateWeapon(weapon);		
 			
 			NetworkServer.Spawn(weapon);			
             
 			Destroy(weapon, lifeTime);
-        }
+        //}
         
     }
+	
 }
