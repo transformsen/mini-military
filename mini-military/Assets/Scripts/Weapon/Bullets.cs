@@ -92,6 +92,6 @@ public class Bullets : MonoBehaviour
     void Start()
     {
 		Debug.Log("Bullets Start");
-        Destroy(gameObject, 0.2f);
+        Destroy(gameObject, .4f);
     }
 }

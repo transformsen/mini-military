@@ -12,10 +12,17 @@ public class PlayerBombAttack : NetworkBehaviour {
     public float timeBetweenBullets = .15f;        // The time between each shot.
     public float bombspeed = 9f;
     public int numberOfBombs = 5;
-    public Text bombCountText;
 
     float timer;                                    // A timer to determine when to fire.
 
+	void Start(){
+		if (isLocalPlayer)
+		{
+			BoombCountManager.playerGO = gameObject;	
+		}
+	}
+	
+		
     // Update is called once per frame
     void Update () {
         if (!isLocalPlayer)
@@ -24,7 +31,7 @@ public class PlayerBombAttack : NetworkBehaviour {
             return;
         }
         timer += Time.deltaTime;
-        bombCountText.text = (numberOfBombs > 0) ? "" + numberOfBombs : "";
+        
         if (Input.GetButtonDown("Fire3") && timer >= timeBetweenBullets && numberOfBombs >0)
         {
             numberOfBombs--;

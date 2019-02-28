@@ -32,6 +32,8 @@ public class PlayerFire : NetworkBehaviour
 	
 	System.DateTime reloadStartTime = System.DateTime.Now;
 	float timer;                                    // A timer to determine when to fire.
+    float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
+
 	
 	[SerializeField] public int maxZoom = 1;
 	
@@ -62,16 +64,11 @@ public class PlayerFire : NetworkBehaviour
     }
 	
 	void Start(){
-         if (isLocalPlayer)
+        if (isLocalPlayer)
         {
-			Debug.Log("Setting for Local Player");
             GunStatusManager.playerGO = gameObject;
-        }
-		
-		if (isLocalPlayer)
-		{
 			CameraFollow.targetPower = gameObject;
-		}
+        }
     }
 
     // Update is called once per frame
@@ -91,7 +88,7 @@ public class PlayerFire : NetworkBehaviour
         timer += Time.deltaTime;
 
         // If the Fire2 button is being press and it's time to fire...
-        if (Input.GetButtonDown("Fire2") && timer >= timeBetweenBullets)
+        if (Input.GetButton("Fire2") && timer >= timeBetweenBullets)
         {
 			Debug.Log("Fire");
             ShootAnim(true);
@@ -99,10 +96,15 @@ public class PlayerFire : NetworkBehaviour
             if (numberOfBulletsLeft  > 0)
             {
                 CmdShoot();
+				//Bullets wasted
+				numberOfBulletsLeft--;
             }
+			// Reset the timer.
+			timer = 0f;	
         }else{
 			ShootAnim(false);
 		}
+		
 		
 		reloadGun();
 		
@@ -122,12 +124,6 @@ public class PlayerFire : NetworkBehaviour
            barrelEnd.rotation);
         
 		NetworkServer.Spawn(fireObject);
-		
-		//Bullets wasted
-        numberOfBulletsLeft--;
-
-        // Reset the timer.
-        timer = 0f;		
 	}
 	
 	

@@ -51,7 +51,12 @@ public class BombExplosion : MonoBehaviour {
                 if(enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(100, new Vector3(0, 0, 0));
-                }                
+                }
+				PlayerHealth playerHealth = neearByCollider.GetComponent<PlayerHealth>();
+                if(playerHealth != null)
+                {
+                    playerHealth.TakeDamage(100);
+                } 				
             }
         }
         

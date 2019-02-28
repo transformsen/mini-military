@@ -11,6 +11,7 @@ public class PlayerHealth : NetworkBehaviour {
     public Slider healthSlider;                                 // Reference to the UI's health bar.
     public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
     public AudioClip deathClip;                                 // The audio clip to play when the player dies.
+	public AudioClip hurtClip;                                 // The audio clip to play when the player dies.
     public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 
@@ -18,7 +19,7 @@ public class PlayerHealth : NetworkBehaviour {
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
     PlayerMovement playerMovement;                              // Reference to the player's movement.
-    //PlayerShooting playerShooting;                              // Reference to the PlayerShooting script.
+    PlayerFire playerFire;                              // Reference to the PlayerShooting script.
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
 
@@ -42,7 +43,7 @@ public class PlayerHealth : NetworkBehaviour {
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         playerMovement = GetComponent<PlayerMovement>();
-        //playerShooting = GetComponentInChildren<PlayerShooting>();
+        playerFire = GetComponent<PlayerFire>();
 		
 		currentHealth = startingHealth;
     }
@@ -97,10 +98,11 @@ public class PlayerHealth : NetworkBehaviour {
         currentHealth -= amount;
 
         // Play the hurt sound effect.
+		playerAudio.clip = hurtClip;
         playerAudio.Play();
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
-        if (currentHealth <= 0 && !isDead)
+        if (currentHealth <= 0)
         {
             // ... it should die.
             Death();
@@ -127,8 +129,8 @@ public class PlayerHealth : NetworkBehaviour {
         playerAudio.Play();
 
         // Turn off the movement and shooting scripts.
-        //playerMovement.enabled = false;
-        //playerShooting.enabled = false;
+       //playerMovement.enabled = false;
+       //playerShooting.enabled = false;
 
         //Drop weapon from hand
         //playerMovement.DetachWeapon();
@@ -137,6 +139,8 @@ public class PlayerHealth : NetworkBehaviour {
         {
             //Destroy(gameObject);
         }
+		
+		currentHealth = startingHealth;
 		
 		RpcRespawn();
     }
@@ -148,20 +152,23 @@ public class PlayerHealth : NetworkBehaviour {
     {
 		Debug.Log("RpcRespawn");
 		//anim.SetTrigger("death");
-		StartSinking();
+		//StartSinking();
+		//gameObject.SetActive(false);
+		transform.position = new Vector3(0, -20f, 0);
         if (isLocalPlayer)
         {
-            Invoke("RespawnLocalPlayer", 3);
+            Invoke("RespawnLocalPlayer", 10);
         }
     }
 	
 	void RespawnLocalPlayer(){
 		Debug.Log("RespawnLocalPlayer");
-		GetComponent<Rigidbody>().isKinematic = false;
-		isSinking = false;
+		//GetComponent<Rigidbody>().isKinematic = false;
+		//isSinking = false;
 		//anim.ResetTrigger("death");
 		//anim.SetBool("Reset", true);
-		currentHealth = startingHealth;
+		//gameObject.SetActive(true);
+		
 		isDead = false;
 		
 		// Set the spawn point to origin as a default value

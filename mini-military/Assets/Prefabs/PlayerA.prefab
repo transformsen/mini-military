@@ -717,85 +717,6 @@ Transform:
   m_Father: {fileID: 5140755191998968465}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3637492804321728937
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7432537249321950510}
-  - component: {fileID: 4070130738417601219}
-  - component: {fileID: 4526179302841121698}
-  m_Layer: 0
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7432537249321950510
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3637492804321728937}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.19094576, y: 0.16964756, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2855937700856622153}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -19.3, y: -55.4}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 1, y: 1}
---- !u!222 &4070130738417601219
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3637492804321728937}
-  m_CullTransparentMesh: 0
---- !u!114 &4526179302841121698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3637492804321728937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9622642, g: 0.94864726, b: 0.94864726, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 27
-    m_FontStyle: 3
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: New Text
 --- !u!1 &4960168619718179382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,6 +1563,7 @@ MonoBehaviour:
   healthSlider: {fileID: 2855937701172151199}
   damageImage: {fileID: 2855937701410028952}
   deathClip: {fileID: 8300000, guid: 5ed017b53ef416742995de0c6900aafb, type: 3}
+  hurtClip: {fileID: 0}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
   destroyOnDeath: 1
@@ -1665,7 +1587,6 @@ MonoBehaviour:
   timeBetweenBullets: 0.2
   bombspeed: 9
   numberOfBombs: 5
-  bombCountText: {fileID: 4526179302841121698}
 --- !u!114 &7019397527702498081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1794,7 +1715,7 @@ MonoBehaviour:
     - barrelPreFab: {fileID: 3679668531190919696, guid: d78bed5614ec23f4697ac6e6bcca5ad1,
         type: 3}
       damagePerShot: 20
-      timeBetweenBullets: 1
+      timeBetweenBullets: 0.5
       range: 100
       totalNumberOfBullets: 35
       imageforWeanpon: {fileID: 21300028, guid: 5acb27b603af6d44ea6113c4b7b15385,
@@ -1803,7 +1724,7 @@ MonoBehaviour:
     - barrelPreFab: {fileID: 6014175707651663239, guid: 09b3b76035bd2834ca8362757993ec4d,
         type: 3}
       damagePerShot: 100
-      timeBetweenBullets: 1
+      timeBetweenBullets: 0.5
       range: 100
       totalNumberOfBullets: 30
       imageforWeanpon: {fileID: 21300000, guid: a48b5c4027f33884da84bd7b2ff2b775,
@@ -1812,7 +1733,7 @@ MonoBehaviour:
     - barrelPreFab: {fileID: 1488429422946597494, guid: a6f67e89c13d8c84b8ff56f8344a0050,
         type: 3}
       damagePerShot: 150
-      timeBetweenBullets: 1
+      timeBetweenBullets: 0.4
       range: 100
       totalNumberOfBullets: 25
       imageforWeanpon: {fileID: 21300000, guid: 156f57b4b7307be47b328d11a0e1fd65,
@@ -1821,7 +1742,7 @@ MonoBehaviour:
     - barrelPreFab: {fileID: 2204489062526476338, guid: 21eafc184c9c3c4408a5293c7d5785a2,
         type: 3}
       damagePerShot: 20
-      timeBetweenBullets: 1
+      timeBetweenBullets: 0.4
       range: 100
       totalNumberOfBullets: 25
       imageforWeanpon: {fileID: 21300000, guid: f61164d651276e54c9aab00adfc1c89f,
@@ -1830,7 +1751,7 @@ MonoBehaviour:
     - barrelPreFab: {fileID: 3814116370271256779, guid: 26f1fa282531e584dab4bdb34ca8d285,
         type: 3}
       damagePerShot: 100
-      timeBetweenBullets: 1
+      timeBetweenBullets: 0.4
       range: 100
       totalNumberOfBullets: 20
       imageforWeanpon: {fileID: 21300042, guid: 71a7f8669de848e45ba57bda95f3a58e,
@@ -1839,16 +1760,16 @@ MonoBehaviour:
     - barrelPreFab: {fileID: 5457105972900617552, guid: b7e2ef1d38fd2064d9aeee892fbf3482,
         type: 3}
       damagePerShot: 200
-      timeBetweenBullets: 1
+      timeBetweenBullets: 0.5
       range: 100
       totalNumberOfBullets: 10
       imageforWeanpon: {fileID: 21300000, guid: 578390a33fc71b74a87923039bd2e4e6,
         type: 3}
       maxZoom: 3
-  activeWeaponName: X95
+  activeWeaponName: Pistel
   crossHiarPrefab: {fileID: 1967577308537686, guid: 69562c15d4421a74cbbe40cc22cbedb2,
     type: 3}
-  timeBetweenBullets: 0.15
+  timeBetweenBullets: 0.4
   totalNumberOfBullets: 25
   imageforWeanpon: {fileID: 0}
   numberOfBulletsLeft: 0
@@ -2328,12 +2249,6 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2855937700856622153 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2980420919490102497, guid: 070a5f2ceb734f84bba2234d89eb6c81,
-    type: 3}
-  m_PrefabInstance: {fileID: 1080513424786303144}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2855937701172151199 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2980420919709575991, guid: 070a5f2ceb734f84bba2234d89eb6c81,
@@ -2427,6 +2342,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8598533965326846736, guid: 8efa7bae3f77f444db53f9bdb9f7f8c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8597904618985497908, guid: 8efa7bae3f77f444db53f9bdb9f7f8c8,
         type: 3}
       propertyPath: m_Layer
@@ -2441,6 +2361,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8597904620217402834, guid: 8efa7bae3f77f444db53f9bdb9f7f8c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8597904621015769136, guid: 8efa7bae3f77f444db53f9bdb9f7f8c8,
         type: 3}
