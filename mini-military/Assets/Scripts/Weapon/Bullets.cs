@@ -16,12 +16,15 @@ public class Bullets : MonoBehaviour
 	LineRenderer gunLine;                           // Reference to the line renderer.
 	AudioSource gunAudio;                           // Reference to the audio source.
 	Light gunLight;                                 // Reference to the light component.
+	public GameObject myparent;
    
 	
     // Start is called before the first frame update
-    void Awake()
+    public void Fire()
     {
 		shootableMask = LayerMask.GetMask("Shootable");
+		
+		Debug.Log("parent = "+ myparent);
 		
         Debug.Log("Bullets Awake");
 		ParticleSystem gunParticles = GetComponent<ParticleSystem>();
@@ -59,6 +62,7 @@ public class Bullets : MonoBehaviour
             {
                 // ... the enemy should take damage.
                 enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+				enemyHealth.TakeDamage(gameObject);
             }
 			
 			// Try and find an EnemyHealth script on the gameobject hit.
@@ -70,6 +74,7 @@ public class Bullets : MonoBehaviour
                 Debug.Log("Player InRange");
 				// ... the enemy should take damage.
                 playerHealth.TakeDamage(damagePerShot);
+				playerHealth.TakeDamage(myparent);
 				
             }else{
 				Debug.Log("Player NULL");
@@ -89,7 +94,7 @@ public class Bullets : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Start()
+    void Awake()
     {
 		Debug.Log("Bullets Start");
         Destroy(gameObject, .4f);

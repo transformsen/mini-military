@@ -9,6 +9,7 @@ public class BombExplosion : MonoBehaviour {
     public float radius = 5f;
     public float fource = 300f;
     public float lifeTime = 0.8f;
+	public GameObject myparent;
 
     AudioSource blastAudio;
     bool hasExploeded = false;
@@ -32,6 +33,7 @@ public class BombExplosion : MonoBehaviour {
 
     void Explode()
     {
+		
         if(explosionEffectPreFab!= null){
             GameObject explosionEffect = Instantiate(explosionEffectPreFab, transform.position, transform.rotation);
             Destroy(explosionEffect, 3f);
@@ -51,11 +53,13 @@ public class BombExplosion : MonoBehaviour {
                 if(enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(100, new Vector3(0, 0, 0));
+					enemyHealth.TakeDamage(myparent);
                 }
 				PlayerHealth playerHealth = neearByCollider.GetComponent<PlayerHealth>();
                 if(playerHealth != null)
                 {
                     playerHealth.TakeDamage(100);
+					playerHealth.TakeDamage(myparent);
                 } 				
             }
         }

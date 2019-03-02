@@ -32,6 +32,9 @@ public class PlayerHealth : NetworkBehaviour {
 	[SyncVar]
 	bool isSinking = false;                             // Whether the enemy has started sinking through the floor.
 	public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
+	
+	[SyncVar]
+	public int score;        // The player's score.
 
     void Awake()
     {
@@ -106,8 +109,15 @@ public class PlayerHealth : NetworkBehaviour {
         {
             // ... it should die.
             Death();
+			score++;
         }
     }
+	
+	public void TakeDamage(GameObject fromPlayer){
+		Debug.Log(fromPlayer);
+		Debug.Log(fromPlayer.GetComponentInParent<PlayerFire>());
+		fromPlayer.GetComponentInParent<PlayerFire>().AddScore();
+	}
 
 
     void Death()
@@ -194,4 +204,8 @@ public class PlayerHealth : NetworkBehaviour {
 
         
     }
+	
+	public override void OnStartClient() {
+		GameManager.RegisterPlayer(gameObject);
+	}
 }

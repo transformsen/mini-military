@@ -68,9 +68,15 @@ public class EnemyHealth : MonoBehaviour {
         if (currentHealth <= 0)
         {
             // ... the enemy is dead.
-            Death();
+            Death();			
         }
     }
+	
+	public void TakeDamage(GameObject fromPlayer){
+		Debug.Log(fromPlayer);
+		Debug.Log(fromPlayer.GetComponentInParent<PlayerFire>());
+		fromPlayer.GetComponentInParent<PlayerFire>().AddScore();
+	}
 
 
     void Death()

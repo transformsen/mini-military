@@ -12,7 +12,7 @@ public class PlayerBombAttack : NetworkBehaviour {
     public float timeBetweenBullets = .15f;        // The time between each shot.
     public float bombspeed = 9f;
     public int numberOfBombs = 5;
-
+	
     float timer;                                    // A timer to determine when to fire.
 
 	void Start(){
@@ -45,13 +45,27 @@ public class PlayerBombAttack : NetworkBehaviour {
     void CmdThrowBomb()
     {
 
-        GameObject bomb = (GameObject)Instantiate(
+       if (!isClient) //avoid to create bullet twice (here & in Rpc call) on hosting client
+            CreateBomb();
+		RpcThrowBomb();
+		//NetworkServer.Spawn(bomb);
+
+    }
+	
+	[ClientRpc]
+    public void RpcThrowBomb()
+    {
+		CreateBomb();
+    }
+	
+	void CreateBomb(){
+		 GameObject bomb = (GameObject)Instantiate(
            bombPrefab,
            bombSpawn.position,
            bombSpawn.rotation);
+		bomb.GetComponent<BombExplosion>().myparent = gameObject;
+		
         Rigidbody rb = bomb.GetComponent<Rigidbody>();        
         rb.AddForce(transform.forward * bombspeed, ForceMode.VelocityChange);
-		NetworkServer.Spawn(bomb);
-
-    }
+	}
 }

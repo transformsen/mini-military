@@ -33,6 +33,8 @@ public class PlayerFire : NetworkBehaviour
 	System.DateTime reloadStartTime = System.DateTime.Now;
 	float timer;                                    // A timer to determine when to fire.
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
+	[SyncVar]
+	public int score = 0;
 
 	
 	[SerializeField] public int maxZoom = 1;
@@ -112,8 +114,18 @@ public class PlayerFire : NetworkBehaviour
 	
 	[Command]
 	void CmdShoot(){
-		
-		
+		if (!isClient) //avoid to create bullet twice (here & in Rpc call) on hosting client
+            CreateBullet();
+		RpcShoot();
+	}
+	
+	[ClientRpc]
+    public void RpcShoot()
+    {
+		CreateBullet();
+    }
+	
+	void CreateBullet(){
 		Transform barrelEnd = weaponObj.transform.                                
                                 Find(activeWeaponName).
                                 Find("BarrelEnd").gameObject.transform;
@@ -121,11 +133,10 @@ public class PlayerFire : NetworkBehaviour
 		GameObject fireObject = (GameObject)Instantiate(
            barrelPreFab,
            barrelEnd.position,
-           barrelEnd.rotation);
-        
-		NetworkServer.Spawn(fireObject);
+           barrelEnd.rotation, barrelEnd);
+		fireObject.GetComponent<Bullets>().myparent = gameObject;
+		fireObject.GetComponent<Bullets>().Fire();
 	}
-	
 	
 	
 	public void ToggleCrossHair(bool enabled)
@@ -235,5 +246,20 @@ public class PlayerFire : NetworkBehaviour
             reloadStartTime = currentTime;
             realoadingInText = "";
         }        
+    }
+	
+	[Server]
+    public void AddScore()
+    {
+        RpcAddScore();
+    }
+ 
+    [ClientRpc]
+    void RpcAddScore()
+    {
+        if(isLocalPlayer)
+        {
+            score+=5;
+        }
     }
 }
