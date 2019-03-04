@@ -8,23 +8,25 @@ public class AvatarSelection : MonoBehaviour {
 
     public Button confirmButton;
 
-    private GameObject[] avatars;
+    public GameObject[] playerAvatarsPrefab;
+	private GameObject[] avatars = new GameObject[2];	
     private int index = 0;
 
 	void Awake() {
         index = PlayerPrefs.GetInt("SelectedAvatar");
-        avatars = new GameObject[transform.childCount];
-        for(int i=0; i<transform.childCount; i++)
+        for(int i=0; i<playerAvatarsPrefab.Length; i++)
         {
-            GameObject avatar = transform.GetChild(i).gameObject;
-            avatar.SetActive(false);
-            avatars[i] = avatar;
+            GameObject p_a = Instantiate(playerAvatarsPrefab[i], new Vector3(0, 0, 0), Quaternion.identity);
+			p_a.SetActive(false);
+			avatars[i] = p_a;
         }
         avatars[index].SetActive(true);
         if(confirmButton != null){
             confirmButton.enabled = false;
         }
 	}
+	
+	
 
     public void ToggleLeft()
     {
@@ -51,7 +53,7 @@ public class AvatarSelection : MonoBehaviour {
     public void Confirm()
     {
         PlayerPrefs.SetInt("SelectedAvatar", index);
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("LobbyScene");
     }
 
 }

@@ -35,6 +35,11 @@ public class PlayerHealth : NetworkBehaviour {
 	
 	[SyncVar]
 	public int score;        // The player's score.
+	
+	[SyncVar]
+    public string team;
+    [SyncVar]
+    public string playerName;
 
     void Awake()
     {

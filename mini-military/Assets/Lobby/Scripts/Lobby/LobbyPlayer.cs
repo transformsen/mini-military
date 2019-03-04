@@ -41,7 +41,6 @@ namespace Prototype.NetworkLobby
         //static Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         //static Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
-
         public override void OnClientEnterLobby()
         {
             base.OnClientEnterLobby();
@@ -131,11 +130,32 @@ namespace Prototype.NetworkLobby
 
             readyButton.onClick.RemoveAllListeners();
             readyButton.onClick.AddListener(OnReadyClicked);
+			
+			
 
             //when OnClientEnterLobby is called, the loval PlayerController is not yet created, so we need to redo that here to disable
             //the add button if we reach maxLocalPlayer. We pass 0, as it was already counted on OnClientEnterLobby
             if (LobbyManager.s_Singleton != null) LobbyManager.s_Singleton.OnPlayersNumberModified(0);
+						
+			int avatartIndex = PlayerPrefs.GetInt("SelectedAvatar");
+			if(isServer)
+				RpcAvatartPicked(avatartIndex);
+			else
+				CmdAvatartPicked(avatartIndex);
         }
+				
+		
+		[ClientRpc]
+		void RpcAvatartPicked(int ind){
+			CmdAvatartPicked(ind);
+		}
+		
+		[Command]
+		void CmdAvatartPicked(int ind){
+			Debug.Log("CmdAvatartPicked"+ind);
+			LobbyManager.s_Singleton.SetPlayerTypeLobby(GetComponent<NetworkIdentity>().connectionToClient, ind);
+		}
+		
 
         //This enable/disable the remove button depending on if that is the only local player or not
         public void CheckRemoveButton()

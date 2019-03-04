@@ -68,6 +68,7 @@ public class Bullets : MonoBehaviour
 			// Try and find an EnemyHealth script on the gameobject hit.
             PlayerHealth playerHealth = shootHit.collider.GetComponent<PlayerHealth>();
 			Debug.Log("Player playerHealth"+playerHealth);
+			Debug.Log("Player shootHit.collider"+shootHit.collider);
             // If the EnemyHealth component exist...
             if (playerHealth != null)
             {

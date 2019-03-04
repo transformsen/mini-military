@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
 using System.Collections;
+using System.Collections.Generic;
 
 
 namespace Prototype.NetworkLobby
@@ -42,6 +43,8 @@ namespace Prototype.NetworkLobby
         //of players, so that even client know how many player there is.
         [HideInInspector]
         public int _playerNumber = 0;
+		
+		public GameObject[] playersPreFabs;
 
         //used to disconnect a client properly when exiting the matchmaker
         [HideInInspector]
@@ -52,10 +55,26 @@ namespace Prototype.NetworkLobby
         protected ulong _currentMatchID;
 
         protected LobbyHook _lobbyHooks;
+		
+		public Button button1;
+		public Button button2;
+				
+		Dictionary<int, int> currentPlayers = new Dictionary<int, int>();
+		
+				
 
         void Start()
         {
             s_Singleton = this;
+			
+			int index = PlayerPrefs.GetInt("SelectedAvatar");
+			Debug.Log("SelectedAvatar index="+index);
+			
+			//playerPrefab = spawnPrefabs[index];		
+			//gamePlayerPrefab = spawnPrefabs[index];
+			
+			//SetPlayerTypeLobby(lobbyPlayer.GetComponent<NetworkIdentity>().connectionToClient, index);
+			
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
             currentPanel = mainMenuPanel;
 
@@ -65,7 +84,54 @@ namespace Prototype.NetworkLobby
             DontDestroyOnLoad(gameObject);
 
             SetServerInfo("Offline", "None");
+			
+			//button1.onClick.AddListener(delegate {AvatarPicker ("button1");});
+			//button2.onClick.AddListener(delegate {AvatarPicker ("button2");});
+			
+			//Invoke("SetAvatar", 5);
         }
+		
+		void SetAvatar(){
+			int index = PlayerPrefs.GetInt("SelectedAvatar");
+			SetPlayerTypeLobby(GetComponent<NetworkIdentity>().connectionToClient, index);
+		}
+		
+		void AvatarPicker(string bname){
+			int avatartIndex = 0;
+			switch(bname){
+				case "button1":
+					avatartIndex = 0;
+					break;
+				case "button2":
+					avatartIndex = 1;
+					break;
+				
+			}
+			
+			AvatartPicked(avatartIndex);
+			
+			//if(isServer)
+			//	RpcAvatartPicked(avatartIndex);
+			//else
+			//	CmdAvatartPicked(avatartIndex);
+		}
+		
+		//[ClientRpc]
+		//void RpcAvatartPicked(int ind){
+		//	CmdAvatartPicked(ind);
+		//}
+		
+		//[Command]
+		//void CmdAvatartPicked(int ind){
+		//	LobbyManager.s_Singleton.SetPlayerTypeLobby(GetComponent<NetworkIdentity>().connectionToClient, ind);
+		//}
+		
+		void AvatartPicked(int ind){
+			Debug.Log("GetComponent<lobbyPlayerPrefab>()="+lobbyPlayerPrefab.GetComponent<LobbyPlayer>().GetComponent<NetworkIdentity>());
+			Debug.Log("GetComponent<NetworkIdentity>()="+lobbyPlayerPrefab.GetComponent<LobbyPlayer>().GetComponent<NetworkIdentity>().netId);
+			
+			LobbyManager.s_Singleton.SetPlayerTypeLobby(lobbyPlayerPrefab.GetComponent<LobbyPlayer>().GetComponent<NetworkIdentity>().connectionToServer, ind);
+		}
 
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
         {
@@ -275,6 +341,9 @@ namespace Prototype.NetworkLobby
         //But OnLobbyClientConnect isn't called on hosting player. So we override the lobbyPlayer creation
         public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerControllerId)
         {
+			if(!currentPlayers.ContainsKey(conn.connectionId))
+				currentPlayers.Add(conn.connectionId, 0);
+		
             GameObject obj = Instantiate(lobbyPlayerPrefab.gameObject) as GameObject;
 
             LobbyPlayer newPlayer = obj.GetComponent<LobbyPlayer>();
@@ -328,6 +397,7 @@ namespace Prototype.NetworkLobby
         {
             //This hook allows you to apply state data from the lobby-player to the game-player
             //just subclass "LobbyHook" and add it to the lobby object.
+			
 
             if (_lobbyHooks)
                 _lobbyHooks.OnLobbyServerSceneLoadedForPlayer(this, lobbyPlayer, gamePlayer);
@@ -417,5 +487,29 @@ namespace Prototype.NetworkLobby
             ChangeTo(mainMenuPanel);
             infoPanel.Display("Client error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
         }
+		
+		 public void SetPlayerTypeLobby(NetworkConnection conn, int _type)
+		{
+			Debug.Log("SetPlayerTypeLobby _type="+_type + ", NetworkConnection="+conn);
+			if (currentPlayers.ContainsKey(conn.connectionId))
+            currentPlayers[conn.connectionId] = _type;
+		}
+	
+		public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
+		{
+						
+			int index = currentPlayers[conn.connectionId];
+			
+			Debug.Log("OnLobbyServerCreateGamePlayer index="+index+", conn.connectionId="+conn.connectionId);
+
+			GameObject _temp = (GameObject)GameObject.Instantiate(spawnPrefabs[index],
+				startPositions[conn.connectionId].position,
+				Quaternion.identity);
+
+			//NetworkServer.AddPlayerForConnection(conn, _temp, playerControllerId);
+
+			return _temp;
+		}
+		
     }
 }

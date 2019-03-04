@@ -31,8 +31,9 @@ public class ScoreManager : MonoBehaviour {
 			ArrayList players = GameManager.GetPlayers();
 			foreach(GameObject p in players){
 				int pscore = p.GetComponent<PlayerFire>().score;
+				string name = p.GetComponent<PlayerHealth>().playerName;
 				NetworkIdentity m_Identity = p.GetComponent<NetworkIdentity>();				
-				Debug.Log("netId = "+m_Identity.netId+"score="+pscore);
+				Debug.Log("netId = "+m_Identity.netId+", name="+name+", score="+pscore);
 			}
 		}
 		
