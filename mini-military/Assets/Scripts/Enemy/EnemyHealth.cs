@@ -43,7 +43,7 @@ public class EnemyHealth : MonoBehaviour {
     }
 
 
-    public void TakeDamage(int amount, Vector3 hitPoint)
+    public void TakeDamage(int amount, Vector3 hitPoint, GameObject fromPlayer)
     {
         
         // If the enemy is dead...
@@ -68,7 +68,8 @@ public class EnemyHealth : MonoBehaviour {
         if (currentHealth <= 0)
         {
             // ... the enemy is dead.
-            Death();			
+            Death();	
+			fromPlayer.GetComponentInParent<PlayerFire>().AddScore();			
         }
     }
 	
@@ -95,7 +96,6 @@ public class EnemyHealth : MonoBehaviour {
         enemyAudio.Play();
         StartSinking();
 
-        ScoreManager.score++;
     }
 
 

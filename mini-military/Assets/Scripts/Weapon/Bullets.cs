@@ -61,8 +61,8 @@ public class Bullets : MonoBehaviour
             if (enemyHealth != null)
             {
                 // ... the enemy should take damage.
-                enemyHealth.TakeDamage(damagePerShot, shootHit.point);
-				enemyHealth.TakeDamage(gameObject);
+                enemyHealth.TakeDamage(damagePerShot, shootHit.point, myparent);
+				//enemyHealth.TakeDamage(gameObject);
             }
 			
 			// Try and find an EnemyHealth script on the gameobject hit.
@@ -74,8 +74,8 @@ public class Bullets : MonoBehaviour
             {
                 Debug.Log("Player InRange");
 				// ... the enemy should take damage.
-                playerHealth.TakeDamage(damagePerShot);
-				playerHealth.TakeDamage(myparent);
+                playerHealth.TakeDamage(damagePerShot, myparent);
+				//playerHealth.TakeDamage(myparent);
 				
             }else{
 				Debug.Log("Player NULL");

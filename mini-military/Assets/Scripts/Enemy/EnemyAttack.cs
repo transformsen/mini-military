@@ -88,7 +88,7 @@ public class EnemyAttack : MonoBehaviour {
         {
             // ... damage the player.
             anim.SetTrigger("Attack");
-            playerHealth.TakeDamage(attackDamage);            
+            playerHealth.TakeDamage(attackDamage, gameObject);            
         }
     }
 }

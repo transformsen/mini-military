@@ -52,14 +52,14 @@ public class BombExplosion : MonoBehaviour {
                 EnemyHealth enemyHealth = neearByCollider.GetComponent<EnemyHealth>();
                 if(enemyHealth != null)
                 {
-                    enemyHealth.TakeDamage(100, new Vector3(0, 0, 0));
-					enemyHealth.TakeDamage(myparent);
+                    enemyHealth.TakeDamage(100, new Vector3(0, 0, 0), myparent);
+					//enemyHealth.TakeDamage(myparent);
                 }
 				PlayerHealth playerHealth = neearByCollider.GetComponent<PlayerHealth>();
                 if(playerHealth != null)
                 {
-                    playerHealth.TakeDamage(100);
-					playerHealth.TakeDamage(myparent);
+                    playerHealth.TakeDamage(100, myparent);
+					//playerHealth.TakeDamage(myparent);
                 } 				
             }
         }

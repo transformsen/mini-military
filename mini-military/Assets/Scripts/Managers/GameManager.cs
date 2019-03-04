@@ -5,18 +5,8 @@ using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 	
+    public static bool isGameOver = false;	
 	public static ArrayList players = new ArrayList();
 	public static void RegisterPlayer(GameObject player){
 		players.Add(player);
@@ -26,4 +16,13 @@ public class GameManager : MonoBehaviour
 	public static ArrayList GetPlayers(){
 		return players;
 	}
+	
+	public static void GameOver(){
+		isGameOver = true;
+		ScoreManager.isPlayerDeath = true;		
+		foreach(GameObject p in players){
+			p.SetActive(false);
+		}
+	}	
+	
 }

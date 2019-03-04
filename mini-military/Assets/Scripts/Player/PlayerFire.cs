@@ -251,7 +251,8 @@ public class PlayerFire : NetworkBehaviour
 	[Server]
     public void AddScore()
     {
-        RpcAddScore();
+		score+=1;
+        //RpcAddScore();		
     }
  
     [ClientRpc]
@@ -259,7 +260,7 @@ public class PlayerFire : NetworkBehaviour
     {
         if(isLocalPlayer)
         {
-            score+=5;
+            score+=1;
         }
     }
 }

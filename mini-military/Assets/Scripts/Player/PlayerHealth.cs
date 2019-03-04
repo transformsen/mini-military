@@ -34,24 +34,23 @@ public class PlayerHealth : NetworkBehaviour {
 	public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
 	
 	[SyncVar]
-	public int score;        // The player's score.
-	
-	[SyncVar]
     public string team;
     [SyncVar]
-    public string playerName;
+    public string playerName = "Soldier";
+	[SyncVar]
+    public int death = 0;
 
     void Awake()
     {
 		if (isLocalPlayer)
         {
-            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();			
         }
         // Setting up the references.
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
-        playerMovement = GetComponent<PlayerMovement>();
-        playerFire = GetComponent<PlayerFire>();
+		playerMovement = GetComponent<PlayerMovement>();
+		playerFire = GetComponent<PlayerFire>();
 		
 		currentHealth = startingHealth;
     }
@@ -60,23 +59,6 @@ public class PlayerHealth : NetworkBehaviour {
     void Update()
     {
 		
-		
-        // If the player has just been damaged...
-        if (damaged)
-        {
-            // ... set the colour of the damageImage to the flash colour.
-            damageImage.color = flashColour;
-        }
-        // Otherwise...
-        else
-        {
-            // ... transition the colour back to clear.
-            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-        }
-
-        // Reset the damaged flag.
-        damaged = false;	
-
 		// If the enemy should be sinking...
         if (isSinking)
         {
@@ -87,105 +69,120 @@ public class PlayerHealth : NetworkBehaviour {
     }
 
 	void OnChangeHealth(int health){
-		healthSlider.value = health;
+		healthSlider.value = health;		
 	}
 	
-    public void TakeDamage(int amount)
+	
+	
+	[Server]
+    public void TakeDamage(int amount, GameObject fromPlayer)
     {
 		
 		Debug.Log("Player TakeDamage"+amount);
 		if (!isServer)
-        {
-			Debug.Log("Server");			
+        {		
             return;
         }
-        // Set the damaged flag so the screen will flash.
-        damaged = true;
-
-        // Reduce the current health by the damage amount.
+         // Reduce the current health by the damage amount.
         currentHealth -= amount;
-
-        // Play the hurt sound effect.
-		playerAudio.clip = hurtClip;
-        playerAudio.Play();
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
         if (currentHealth <= 0)
         {
+			AddScore(fromPlayer);
             // ... it should die.
-            Death();
-			score++;
+            Death();			
         }
+		RpcShowHitEffects();
     }
 	
-	public void TakeDamage(GameObject fromPlayer){
-		Debug.Log(fromPlayer);
-		Debug.Log(fromPlayer.GetComponentInParent<PlayerFire>());
-		fromPlayer.GetComponentInParent<PlayerFire>().AddScore();
+	[ClientRpc]
+	void RpcShowHitEffects(){
+		StartCoroutine(ShowHitEffects());
 	}
-
-
+	
+	
+	IEnumerator ShowHitEffects(){
+		if (isLocalPlayer)
+        {
+			damageImage.color = flashColour;
+			yield return new WaitForSeconds(0.4f);
+			damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+			
+			// Play the hurt sound effect.
+			playerAudio.clip = hurtClip;
+			playerAudio.Play();		
+		}
+	}
+	
+	//Adding the score for the player object who fiered. This will run only in server.
+	[Server]
+	void AddScore(GameObject fromPlayer){
+		PlayerFire playerFired = fromPlayer.GetComponentInParent<PlayerFire>();
+		if(playerFired != null){
+			playerFired.AddScore();
+		}
+	}
+	
+	[Server]
     void Death()
-    {
-		
-		Debug.Log("Death");
-		
-        // Set the death flag so this function won't be called again.
-        isDead = true;
-
-        // Turn off any remaining shooting effects.
-        //playerShooting.DisableEffects();
-
-        // Tell the animator that the player is dead.
-        //anim.SetTrigger("death");
-
+    {   
+		death++;
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         playerAudio.clip = deathClip;
         playerAudio.Play();
-
-        // Turn off the movement and shooting scripts.
-       //playerMovement.enabled = false;
-       //playerShooting.enabled = false;
-
-        //Drop weapon from hand
-        //playerMovement.DetachWeapon();
 		
-        if (destroyOnDeath)
-        {
-            //Destroy(gameObject);
-        }
+		EnableLocalPlayer(false);
+		//Disable Player Effect on the Client
+		RpcDisablePlayer();
 		
-		currentHealth = startingHealth;
+		//Heath Back To Normal
+		currentHealth = startingHealth;		
 		
-		RpcRespawn();
+		StartCoroutine(ReSpawn());
     }
 	
+	[ClientRpc]
+	void RpcDisablePlayer(){
+		EnableLocalPlayer(false);
+	}
 	
+	void EnableLocalPlayer(bool enable){
+		if (isLocalPlayer)
+        {
+			playerMovement.enabled = enable;
+			playerFire.enabled = enable;
+			StartCoroutine(InformScoreManger(enable));		
+		}
+		if(!enable)
+			transform.position = new Vector3(0, -20f, 0);
+	}
+	
+	IEnumerator InformScoreManger(bool enable){
+		yield return new WaitForSeconds(0.1f);
+		ScoreManager.isPlayerDeath = !enable;
+	}
+	
+	IEnumerator ReSpawn(){
+		yield return new WaitForSeconds(10f);
+		EnableLocalPlayer(true);
+		RpcRespawn();
+	}
 	
 	[ClientRpc]
     void RpcRespawn()
     {
-		Debug.Log("RpcRespawn");
-		//anim.SetTrigger("death");
-		//StartSinking();
-		//gameObject.SetActive(false);
-		transform.position = new Vector3(0, -20f, 0);
+		EnableLocalPlayer(true);
+		
         if (isLocalPlayer)
         {
-            Invoke("RespawnLocalPlayer", 10);
+           RespawnLocalPlayer();
         }
     }
 	
 	void RespawnLocalPlayer(){
 		Debug.Log("RespawnLocalPlayer");
-		//GetComponent<Rigidbody>().isKinematic = false;
-		//isSinking = false;
-		//anim.ResetTrigger("death");
-		//anim.SetBool("Reset", true);
-		//gameObject.SetActive(true);
-		
-		isDead = false;
-		
+	
 		// Set the spawn point to origin as a default value
 		Vector3 spawnPoint = Vector3.zero;
 
@@ -198,17 +195,7 @@ public class PlayerHealth : NetworkBehaviour {
 		// Set the player’s position to the chosen spawn point
 		transform.position = spawnPoint;
 	}
-	
-	public void StartSinking()
-    {
-       
-        GetComponent<Rigidbody>().isKinematic = true;
-
-        // The enemy should no sink.
-        isSinking = true;
-
-        
-    }
+		
 	
 	public override void OnStartClient() {
 		GameManager.RegisterPlayer(gameObject);

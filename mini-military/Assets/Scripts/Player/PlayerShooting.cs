@@ -219,7 +219,7 @@ public class PlayerShooting : MonoBehaviour {
             if (enemyHealth != null)
             {
                 // ... the enemy should take damage.
-                enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+                //enemyHealth.TakeDamage(damagePerShot, shootHit.point);
             }
 			
 			// Try and find an EnemyHealth script on the gameobject hit.
@@ -230,7 +230,7 @@ public class PlayerShooting : MonoBehaviour {
             {
                 Debug.Log("Player InRange");
 				// ... the enemy should take damage.
-                playerHealth.TakeDamage(damagePerShot);
+                //playerHealth.TakeDamage(damagePerShot);
 				
             }else{
 				Debug.Log("Player NULL");
