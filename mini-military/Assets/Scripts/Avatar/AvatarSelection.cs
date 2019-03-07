@@ -16,7 +16,7 @@ public class AvatarSelection : MonoBehaviour {
         index = PlayerPrefs.GetInt("SelectedAvatar");
         for(int i=0; i<playerAvatarsPrefab.Length; i++)
         {
-            GameObject p_a = Instantiate(playerAvatarsPrefab[i], new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject p_a = Instantiate(playerAvatarsPrefab[i], new Vector3(0, 0, 0), Quaternion.Euler(0,50,0));
 			p_a.SetActive(false);
 			avatars[i] = p_a;
         }

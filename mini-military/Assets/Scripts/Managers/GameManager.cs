@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 	}
 	
 	public static void GameOver(){
-		isGameOver = true;
+		//isGameOver = true;
 		ScoreManager.isPlayerDeath = true;		
 		foreach(GameObject p in players){
 			p.SetActive(false);

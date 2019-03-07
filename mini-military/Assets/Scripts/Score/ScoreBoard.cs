@@ -24,7 +24,7 @@ public class ScoreBoard : MonoBehaviour
 		 ArrayList players = GameManager.GetPlayers();
 		foreach(GameObject p in players){
 			
-			if (p.activeSelf == true){
+			//if (p.activeSelf == true){
 				string name = p.GetComponent<PlayerHealth>().playerName;
 				int score = p.GetComponent<PlayerFire>().score;
 				int death = p.GetComponent<PlayerHealth>().death;
@@ -34,7 +34,7 @@ public class ScoreBoard : MonoBehaviour
 				if(item != null){
 					item.SetUp(name, score, death);
 				}
-			}				
+			//}				
 		}
    }
    
