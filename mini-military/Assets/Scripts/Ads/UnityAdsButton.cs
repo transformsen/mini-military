@@ -10,6 +10,12 @@ public class UnityAdsButton : MonoBehaviour
     public Button confirmButton;
     private Button adButton;
     private string gameId = "1234567";
+	
+	private bool blink = false;
+	private int counter = 0;
+	private int blinkSpeed = 10;
+	
+	Animator anim;
 
     //#if UNITY_IOS
     //   private string gameId = "1234567";
@@ -20,6 +26,7 @@ public class UnityAdsButton : MonoBehaviour
     void Start()
     {
         adButton = GetComponent<Button>();
+		anim = GetComponent<Animator>();
         if (adButton)
         {
             adButton.onClick.AddListener(ShowAd);
@@ -37,7 +44,14 @@ public class UnityAdsButton : MonoBehaviour
         {
             adButton.interactable = Monetization.IsReady(placementId);
         }
-        confirmButton.enabled = true;
+		
+		if(counter > blinkSpeed)
+		 {
+			 blink = !blink;
+			 counter = 0;
+		 }
+		 
+		 counter++;
     }
 
     void ShowAd()
@@ -51,6 +65,7 @@ public class UnityAdsButton : MonoBehaviour
     void HandleShowResult(ShowResult result)
     {
         Debug.Log("Results show " + result.ToString());
+		confirmButton.enabled = true;
         
         if (result == ShowResult.Finished)
         {
@@ -65,4 +80,14 @@ public class UnityAdsButton : MonoBehaviour
             Debug.LogError("Video failed to show");
         }
     }
+	
+	void OnGUI()
+	{
+		  if(blink)
+			 //GetComponent<Image>().color = Color.red;
+			anim.SetBool("fadeIn", true);
+		  else 
+			anim.SetBool("fadeIn", false);
+			 //GetComponent<Image>().color = Color.green;
+	}
 }

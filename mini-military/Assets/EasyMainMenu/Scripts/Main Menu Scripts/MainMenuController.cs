@@ -154,7 +154,7 @@ public class MainMenuController : MonoBehaviour {
 	}
 	
 	public void Survival(){
-		playGame("LobbyScene");
+		playGame("GameScene");
 	}
 
     public void playGame(string gameType)

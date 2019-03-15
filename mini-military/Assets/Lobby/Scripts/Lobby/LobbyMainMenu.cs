@@ -35,8 +35,11 @@ namespace Prototype.NetworkLobby
         {
             lobbyManager.ChangeTo(lobbyPanel);
 
-            lobbyManager.networkAddress = ipInput.text;
-            lobbyManager.StartClient();
+            //lobbyManager.networkAddress = ipInput.text;
+            //lobbyManager.StartClient();
+			
+			lobbyManager.lobbyNetworkDiscovery.Initialize();
+            lobbyManager.lobbyNetworkDiscovery.StartAsClient();
 
             lobbyManager.backDelegate = lobbyManager.StopClientClbk;
             lobbyManager.DisplayIsConnecting();

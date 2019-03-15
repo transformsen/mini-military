@@ -55,12 +55,10 @@ namespace Prototype.NetworkLobby
         protected ulong _currentMatchID;
 
         protected LobbyHook _lobbyHooks;
-		
-		public Button button1;
-		public Button button2;
 				
 		Dictionary<int, int> currentPlayers = new Dictionary<int, int>();
 		
+		public LobbyNetworkDiscovery lobbyNetworkDiscovery;
 				
 
         void Start()
@@ -76,6 +74,8 @@ namespace Prototype.NetworkLobby
 			//SetPlayerTypeLobby(lobbyPlayer.GetComponent<NetworkIdentity>().connectionToClient, index);
 			
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
+			lobbyNetworkDiscovery = GetComponent<LobbyNetworkDiscovery>();
+			
             currentPanel = mainMenuPanel;
 
             backButton.gameObject.SetActive(false);
@@ -85,10 +85,7 @@ namespace Prototype.NetworkLobby
 
             SetServerInfo("Offline", "None");
 			
-			//button1.onClick.AddListener(delegate {AvatarPicker ("button1");});
-			//button2.onClick.AddListener(delegate {AvatarPicker ("button2");});
 			
-			//Invoke("SetAvatar", 5);
         }
 		
 		void SetAvatar(){
@@ -96,43 +93,7 @@ namespace Prototype.NetworkLobby
 			SetPlayerTypeLobby(GetComponent<NetworkIdentity>().connectionToClient, index);
 		}
 		
-		void AvatarPicker(string bname){
-			int avatartIndex = 0;
-			switch(bname){
-				case "button1":
-					avatartIndex = 0;
-					break;
-				case "button2":
-					avatartIndex = 1;
-					break;
-				
-			}
-			
-			AvatartPicked(avatartIndex);
-			
-			//if(isServer)
-			//	RpcAvatartPicked(avatartIndex);
-			//else
-			//	CmdAvatartPicked(avatartIndex);
-		}
 		
-		//[ClientRpc]
-		//void RpcAvatartPicked(int ind){
-		//	CmdAvatartPicked(ind);
-		//}
-		
-		//[Command]
-		//void CmdAvatartPicked(int ind){
-		//	LobbyManager.s_Singleton.SetPlayerTypeLobby(GetComponent<NetworkIdentity>().connectionToClient, ind);
-		//}
-		
-		void AvatartPicked(int ind){
-			Debug.Log("GetComponent<lobbyPlayerPrefab>()="+lobbyPlayerPrefab.GetComponent<LobbyPlayer>().GetComponent<NetworkIdentity>());
-			Debug.Log("GetComponent<NetworkIdentity>()="+lobbyPlayerPrefab.GetComponent<LobbyPlayer>().GetComponent<NetworkIdentity>().netId);
-			
-			LobbyManager.s_Singleton.SetPlayerTypeLobby(lobbyPlayerPrefab.GetComponent<LobbyPlayer>().GetComponent<NetworkIdentity>().connectionToServer, ind);
-		}
-
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
         {
             if (SceneManager.GetSceneAt(0).name == lobbyScene)
@@ -305,6 +266,9 @@ namespace Prototype.NetworkLobby
             ChangeTo(lobbyPanel);
             backDelegate = StopHostClbk;
             SetServerInfo("Hosting", networkAddress);
+			
+			lobbyNetworkDiscovery.Initialize();
+            lobbyNetworkDiscovery.StartAsServer();
         }
 
 		public override void OnMatchCreate(bool success, string extendedInfo, MatchInfo matchInfo)
@@ -490,24 +454,17 @@ namespace Prototype.NetworkLobby
 		
 		 public void SetPlayerTypeLobby(NetworkConnection conn, int _type)
 		{
-			Debug.Log("SetPlayerTypeLobby _type="+_type + ", NetworkConnection="+conn);
 			if (currentPlayers.ContainsKey(conn.connectionId))
             currentPlayers[conn.connectionId] = _type;
 		}
 	
 		public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
 		{
-						
 			int index = currentPlayers[conn.connectionId];
 			
-			Debug.Log("OnLobbyServerCreateGamePlayer index="+index+", conn.connectionId="+conn.connectionId);
-
 			GameObject _temp = (GameObject)GameObject.Instantiate(spawnPrefabs[index],
 				startPositions[conn.connectionId].position,
 				Quaternion.identity);
-
-			//NetworkServer.AddPlayerForConnection(conn, _temp, playerControllerId);
-
 			return _temp;
 		}
 		
