@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-//using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerBombAttack : NetworkBehaviour {
 
@@ -32,7 +32,7 @@ public class PlayerBombAttack : NetworkBehaviour {
         }
         timer += Time.deltaTime;
         
-        if (Input.GetButtonDown("Fire3") && timer >= timeBetweenBullets && numberOfBombs >0)
+        if (CrossPlatformInputManager.GetButtonDown("Fire3") && timer >= timeBetweenBullets && numberOfBombs >0)
         {
             numberOfBombs--;
             CmdThrowBomb();

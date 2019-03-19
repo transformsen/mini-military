@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
 
 public class PlayerFire : NetworkBehaviour
@@ -90,7 +90,7 @@ public class PlayerFire : NetworkBehaviour
         timer += Time.deltaTime;
 
         // If the Fire2 button is being press and it's time to fire...
-        if (Input.GetButton("Fire2") && timer >= timeBetweenBullets)
+        if (CrossPlatformInputManager.GetButton("Fire2") && timer >= timeBetweenBullets)
         {
 			Debug.Log("Fire");
             ShootAnim(true);

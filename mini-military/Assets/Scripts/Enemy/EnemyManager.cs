@@ -17,6 +17,10 @@ public class EnemyManager : NetworkBehaviour {
     {
         
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
+		string gameType = PlayerPrefs.GetString("GameType");
+	   if("SL".Equals(gameType)){
+		   spawnTime = spawnTime/2;
+	   }
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
 

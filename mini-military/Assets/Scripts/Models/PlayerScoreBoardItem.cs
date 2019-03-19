@@ -13,8 +13,11 @@ public class PlayerScoreBoardItem : MonoBehaviour
 	public Text deathsText;
 	
 	public void SetUp(string playerName, int kills, int deaths){
+		if(playerName == null || playerName.Equals("")){
+			playerName = "Soldier";
+		}
 		playerNameText.text = playerName;
-		killsText.text = ""+kills;
-		deathsText.text = ""+deaths;		
+		killsText.text = "+"+kills;
+		deathsText.text = "-"+deaths;		
 	}
 }

@@ -19,13 +19,14 @@ public class FirstAidManager : NetworkBehaviour {
 
     void Spawn()
     {
-        
-        // Find a random index between zero and one less than the number of spawn points.
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+		if(NetworkServer.active){        
+			// Find a random index between zero and one less than the number of spawn points.
+			int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
-        // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-		GameObject firstAidKit = Instantiate(firstAid, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-		NetworkServer.Spawn(firstAidKit);
-        Destroy(firstAidKit, lifeTime);
+			// Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
+			GameObject firstAidKit = Instantiate(firstAid, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+			NetworkServer.Spawn(firstAidKit);
+			Destroy(firstAidKit, lifeTime);
+		}
     }
 }

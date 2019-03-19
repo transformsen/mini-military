@@ -1688,7 +1688,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114635608309574241}
-        m_MethodName: openStartGameOptions
+        m_MethodName: goToPurChase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

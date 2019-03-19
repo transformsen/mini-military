@@ -149,11 +149,17 @@ public class MainMenuController : MonoBehaviour {
 		StartCoroutine(Load("AvatarSelectionScene"));
 	}
 	
+	public void goToPurChase(){
+		StartCoroutine(Load("PurchaseScene"));
+	}
+	
 	public void DeathMatch(){
+		PlayerPrefs.SetString("GameType", "DM");
 		playGame("LobbyScene");
 	}
 	
 	public void Survival(){
+		PlayerPrefs.SetString("GameType", "SL");
 		playGame("GameScene");
 	}
 

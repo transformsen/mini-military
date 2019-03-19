@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 
 public class CameraFollow : MonoBehaviour {
@@ -34,7 +34,7 @@ public class CameraFollow : MonoBehaviour {
     void Update()
     {
         
-        if (Input.GetButtonDown("Jump") ){
+        if (CrossPlatformInputManager.GetButtonDown("Jump") ){
             zoomCalCulation();
             zoomSound.Play();
         }

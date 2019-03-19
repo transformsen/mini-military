@@ -35,6 +35,7 @@ namespace Prototype.NetworkLobby
         protected RectTransform currentPanel;
 
         public Button backButton;
+		public Button backToStartButton;
 
         public Text statusInfo;
         public Text hostInfo;
@@ -64,27 +65,18 @@ namespace Prototype.NetworkLobby
         void Start()
         {
             s_Singleton = this;
-			
-			int index = PlayerPrefs.GetInt("SelectedAvatar");
-			Debug.Log("SelectedAvatar index="+index);
-			
-			//playerPrefab = spawnPrefabs[index];		
-			//gamePlayerPrefab = spawnPrefabs[index];
-			
-			//SetPlayerTypeLobby(lobbyPlayer.GetComponent<NetworkIdentity>().connectionToClient, index);
-			
+			currentPanel = mainMenuPanel;
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
-			lobbyNetworkDiscovery = GetComponent<LobbyNetworkDiscovery>();
-			
-            currentPanel = mainMenuPanel;
+			lobbyNetworkDiscovery = GetComponent<LobbyNetworkDiscovery>();	
+            
 
             backButton.gameObject.SetActive(false);
+			backToStartButton.gameObject.SetActive(true);
             GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
 
-            SetServerInfo("Offline", "None");
-			
+            SetServerInfo("Offline", "None");			
 			
         }
 		
@@ -96,7 +88,7 @@ namespace Prototype.NetworkLobby
 		
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
         {
-            if (SceneManager.GetSceneAt(0).name == lobbyScene)
+			if (SceneManager.GetSceneAt(0).name == lobbyScene)
             {
                 if (topPanel.isInGame)
                 {
@@ -161,10 +153,12 @@ namespace Prototype.NetworkLobby
             if (currentPanel != mainMenuPanel)
             {
                 backButton.gameObject.SetActive(true);
+				backToStartButton.gameObject.SetActive(false);
             }
             else
             {
                 backButton.gameObject.SetActive(false);
+				backToStartButton.gameObject.SetActive(true);
                 SetServerInfo("Offline", "None");
                 _isMatchmaking = false;
             }
@@ -190,6 +184,15 @@ namespace Prototype.NetworkLobby
             backDelegate();
 			topPanel.isInGame = false;
         }
+		
+		public void Quit()
+		{
+			#if UNITY_EDITOR
+				UnityEditor.EditorApplication.isPlaying = false;
+			#else
+				Application.Quit();
+			#endif
+		}
 
         // ----------------- Server management
 
@@ -219,7 +222,6 @@ namespace Prototype.NetworkLobby
             {
                 StopHost();
             }
-
             
             ChangeTo(mainMenuPanel);
         }
@@ -267,6 +269,7 @@ namespace Prototype.NetworkLobby
             backDelegate = StopHostClbk;
             SetServerInfo("Hosting", networkAddress);
 			
+			//lobbyNetworkDiscovery.StopBroadcast();
 			lobbyNetworkDiscovery.Initialize();
             lobbyNetworkDiscovery.StartAsServer();
         }

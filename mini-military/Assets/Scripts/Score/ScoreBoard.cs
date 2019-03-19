@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+using Prototype.NetworkLobby;
 
 public class ScoreBoard : MonoBehaviour
 {
@@ -12,19 +15,36 @@ public class ScoreBoard : MonoBehaviour
    [SerializeField]
    Transform playerScoreList;
    
-   void OnEnable(){
+   [SerializeField]
+   public RectTransform reSpawn;
+   
+   [SerializeField]
+   public RectTransform highScoreImage;
+   
+   [SerializeField]
+   public Text highScoreText;
+
+   
+   void OnEnable(){	   
 	   StartCoroutine(UpdateScoreBoard());	
 	   if(GameManager.isGameOver){
+			reSpawn.gameObject.SetActive(false);
 			StartCoroutine(GoToLobby());
 	   }
 	}
    
    IEnumerator UpdateScoreBoard(){
-		yield return new WaitForSeconds(3f);
-		 ArrayList players = GameManager.GetPlayers();
+	   reSpawn.gameObject.SetActive(true);
+		yield return new WaitForSeconds(0.8f);
+		ArrayList players = GameManager.GetPlayers();
+		string gameType = PlayerPrefs.GetString("GameType");
+		
+		IComparer scoreComparator = new ScoreComparator();
+		players.Sort( scoreComparator );
+			
 		foreach(GameObject p in players){
 			
-			//if (p.activeSelf == true){
+			if (p !=null){				
 				string name = p.GetComponent<PlayerHealth>().playerName;
 				int score = p.GetComponent<PlayerFire>().score;
 				int death = p.GetComponent<PlayerHealth>().death;
@@ -34,7 +54,19 @@ public class ScoreBoard : MonoBehaviour
 				if(item != null){
 					item.SetUp(name, score, death);
 				}
-			//}				
+				if("SL".Equals(gameType)){
+					int prevHighest = PlayerPrefs.GetInt("HighScore");
+					if(score > prevHighest){
+						highScoreImage.gameObject.SetActive(true);
+						highScoreText.text = ""+score;
+						PlayerPrefs.SetInt("HighScore",score);
+					}else{
+						highScoreImage.gameObject.SetActive(false);
+					}
+				}else{
+					highScoreImage.gameObject.SetActive(false);
+				}
+			}				
 		}
    }
    
@@ -46,6 +78,15 @@ public class ScoreBoard : MonoBehaviour
    
    IEnumerator GoToLobby(){
 	   yield return new WaitForSeconds(8f);
-	   SceneManager.LoadScene("LobbyScene");
+	   GameManager.isGameOver = false;
+	   ScoreManager.isPlayerDeath = false;	
+	   string gameType = PlayerPrefs.GetString("GameType");
+	   if("DM".Equals(gameType)){
+		   LobbyManager.s_Singleton.SendReturnToLobby();
+	   }else{
+		   SingleNetworkHUD.started = false;
+		   NetworkManager.singleton.StopHost();
+	   }
    }
+ 
 }

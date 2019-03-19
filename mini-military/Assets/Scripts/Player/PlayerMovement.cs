@@ -1,7 +1,7 @@
 ﻿using DigitalRubyShared;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
 
 public class PlayerMovement : NetworkBehaviour {
@@ -60,8 +60,8 @@ public class PlayerMovement : NetworkBehaviour {
             return;
         }
         // Store the input axes.
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+        float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
         if (m_Cam != null)
         {

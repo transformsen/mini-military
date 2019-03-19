@@ -37,7 +37,7 @@ namespace Prototype.NetworkLobby
 
             //lobbyManager.networkAddress = ipInput.text;
             //lobbyManager.StartClient();
-			
+			//lobbyManager.lobbyNetworkDiscovery.StopBroadcast();
 			lobbyManager.lobbyNetworkDiscovery.Initialize();
             lobbyManager.lobbyNetworkDiscovery.StartAsClient();
 

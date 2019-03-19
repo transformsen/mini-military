@@ -15,10 +15,13 @@ public class TimeManager : NetworkBehaviour
  
      TimeManager serverTimer;
 	
+	bool timeUp = false;
+	
     // Start is called before the first frame update
     void Start()
     {
 		
+		 timeUp = false;
 		 
          if(isServer){ // For the host to do: use the timer and control the time.				 
 			serverTimer = this;
@@ -37,6 +40,7 @@ public class TimeManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+		
 		if(masterTimer){ //Only the MASTER timer controls the time
 			timeLeft -= Time.deltaTime;
 		}
@@ -61,7 +65,8 @@ public class TimeManager : NetworkBehaviour
 			string minutesDisplay = (minutes > 9) ? ""+minutes : "0"+minutes;
 			string secondsDisplay = (seconds > 9) ? ""+seconds : "0"+seconds;
 			counterText.text = minutesDisplay+":"+secondsDisplay;
-		}else{
+		}else if(!timeUp){
+			 timeUp = true;
              GameManager.GameOver();
 			 counterText.text = "";
          }
