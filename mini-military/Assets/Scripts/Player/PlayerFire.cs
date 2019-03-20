@@ -201,13 +201,20 @@ public class PlayerFire : NetworkBehaviour
 	
 	void SetPower(string weaponName){
 		
-		numberOfBulletsLeft = weaponBareel[weaponName].totalNumberOfBullets;
 		barrelPreFab = weaponBareel[weaponName].barrelPreFab;                
 		timeBetweenBullets = weaponBareel[weaponName].timeBetweenBullets;   
-		totalNumberOfBullets = weaponBareel[weaponName].totalNumberOfBullets;      
+		totalNumberOfBullets = weaponBareel[weaponName].totalNumberOfBullets;
+		if(PlayerPrefs.GetInt("ExtraBullet") == 1 ){
+			totalNumberOfBullets = totalNumberOfBullets+5;
+		}
+		numberOfBulletsLeft	= totalNumberOfBullets;	
 		imageforWeanpon = weaponBareel[weaponName].imageforWeanpon;
-		range = weaponBareel[weaponName].range;
+		range = weaponBareel[weaponName].range;		
 		maxZoom = weaponBareel[weaponName].maxZoom;
+		
+		if(maxZoom > 1 && PlayerPrefs.GetInt("ExtraZoom") == 1 ){
+			maxZoom = maxZoom+1;
+		}
 	}
 	
 	

@@ -776,7 +776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &568313081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -983,8 +983,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa01e1e412892e640bac177677415623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1667292058322722, guid: 52bc305cf30f201458a19e3ebf4b1e0e, type: 3}
-  spawnTime: 1
+  enemies:
+  - {fileID: 1667292058322722, guid: 52bc305cf30f201458a19e3ebf4b1e0e, type: 3}
+  - {fileID: 1321073517112112, guid: e48723de349ae244b873ffea4066c9fd, type: 3}
+  spawnTime: 10
   spawnPoints:
   - {fileID: 1873559313}
   - {fileID: 669223278}
@@ -3738,6 +3740,7 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1667292058322722, guid: 52bc305cf30f201458a19e3ebf4b1e0e, type: 3}
+  - {fileID: 1321073517112112, guid: e48723de349ae244b873ffea4066c9fd, type: 3}
   - {fileID: 1331120343550058, guid: e5900401287f33b448531508896b185b, type: 3}
   - {fileID: 7591910946843705044, guid: e5190a520718b914c8d578e9ec91c7a1, type: 3}
   - {fileID: 1198362129135812, guid: 55b76a9e4da901049b0832e2e57295c0, type: 3}

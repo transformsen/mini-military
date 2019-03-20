@@ -6,8 +6,8 @@ using UnityEngine.Networking;
 public class EnemyManager : NetworkBehaviour {
 
     PlayerHealth playerHealth;       // Reference to the player's heatlh.
-    public GameObject enemy;                // The enemy prefab to be spawned.
-    public float spawnTime = 3f;            // How long between each spawn.
+    public GameObject[] enemies;                // The enemy prefab to be spawned.
+    public float spawnTime = 10f;            // How long between each spawn.
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
     GameObject player;
     
@@ -19,7 +19,7 @@ public class EnemyManager : NetworkBehaviour {
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 		string gameType = PlayerPrefs.GetString("GameType");
 	   if("SL".Equals(gameType)){
-		   spawnTime = spawnTime/2;
+		   spawnTime = spawnTime/3;
 	   }
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
@@ -37,6 +37,7 @@ public class EnemyManager : NetworkBehaviour {
                 // ... exit the function.
                 return;
             }
+			GameObject enemy = enemies[Random.Range(0, enemies.Length)];
 
             // Find a random index between zero and one less than the number of spawn points.
             int spawnPointIndex = Random.Range(0, spawnPoints.Length);

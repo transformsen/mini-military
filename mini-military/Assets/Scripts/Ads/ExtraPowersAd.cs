@@ -33,6 +33,10 @@ public class ExtraPowersAd : MonoBehaviour
 		PlayerPrefs.SetInt("ExtraFirstAid", 1);
 	}
 	
+	public void ExtraBomb(){
+		PlayerPrefs.SetInt("ExtraBomb1", 1);
+	}
+	
 	public void Back(){
 		SceneManager.LoadScene("StartScene");
 	}

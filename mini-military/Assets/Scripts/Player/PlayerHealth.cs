@@ -19,6 +19,9 @@ public class PlayerHealth : NetworkBehaviour {
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
     PlayerMovement playerMovement;                              // Reference to the player's movement.
+	ParticleSystem hitParticles;                // Reference to the particle system that plays when the player is damaged.
+	public GameObject deathParticlesGO;                // Reference to the particle system that plays when the player is death.
+	
     PlayerFire playerFire;                              // Reference to the PlayerShooting script.
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
@@ -44,13 +47,17 @@ public class PlayerHealth : NetworkBehaviour {
     {
 		if (isLocalPlayer)
         {
-            spawnPoints = FindObjectsOfType<NetworkStartPosition>();			
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+			if(PlayerPrefs.GetInt("ExtraHealth") == 1 ){
+				startingHealth = startingHealth + 10;
+			}
         }
         // Setting up the references.
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
 		playerMovement = GetComponent<PlayerMovement>();
 		playerFire = GetComponent<PlayerFire>();
+		hitParticles = GetComponentInChildren<ParticleSystem>();
 		
 		currentHealth = startingHealth;
     }
@@ -93,7 +100,9 @@ public class PlayerHealth : NetworkBehaviour {
             // ... it should die.
             Death();			
         }
-		RpcShowHitEffects();
+		hitParticles.Play();
+		//RpcShowHitEffects();
+		
     }
 	
 	[ClientRpc]
@@ -131,6 +140,8 @@ public class PlayerHealth : NetworkBehaviour {
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         playerAudio.clip = deathClip;
         playerAudio.Play();
+		deathParticlesGO.SetActive(true);
+		
 		
 		EnableLocalPlayer(false);
 		//Disable Player Effect on the Client
@@ -140,6 +151,7 @@ public class PlayerHealth : NetworkBehaviour {
 		currentHealth = startingHealth;		
 		
 		StartCoroutine(ReSpawn());
+		
     }
 	
 	[ClientRpc]
@@ -150,6 +162,7 @@ public class PlayerHealth : NetworkBehaviour {
 	void EnableLocalPlayer(bool enable){
 		if (isLocalPlayer)
         {
+			deathParticlesGO.SetActive(!enable);
 			playerMovement.enabled = enable;
 			playerFire.enabled = enable;
 			StartCoroutine(InformScoreManger(enable));		
