@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour {
     public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
     public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
     public AudioClip deathClip;                 // The sound to play when the enemy dies.
+	public GameObject deathParticlesGO;         // Reference to the particle system that plays when the enemy is death.
 
 
     Animator anim;                              // Reference to the animator.
@@ -87,13 +88,13 @@ public class EnemyHealth : MonoBehaviour {
 
         // Turn the collider into a trigger so shots can pass through it.
         capsuleCollider.isTrigger = true;
-
+		deathParticlesGO.SetActive(true);
+		enemyAudio.clip = deathClip;
+        enemyAudio.Play();
         // Tell the animator that the enemy is dead.
         anim.SetTrigger("Dead");
 
-        // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
-        enemyAudio.clip = deathClip;
-        enemyAudio.Play();
+        // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).        
         StartSinking();
 
     }

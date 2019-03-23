@@ -865,8 +865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 2855937701172151199}
   damageImage: {fileID: 2855937701410028952}
-  deathClip: {fileID: 8300000, guid: 5ed017b53ef416742995de0c6900aafb, type: 3}
-  hurtClip: {fileID: 0}
+  deathClip: {fileID: 8300000, guid: 43e5aa475a8e83f4b9065a7d1ee86565, type: 3}
+  hurtClip: {fileID: 8300000, guid: ea07086c63d532f4daca4abc8afdc721, type: 3}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
   deathParticlesGO: {fileID: 6464248982389143990}
@@ -6012,6 +6012,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2980420920951066277, guid: 070a5f2ceb734f84bba2234d89eb6c81,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2980420921122244611, guid: 070a5f2ceb734f84bba2234d89eb6c81,
         type: 3}
       propertyPath: m_Layer
@@ -6022,7 +6027,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2980420919490102496, guid: 070a5f2ceb734f84bba2234d89eb6c81,
+    - target: {fileID: 2980420919638570157, guid: 070a5f2ceb734f84bba2234d89eb6c81,
         type: 3}
       propertyPath: m_Layer
       value: 0
@@ -6032,17 +6037,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2980420919638570157, guid: 070a5f2ceb734f84bba2234d89eb6c81,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2980420920590636366, guid: 070a5f2ceb734f84bba2234d89eb6c81,
         type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2980420920951066277, guid: 070a5f2ceb734f84bba2234d89eb6c81,
+    - target: {fileID: 2980420919490102496, guid: 070a5f2ceb734f84bba2234d89eb6c81,
         type: 3}
       propertyPath: m_Layer
       value: 0

@@ -125,16 +125,16 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d2025f03d783e364bb3a8b1e102679c3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ea07086c63d532f4daca4abc8afdc721, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.49
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
+  Priority: 156
+  DopplerLevel: 1.46
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
   healthSlider: {fileID: 406046522389915811}
   damageImage: {fileID: 406046523229918884}
   deathClip: {fileID: 8300000, guid: 5ed017b53ef416742995de0c6900aafb, type: 3}
-  hurtClip: {fileID: 8300000, guid: d2025f03d783e364bb3a8b1e102679c3, type: 3}
+  hurtClip: {fileID: 8300000, guid: 9cb4c1a351ce3e042a4c1cd6156b1c96, type: 3}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
   deathParticlesGO: {fileID: 9149739867376258462}
@@ -6655,6 +6655,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8718189320334720402, guid: eabda7c680daa02478d65c7a95819bc2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4630153956059630703, guid: eabda7c680daa02478d65c7a95819bc2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6720,17 +6725,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1632458171724901846, guid: eabda7c680daa02478d65c7a95819bc2,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 559881970948382557, guid: eabda7c680daa02478d65c7a95819bc2,
         type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8718189320334720402, guid: eabda7c680daa02478d65c7a95819bc2,
+    - target: {fileID: 1632458171724901846, guid: eabda7c680daa02478d65c7a95819bc2,
         type: 3}
       propertyPath: m_Layer
       value: 0
@@ -7001,6 +7001,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2980420920951066277, guid: 070a5f2ceb734f84bba2234d89eb6c81,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2980420921122244611, guid: 070a5f2ceb734f84bba2234d89eb6c81,
         type: 3}
       propertyPath: m_Layer
@@ -7011,7 +7016,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2980420919490102496, guid: 070a5f2ceb734f84bba2234d89eb6c81,
+    - target: {fileID: 2980420919638570157, guid: 070a5f2ceb734f84bba2234d89eb6c81,
         type: 3}
       propertyPath: m_Layer
       value: 0
@@ -7021,17 +7026,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2980420919638570157, guid: 070a5f2ceb734f84bba2234d89eb6c81,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2980420920590636366, guid: 070a5f2ceb734f84bba2234d89eb6c81,
         type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2980420920951066277, guid: 070a5f2ceb734f84bba2234d89eb6c81,
+    - target: {fileID: 2980420919490102496, guid: 070a5f2ceb734f84bba2234d89eb6c81,
         type: 3}
       propertyPath: m_Layer
       value: 0

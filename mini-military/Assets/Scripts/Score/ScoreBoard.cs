@@ -77,7 +77,7 @@ public class ScoreBoard : MonoBehaviour
    }
    
    IEnumerator GoToLobby(){
-	   yield return new WaitForSeconds(8f);
+	   yield return new WaitForSeconds(10f);
 	   GameManager.isGameOver = false;
 	   ScoreManager.isPlayerDeath = false;	
 	   string gameType = PlayerPrefs.GetString("GameType");

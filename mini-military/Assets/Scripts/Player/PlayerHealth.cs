@@ -100,28 +100,32 @@ public class PlayerHealth : NetworkBehaviour {
             // ... it should die.
             Death();			
         }
-		hitParticles.Play();
-		//RpcShowHitEffects();
+		
+		RpcShowHitEffects();
 		
     }
 	
 	[ClientRpc]
 	void RpcShowHitEffects(){
-		StartCoroutine(ShowHitEffects());
+		//StartCoroutine(ShowHitEffects());
+		ShowHitEffects();
 	}
 	
 	
-	IEnumerator ShowHitEffects(){
+	void ShowHitEffects(){
 		if (isLocalPlayer)
         {
-			damageImage.color = flashColour;
-			yield return new WaitForSeconds(0.4f);
-			damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+			//damageImage.color = flashColour;
+			//yield return new WaitForSeconds(0.4f);
+			//damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
 			
 			// Play the hurt sound effect.
+			hitParticles.Play();
 			playerAudio.clip = hurtClip;
 			playerAudio.Play();		
 		}
+		//playerAudio.clip = hurtClip;
+		//playerAudio.Play();		
 	}
 	
 	//Adding the score for the player object who fiered. This will run only in server.
@@ -177,7 +181,7 @@ public class PlayerHealth : NetworkBehaviour {
 	}
 	
 	IEnumerator ReSpawn(){
-		yield return new WaitForSeconds(10f);
+		yield return new WaitForSeconds(6f);
 		EnableLocalPlayer(true);
 		RpcRespawn();
 	}
