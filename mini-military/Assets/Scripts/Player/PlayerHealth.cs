@@ -44,6 +44,7 @@ public class PlayerHealth : NetworkBehaviour {
     public int death = 0;
 	
 	public int power = 5;
+	public Color poweredColor = Color.green;
 
     void Awake()
     {
@@ -135,7 +136,7 @@ public class PlayerHealth : NetworkBehaviour {
 	void AddScore(GameObject fromPlayer){
 		PlayerFire playerFired = fromPlayer.GetComponentInParent<PlayerFire>();
 		if(playerFired != null){
-			playerFired.AddScore(power, Color.red);
+			playerFired.AddScore(power, poweredColor);
 		}
 	}
 	
@@ -171,10 +172,14 @@ public class PlayerHealth : NetworkBehaviour {
 			deathParticlesGO.SetActive(!enable);
 			playerMovement.enabled = enable;
 			playerFire.enabled = enable;
+			if(enable){
+				playerFire.WeaponSwitch("Pistel");
+			}
 			StartCoroutine(InformScoreManger(enable));		
 		}
-		if(!enable)
-			transform.position = new Vector3(0, -20f, 0);
+		if(!enable){
+			transform.position = new Vector3(0, -20f, 0);			
+		}
 	}
 	
 	IEnumerator InformScoreManger(bool enable){

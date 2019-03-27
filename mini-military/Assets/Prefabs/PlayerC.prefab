@@ -484,15 +484,15 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: ea07086c63d532f4daca4abc8afdc721, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1.33
+  m_Pitch: 1.11
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 167
+  Priority: 100
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 800
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -527,7 +527,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.709
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -613,8 +613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  m_MovingTurnSpeed: 180
-  m_StationaryTurnSpeed: 60
+  m_MovingTurnSpeed: 360
+  m_StationaryTurnSpeed: 180
   m_MoveSpeedMultiplier: 1
 --- !u!114 &4976652882482481477
 MonoBehaviour:
@@ -642,6 +642,8 @@ MonoBehaviour:
   team: 
   playerName: 
   death: 0
+  power: 5
+  poweredColor: {r: 0.19668922, g: 0.6415094, b: 0.25858527, a: 0}
 --- !u!114 &656963732186706803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6592,6 +6594,11 @@ PrefabInstance:
     - target: {fileID: 1924609388502171076, guid: eabda7c680daa02478d65c7a95819bc2,
         type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924609388502171076, guid: eabda7c680daa02478d65c7a95819bc2,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924609387919292725, guid: eabda7c680daa02478d65c7a95819bc2,

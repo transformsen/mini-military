@@ -366,19 +366,20 @@ AudioSource:
   m_GameObject: {fileID: 1321073517112112}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: a962f7b965031c540bcadf1a372afcd2,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 397ee264c2f63a14b827cb123f92c64f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.11
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 100
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 800
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -413,7 +414,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.709
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5185,6 +5186,8 @@ MonoBehaviour:
   scoreValue: 10
   deathClip: {fileID: 8300000, guid: 7563b0812863c484bbf07b405cd7fc0a, type: 3}
   deathParticlesGO: {fileID: 435773343645470272}
+  power: 1
+  poweredColor: {r: 0.8773585, g: 0.39315593, b: 0.39315593, a: 1}
 --- !u!114 &2127032032700745340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6072,11 +6075,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1440223312230166, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
+    - target: {fileID: 1387647844022630, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1387647844022630, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
+    - target: {fileID: 1440223312230166, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

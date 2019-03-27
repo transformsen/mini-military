@@ -188,17 +188,18 @@ AudioSource:
   m_GameObject: {fileID: 6014175707651663239}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: a962f7b965031c540bcadf1a372afcd2,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 2ed3410524e1b504d8e981c6d383f6ba, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.47
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
+  Priority: 78
+  DopplerLevel: 1.03
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -250,7 +251,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.097222224
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -346,7 +347,7 @@ ParticleSystem:
   m_GameObject: {fileID: 6014175707651663239}
   serializedVersion: 6
   lengthInSec: 10
-  simulationSpeed: 10
+  simulationSpeed: 8
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
@@ -420,7 +421,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 10
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -473,7 +474,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 7
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -589,8 +590,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 10
-      minScalar: 1
+      scalar: 6
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -905,7 +906,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 100000
+    maxNumParticles: 1000
     size3D: 0
     rotation3D: 0
     gravityModifier:

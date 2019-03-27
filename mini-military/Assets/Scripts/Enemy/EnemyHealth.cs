@@ -20,7 +20,7 @@ public class EnemyHealth : MonoBehaviour {
     bool isDead;                                // Whether the enemy is dead.
     bool isSinking;                             // Whether the enemy has started sinking through the floor.
 	public int power = 1;
-
+	public Color poweredColor = Color.white;
 
     void Awake()
     {
@@ -71,14 +71,14 @@ public class EnemyHealth : MonoBehaviour {
         {
             // ... the enemy is dead.
             Death();	
-			fromPlayer.GetComponentInParent<PlayerFire>().AddScore(power, Color.white);			
+			fromPlayer.GetComponentInParent<PlayerFire>().AddScore(power, poweredColor);			
         }
     }
 	
 	public void TakeDamage(GameObject fromPlayer){
 		Debug.Log(fromPlayer);
 		Debug.Log(fromPlayer.GetComponentInParent<PlayerFire>());
-		fromPlayer.GetComponentInParent<PlayerFire>().AddScore(power, Color.white);
+		fromPlayer.GetComponentInParent<PlayerFire>().AddScore(power, poweredColor);
 	}
 
 
