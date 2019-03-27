@@ -42,6 +42,8 @@ public class PlayerHealth : NetworkBehaviour {
     public string playerName = "Soldier";
 	[SyncVar]
     public int death = 0;
+	
+	public int power = 5;
 
     void Awake()
     {
@@ -133,7 +135,7 @@ public class PlayerHealth : NetworkBehaviour {
 	void AddScore(GameObject fromPlayer){
 		PlayerFire playerFired = fromPlayer.GetComponentInParent<PlayerFire>();
 		if(playerFired != null){
-			playerFired.AddScore();
+			playerFired.AddScore(power, Color.red);
 		}
 	}
 	
@@ -144,7 +146,7 @@ public class PlayerHealth : NetworkBehaviour {
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         playerAudio.clip = deathClip;
         playerAudio.Play();
-		deathParticlesGO.SetActive(true);
+		//deathParticlesGO.SetActive(true);
 		
 		
 		EnableLocalPlayer(false);

@@ -64,6 +64,10 @@ namespace Prototype.NetworkLobby
 
         void Start()
         {
+			Debug.Log("looby sart");
+			//if(s_Singleton != null){
+			//	Destroy(s_Singleton);
+			//}
             s_Singleton = this;
 			currentPanel = mainMenuPanel;
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
@@ -210,6 +214,15 @@ namespace Prototype.NetworkLobby
         {
             ChangeTo(mainMenuPanel);
         }
+		
+		public void StopGameClbk(){
+			StopHost();
+			StopClient();
+			NetworkTransport.Shutdown();
+		NetworkServer.DisconnectAll();
+
+			Destroy(s_Singleton);
+		}
                  
         public void StopHostClbk()
         {

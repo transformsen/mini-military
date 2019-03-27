@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using Prototype.NetworkLobby;
 
 public class ScoreManager : MonoBehaviour {
 
@@ -27,6 +28,14 @@ public class ScoreManager : MonoBehaviour {
 	
 	public void Quit()
     {
+		//NetworkManager.singleton.StopClient();
+		//NetworkManager.singleton.StopHost();
+		//NetworkTransport.Shutdown();
+		//NetworkServer.DisconnectAll();
+		//LobbyManager.s_Singleton.StopClient();
+		//LobbyManager.s_Singleton.StopServer();
+		//LobbyManager.s_Singleton.lobbyNetworkDiscovery.StopBroadcast();
+		//SceneManager.LoadScene("StartScene");
 		#if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;
 		#else

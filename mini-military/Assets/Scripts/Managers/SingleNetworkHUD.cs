@@ -56,5 +56,6 @@ public class SingleNetworkHUD : MonoBehaviour
 		NetworkTransport.Shutdown();
 		Destroy(gameObject);
 		SceneManager.LoadScene("StartScene");		
+		
 	}
 }

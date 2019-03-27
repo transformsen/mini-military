@@ -82,7 +82,9 @@ public class ScoreBoard : MonoBehaviour
 	   ScoreManager.isPlayerDeath = false;	
 	   string gameType = PlayerPrefs.GetString("GameType");
 	   if("DM".Equals(gameType)){
-		   LobbyManager.s_Singleton.SendReturnToLobby();
+		   LobbyManager.s_Singleton.ServerReturnToLobby();
+		   //SendReturnToLobby
+		   //SceneManager.LoadScene("LobbyScene");
 	   }else{
 		   SingleNetworkHUD.started = false;
 		   NetworkManager.singleton.StopHost();

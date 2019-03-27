@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
 
@@ -35,6 +36,8 @@ public class PlayerFire : NetworkBehaviour
     float effectsDisplayTime = 0.2f;                // The proportion of the timeBetweenBullets that the effects will display for.
 	[SyncVar]
 	public int score = 0;
+	
+	public GameObject floatingTextPrefab;
 
 	
 	[SerializeField] public int maxZoom = 1;
@@ -256,9 +259,10 @@ public class PlayerFire : NetworkBehaviour
     }
 	
 	[Server]
-    public void AddScore()
+    public void AddScore(int power, Color color)
     {
-		score+=1;
+		score+=power;
+		showPopup(power, color);
         //RpcAddScore();		
     }
  
@@ -270,4 +274,14 @@ public class PlayerFire : NetworkBehaviour
             score+=1;
         }
     }
+	
+	void showPopup(int power, Color color){
+		if(isLocalPlayer)
+        {
+			GameObject floatingTextCanvas = Instantiate(floatingTextPrefab);
+			GameObject floatingText = floatingTextCanvas.transform.GetChild(0).gameObject;
+			floatingText.GetComponent<Text>().text = "+"+power;
+			floatingText.GetComponent<Text>().color = color;
+		}
+	}
 }
