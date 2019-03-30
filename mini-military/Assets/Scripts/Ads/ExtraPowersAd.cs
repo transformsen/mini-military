@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
 public class ExtraPowersAd : MonoBehaviour
 {
 	public string placementId = "rewardedVideo";
     private string gameId = "1234567";	
 	bool testMode = true;
+	
+	public GameObject loadingScreen;
+    public Slider loadingSlider;
 	
     //#if UNITY_IOS
     //   private string gameId = "1234567";
@@ -20,6 +24,7 @@ public class ExtraPowersAd : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		loadingScreen.SetActive(false);
 		Advertisement.Initialize (gameId, testMode);
         
     }
@@ -77,7 +82,7 @@ public class ExtraPowersAd : MonoBehaviour
 	}
 	
 	public void Back(){
-		SceneManager.LoadScene("StartScene");
+		StartCoroutine(Load("StartScene"));
 	}
 	
 	private void HandleShowResultZoom(ShowResult result){
@@ -154,4 +159,23 @@ public class ExtraPowersAd : MonoBehaviour
 			break;
 		}
 	}
+	
+	private IEnumerator Load(string senceName)
+    {
+        loadingScreen.SetActive(true);
+        AsyncOperation async = SceneManager.LoadSceneAsync(senceName);
+        async.allowSceneActivation = false;
+
+        while (!async.isDone)
+        {           
+            loadingSlider.value = async.progress;
+            if (async.progress == 0.9f)
+            {
+                loadingSlider.value = 1f;
+                async.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+
+    }
 }

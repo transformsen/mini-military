@@ -12,14 +12,16 @@ public class AvatarSelection : MonoBehaviour {
 	public Button adButton;
 	public AudioClip clickClip; 
 	
-
+	public GameObject loadingScreen;
+    public Slider loadingSlider;
+	
     public GameObject[] playerAvatarsPrefab;
 	private GameObject[] avatars;
     private int index = 0;
 
 	void Awake() {
 		uiAudio = GetComponent<AudioSource>();
-		
+		loadingScreen.SetActive(false);
         index = PlayerPrefs.GetInt("SelectedAvatar");
 		avatars = new GameObject[playerAvatarsPrefab.Length];
 		 
@@ -74,18 +76,37 @@ public class AvatarSelection : MonoBehaviour {
     {
 		playClickSound();
         PlayerPrefs.SetInt("SelectedAvatar", index);
-        SceneManager.LoadScene("StartScene");
+        StartCoroutine(Load("StartScene"));
     }
 	
 	public void Back(){
 		playClickSound();
-		SceneManager.LoadScene("StartScene");
+		StartCoroutine(Load("StartScene"));
 	}
 	
 	
     void playClickSound() {
 		uiAudio.clip = clickClip;
 		uiAudio.Play();	
+    }
+	
+	private IEnumerator Load(string senceName)
+    {
+        loadingScreen.SetActive(true);
+        AsyncOperation async = SceneManager.LoadSceneAsync(senceName);
+        async.allowSceneActivation = false;
+
+        while (!async.isDone)
+        {           
+            loadingSlider.value = async.progress;
+            if (async.progress == 0.9f)
+            {
+                loadingSlider.value = 1f;
+                async.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+
     }
 
 }

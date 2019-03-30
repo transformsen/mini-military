@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour {
 
+	AudioSource pickupAudio;                     // Reference to the audio source.
+	void Start(){
+		pickupAudio = GetComponent<AudioSource>();
+	}
+	
 	public string gunName = "";
     
     void OnTriggerEnter(Collider collision)
@@ -13,9 +18,10 @@ public class WeaponSwitch : MonoBehaviour {
 		
         if (playerFire != null)
         {
+			pickupAudio.Play();
 			string activeWeapon = gunName;
 			playerFire.WeaponSwitch(activeWeapon);
-			Destroy(gameObject);
+			Destroy(gameObject, 0.2f);
 			
 		}
     }
