@@ -19,6 +19,7 @@ public class PlayerHealth : NetworkBehaviour {
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
     PlayerMovement playerMovement;                              // Reference to the player's movement.
+	PlayerBombAttack playerBombAttack;                              // Reference to the PlayerBombAttack.
 	ParticleSystem hitParticles;                // Reference to the particle system that plays when the player is damaged.
 	public GameObject deathParticlesGO;                // Reference to the particle system that plays when the player is death.
 	
@@ -49,16 +50,17 @@ public class PlayerHealth : NetworkBehaviour {
     void Awake()
     {
 		if (isLocalPlayer)
-        {
-            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+        {            
 			if(PlayerPrefs.GetInt("ExtraHealth") == 1 ){
 				startingHealth = startingHealth + 10;
 			}
         }
+		spawnPoints = FindObjectsOfType<NetworkStartPosition>();
         // Setting up the references.
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
 		playerMovement = GetComponent<PlayerMovement>();
+		playerBombAttack = GetComponent<PlayerBombAttack>();
 		playerFire = GetComponent<PlayerFire>();
 		hitParticles = GetComponentInChildren<ParticleSystem>();
 		
@@ -88,7 +90,6 @@ public class PlayerHealth : NetworkBehaviour {
     public void TakeDamage(int amount, GameObject fromPlayer)
     {
 		
-		Debug.Log("Player TakeDamage"+amount);
 		if (!isServer)
         {		
             return;
@@ -134,10 +135,12 @@ public class PlayerHealth : NetworkBehaviour {
 	//Adding the score for the player object who fiered. This will run only in server.
 	[Server]
 	void AddScore(GameObject fromPlayer){
-		PlayerFire playerFired = fromPlayer.GetComponentInParent<PlayerFire>();
-		if(playerFired != null){
-			playerFired.AddScore(power, poweredColor);
-		}
+		if(fromPlayer != gameObject){
+			PlayerFire playerFired = fromPlayer.GetComponentInParent<PlayerFire>();
+			if(playerFired != null){
+				playerFired.AddScore(power, poweredColor);
+			}
+		}		
 	}
 	
 	[Server]
@@ -172,6 +175,7 @@ public class PlayerHealth : NetworkBehaviour {
 			deathParticlesGO.SetActive(!enable);
 			playerMovement.enabled = enable;
 			playerFire.enabled = enable;
+			playerBombAttack.enabled = enable;
 			if(enable){
 				playerFire.WeaponSwitch("Pistel");
 			}
@@ -205,7 +209,7 @@ public class PlayerHealth : NetworkBehaviour {
     }
 	
 	void RespawnLocalPlayer(){
-		Debug.Log("RespawnLocalPlayer");
+		Debug.Log("RespawnLocalPlayer"+spawnPoints);
 	
 		// Set the spawn point to origin as a default value
 		Vector3 spawnPoint = Vector3.zero;

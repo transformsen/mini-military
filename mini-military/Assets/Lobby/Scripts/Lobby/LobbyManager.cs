@@ -40,6 +40,9 @@ namespace Prototype.NetworkLobby
         public Text statusInfo;
         public Text hostInfo;
 
+        public RectTransform thisNetworkLobbyPanel;
+        public GameObject thisGo;
+
         //Client numPlayers from NetworkManager is always 0, so we count (throught connect/destroy in LobbyPlayer) the number
         //of players, so that even client know how many player there is.
         [HideInInspector]
@@ -191,12 +194,19 @@ namespace Prototype.NetworkLobby
 		
 		public void Quit()
 		{
-			#if UNITY_EDITOR
+			/*#if UNITY_EDITOR
 				UnityEditor.EditorApplication.isPlaying = false;
 			#else
 				Application.Quit();
-			#endif
+			#endif*/
+            SetServerInfo("Offline", "None");
+            NetworkTransport.Shutdown();
+            thisNetworkLobbyPanel.gameObject.SetActive(false);
+            Destroy(s_Singleton);
+            Destroy(thisGo);
+            SceneManager.LoadScene("StartScene");		
 		}
+
 
         // ----------------- Server management
 

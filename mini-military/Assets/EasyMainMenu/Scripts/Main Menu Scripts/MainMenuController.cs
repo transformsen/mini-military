@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Prototype.NetworkLobby;
 
 public class MainMenuController : MonoBehaviour {
 
@@ -155,7 +156,12 @@ public class MainMenuController : MonoBehaviour {
 	
 	public void DeathMatch(){
 		PlayerPrefs.SetString("GameType", "DM");
-		playGame("LobbyScene");
+        if(LobbyManager.s_Singleton == null){
+		    playGame("LobbyScene");
+        }else{
+            //LobbyManager.s_Singleton.resetConn();
+            LobbyManager.s_Singleton.thisNetworkLobbyPanel.gameObject.SetActive(true); 
+        }                       
 	}
 	
 	public void Survival(){

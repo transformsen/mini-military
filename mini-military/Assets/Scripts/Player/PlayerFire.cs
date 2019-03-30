@@ -263,7 +263,8 @@ public class PlayerFire : NetworkBehaviour
     {
 		score+=power;
 		showPopup(power, color);
-        //RpcAddScore();		
+        //RpcAddScore();
+        RpcShowPopupForc(power, color);		
     }
  
     [ClientRpc]
@@ -275,6 +276,11 @@ public class PlayerFire : NetworkBehaviour
         }
     }
 	
+    [ClientRpc]
+    void RpcShowPopupForc(int power, Color color){
+        showPopup(power, color);
+    }
+
 	void showPopup(int power, Color color){
 		if(isLocalPlayer)
         {

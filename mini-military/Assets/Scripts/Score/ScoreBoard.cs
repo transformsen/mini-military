@@ -41,7 +41,7 @@ public class ScoreBoard : MonoBehaviour
 		
 		IComparer scoreComparator = new ScoreComparator();
 		players.Sort( scoreComparator );
-			
+		
 		foreach(GameObject p in players){
 			
 			if (p !=null){				
@@ -81,7 +81,7 @@ public class ScoreBoard : MonoBehaviour
 	   GameManager.isGameOver = false;
 	   ScoreManager.isPlayerDeath = false;	
 	   string gameType = PlayerPrefs.GetString("GameType");
-	   if("DM".Equals(gameType)){
+	   if("DM".Equals(gameType)){ //if(true){
 		   LobbyManager.s_Singleton.ServerReturnToLobby();
 		   //SendReturnToLobby
 		   //SceneManager.LoadScene("LobbyScene");

@@ -17,7 +17,7 @@ public class PurchaseBannerAds : MonoBehaviour
 #endif
 
     void Start () {
-        Advertisement.Initialize (gameID, testMode);
+        Advertisement.Initialize ("1111111", testMode);
         StartCoroutine (ShowBannerWhenReady ());
     }
 

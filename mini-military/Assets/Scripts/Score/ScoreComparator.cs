@@ -9,6 +9,9 @@ public class ScoreComparator : IComparer  {
 		  if(x == null || y == null){
 			  return 0;
 		  }
+              if((GameObject)x == null || (GameObject)y == null){
+			  return 0;
+		  }                         
           return( (new CaseInsensitiveComparer()).Compare( ((GameObject)y).GetComponent<PlayerFire>().score, 
 		  ((GameObject)x).GetComponent<PlayerFire>().score ) );
       }
