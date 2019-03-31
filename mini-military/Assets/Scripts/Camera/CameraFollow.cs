@@ -68,8 +68,8 @@ public class CameraFollow : MonoBehaviour {
         if(currentZoom < maxZoom)
         {
             currentZoom = currentZoom + 1;
-            y = y + 4f;
-            z = z + 4f;
+            y = y + 6f;
+            z = z + 6f;
         }
         else 
         {
@@ -82,7 +82,7 @@ public class CameraFollow : MonoBehaviour {
     }
 	
 	public void resetZoom(){
-		y = 3f;
+		y = 4f;
 		z = 10f;		
 		currentZoom = 1;
 	}

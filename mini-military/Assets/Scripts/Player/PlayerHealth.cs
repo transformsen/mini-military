@@ -52,7 +52,7 @@ public class PlayerHealth : NetworkBehaviour {
 		if (isLocalPlayer)
         {            
 			if(PlayerPrefs.GetInt("ExtraHealth") == 1 ){
-				startingHealth = startingHealth + 10;
+				startingHealth = startingHealth + 50;
 			}
         }
 		spawnPoints = FindObjectsOfType<NetworkStartPosition>();

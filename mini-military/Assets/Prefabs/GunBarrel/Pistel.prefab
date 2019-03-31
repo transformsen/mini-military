@@ -5045,6 +5045,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f80ef8244bc4e46b8f1e03d23aa1bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerShot: 20
-  range: 100
+  damagePerShot: 50
+  range: 25
   myparent: {fileID: 0}

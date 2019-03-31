@@ -24,6 +24,9 @@ public class ScoreBoard : MonoBehaviour
    [SerializeField]
    public Text highScoreText;
 
+   [SerializeField]
+   public RectTransform purchaseText;
+
    
    void OnEnable(){	   
 	   StartCoroutine(UpdateScoreBoard());	
@@ -62,6 +65,11 @@ public class ScoreBoard : MonoBehaviour
 						PlayerPrefs.SetInt("HighScore",score);
 					}else{
 						highScoreImage.gameObject.SetActive(false);
+					}
+					if(score < 1500){
+						purchaseText.gameObject.SetActive(true);
+					}else{
+						purchaseText.gameObject.SetActive(false);
 					}
 				}else{
 					highScoreImage.gameObject.SetActive(false);

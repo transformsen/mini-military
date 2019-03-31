@@ -10,6 +10,7 @@ public class BombExplosion : MonoBehaviour {
     public float fource = 300f;
     public float lifeTime = 0.8f;
 	public GameObject myparent;
+    public int damageValue = 300;
 
     AudioSource blastAudio;
     bool hasExploeded = false;
@@ -52,13 +53,13 @@ public class BombExplosion : MonoBehaviour {
                 EnemyHealth enemyHealth = neearByCollider.GetComponent<EnemyHealth>();
                 if(enemyHealth != null)
                 {
-                    enemyHealth.TakeDamage(100, new Vector3(0, 0, 0), myparent);
+                    enemyHealth.TakeDamage(damageValue, new Vector3(0, 0, 0), myparent);
 					//enemyHealth.TakeDamage(myparent);
                 }
 				PlayerHealth playerHealth = neearByCollider.GetComponent<PlayerHealth>();
                 if(playerHealth != null)
                 {
-                    playerHealth.TakeDamage(100, myparent);
+                    playerHealth.TakeDamage(damageValue, myparent);
 					//playerHealth.TakeDamage(myparent);
                 } 				
             }

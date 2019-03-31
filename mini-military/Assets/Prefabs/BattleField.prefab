@@ -149,7 +149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8631770890887192783
 Transform:
   m_ObjectHideFlags: 0
@@ -433,7 +433,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.4402347
       objectReference: {fileID: 0}
-    - target: {fileID: 4053709096228729618, guid: d9837cad95887cc4a8e1d57b0532a84b,
+    - target: {fileID: 4053709097268347971, guid: d9837cad95887cc4a8e1d57b0532a84b,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4053709097268347969, guid: d9837cad95887cc4a8e1d57b0532a84b,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -918,17 +923,12 @@ PrefabInstance:
       propertyPath: m_Tangents.Array.data[47].z
       value: NaN
       objectReference: {fileID: 0}
+    - target: {fileID: 4053709096228729618, guid: d9837cad95887cc4a8e1d57b0532a84b,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4053709096228729612, guid: d9837cad95887cc4a8e1d57b0532a84b,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4053709097268347969, guid: d9837cad95887cc4a8e1d57b0532a84b,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4053709097268347971, guid: d9837cad95887cc4a8e1d57b0532a84b,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1163,7 +1163,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.4113371
       objectReference: {fileID: 0}
-    - target: {fileID: 4053709096228729618, guid: d9837cad95887cc4a8e1d57b0532a84b,
+    - target: {fileID: 4053709097268347971, guid: d9837cad95887cc4a8e1d57b0532a84b,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4053709097268347969, guid: d9837cad95887cc4a8e1d57b0532a84b,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1648,17 +1653,12 @@ PrefabInstance:
       propertyPath: m_Tangents.Array.data[47].z
       value: NaN
       objectReference: {fileID: 0}
+    - target: {fileID: 4053709096228729618, guid: d9837cad95887cc4a8e1d57b0532a84b,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4053709096228729612, guid: d9837cad95887cc4a8e1d57b0532a84b,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4053709097268347969, guid: d9837cad95887cc4a8e1d57b0532a84b,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4053709097268347971, guid: d9837cad95887cc4a8e1d57b0532a84b,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1813,12 +1813,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5195700699155908399, guid: e84888f76a3ae88448e168e5c84da36e,
+    - target: {fileID: 5195700699155908385, guid: e84888f76a3ae88448e168e5c84da36e,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 5195700699155908385, guid: e84888f76a3ae88448e168e5c84da36e,
+    - target: {fileID: 5195700699155908399, guid: e84888f76a3ae88448e168e5c84da36e,
         type: 3}
       propertyPath: m_Mesh
       value: 
