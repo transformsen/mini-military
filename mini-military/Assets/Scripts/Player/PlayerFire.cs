@@ -262,9 +262,9 @@ public class PlayerFire : NetworkBehaviour
     public void AddScore(int power, Color color)
     {
 		score+=power;
-		showPopup(power, color);
+		//showPopup(power, color);
         //RpcAddScore();
-        RpcShowPopupForc(power, color);		
+       //RpcShowPopupForc(power, color);		
     }
  
     [ClientRpc]

@@ -14,6 +14,7 @@ public class GunStatusManager : MonoBehaviour
     public Image weapon2D;
 	
 	public Image gunStatusContainerImage;	
+	public Text myScore;
 	
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class GunStatusManager : MonoBehaviour
 			numberOfBulletsLeftText.text = "" + player.numberOfBulletsLeft;
 			weapon2D.sprite = player.imageforWeanpon;
 			realoadingInText.text = player.realoadingInText;
-			
+			myScore.text = "SCORE: "+player.score;
 			
 		}else{
 			gunStatusContainerImage.gameObject.SetActive(false);
