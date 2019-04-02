@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45141518, g: 0.5006057, b: 0.5706908, a: 1}
+  m_IndirectSpecularColor: {r: 0.45141542, g: 0.5006061, b: 0.5706913, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -233,6 +233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7447868001129945378, guid: aa7ca7da3918e3844b005a709abfbb2d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -5.0000153
       objectReference: {fileID: 0}
     - target: {fileID: 7447868002522742730, guid: aa7ca7da3918e3844b005a709abfbb2d,
         type: 3}
@@ -1763,6 +1768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3289315160398460674}
   - component: {fileID: 3306434540480065878}
+  - component: {fileID: 3291079322596453307}
   m_Layer: 0
   m_Name: SelectionMenu
   m_TagString: Untagged
@@ -1770,6 +1776,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3291079322596453307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3291079322596453306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b894fad8ec10894485f0181cf7e534e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bannerPlacement: banner
+  testMode: 1
 --- !u!1 &3291088777957987640
 GameObject:
   m_ObjectHideFlags: 0

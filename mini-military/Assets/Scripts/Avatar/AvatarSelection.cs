@@ -81,6 +81,7 @@ public class AvatarSelection : MonoBehaviour {
 	
 	public void Back(){
 		playClickSound();
+        PurchaseBannerAds.HideBanner();
 		StartCoroutine(Load("StartScene"));
 	}
 	

@@ -27,11 +27,19 @@ public class ScoreBoard : MonoBehaviour
    [SerializeField]
    public RectTransform purchaseText;
 
+   [SerializeField]
+   public RectTransform gameOverText;
+
+   [SerializeField]
+   public RectTransform scoredBoardCanvas;
+
+
    
    void OnEnable(){	   
 	   StartCoroutine(UpdateScoreBoard());	
 	   if(GameManager.isGameOver){
 			reSpawn.gameObject.SetActive(false);
+			gameOverText.gameObject.SetActive(true);
 			StartCoroutine(GoToLobby());
 	   }
 	}
@@ -87,7 +95,9 @@ public class ScoreBoard : MonoBehaviour
    IEnumerator GoToLobby(){
 	   yield return new WaitForSeconds(10f);
 	   GameManager.isGameOver = false;
-	   ScoreManager.isPlayerDeath = false;	
+	   ScoreManager.isPlayerDeath = false;
+	   scoredBoardCanvas.gameObject.SetActive(false);	
+	   gameOverText.gameObject.SetActive(false);
 	   string gameType = PlayerPrefs.GetString("GameType");
 	   if("DM".Equals(gameType)){ //if(true){
 		   LobbyManager.s_Singleton.ServerReturnToLobby();

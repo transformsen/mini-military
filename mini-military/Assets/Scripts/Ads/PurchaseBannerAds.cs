@@ -8,16 +8,21 @@ public class PurchaseBannerAds : MonoBehaviour
     public string bannerPlacement = "banner";
     public bool testMode = true;
 
-#if UNITY_IOS
-    public const string gameID = "1234567";
-#elif UNITY_ANDROID
-    public const string gameID = "1234568";
-#elif UNITY_EDITOR
-    public const string gameID = "1111111";
-#endif
+    #if UNITY_IOS
+      private string gameId = "3102447";
+    #elif UNITY_ANDROID
+       private string gameId = "3102446";
+    #elif UNITY_EDITOR_WIN
+       private string gameId = "1234567";
+    #elif UNITY_STANDALONE_WIN
+       private string gameId = "1234567";
+    #else
+       private string gameId = "1234567";
+    #endif
+
 
     void Start () {
-        Advertisement.Initialize ("1111111", testMode);
+        Advertisement.Initialize (gameId, testMode);
         StartCoroutine (ShowBannerWhenReady ());
     }
 
@@ -26,5 +31,9 @@ public class PurchaseBannerAds : MonoBehaviour
             yield return new WaitForSeconds (0.5f);
         }
         Advertisement.Banner.Show (bannerPlacement);
+    }
+
+    public static void HideBanner(){
+        Advertisement.Banner.Hide (false);
     }
 }

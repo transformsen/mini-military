@@ -29,7 +29,7 @@ public class SingleNetworkHUD : MonoBehaviour
 		GUIStyle style = new GUIStyle(GUI.skin.button);
         style.normal.textColor = Color.white;
         style.active.textColor = Color.white;
-        style.fontSize = 20;
+        style.fontSize = 24;
 		
 		if(!started){
 				GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
@@ -37,8 +37,8 @@ public class SingleNetworkHUD : MonoBehaviour
 				GUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
 
-				GUI.backgroundColor = Color.green;
-				if(GUILayout.Button("Play" , style , GUILayout.Width(200), GUILayout.Height(50))){
+				GUI.backgroundColor = Color.magenta;
+				if(GUILayout.Button("Play!" , style , GUILayout.Width(200), GUILayout.Height(50))){
 					started = true;
 					NetworkManager.singleton.StartHost();
 				}

@@ -83,6 +83,7 @@ public class ExtraPowersAd : MonoBehaviour
 	
 	public void Back(){
 		StartCoroutine(Load("StartScene"));
+		PurchaseBannerAds.HideBanner();
 	}
 	
 	private void HandleShowResultZoom(ShowResult result){

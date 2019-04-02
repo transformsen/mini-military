@@ -9,7 +9,7 @@ public class UnityAdsButton : MonoBehaviour
     public string placementId = "rewardedVideo";
     public Button confirmButton;
     private Button adButton;
-    private string gameId = "1234567";
+    //private string gameId = "1234567";
 	
 	private bool blink = false;
 	private int counter = 0;
@@ -17,11 +17,17 @@ public class UnityAdsButton : MonoBehaviour
 	
 	Animator anim;
 
-    //#if UNITY_IOS
-    //   private string gameId = "1234567";
-    //#elif UNITY_ANDROID
-    //    private string gameId = "7654321";
-    //#endif
+    #if UNITY_IOS
+      private string gameId = "3102447";
+    #elif UNITY_ANDROID
+       private string gameId = "3102446";
+    #elif UNITY_EDITOR_WIN
+       private string gameId = "1234567";
+    #elif UNITY_STANDALONE_WIN
+       private string gameId = "1234567";
+    #else
+       private string gameId = "1234567";
+    #endif
 
     void Start()
     {
