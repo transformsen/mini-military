@@ -38,7 +38,7 @@ public class SingleNetworkHUD : MonoBehaviour
 				GUILayout.FlexibleSpace();
 
 				GUI.backgroundColor = Color.magenta;
-				if(GUILayout.Button("Play!" , style , GUILayout.Width(200), GUILayout.Height(50))){
+				if(GUILayout.Button("Play!" , style , GUILayout.Width(200), GUILayout.Height(100))){
 					started = true;
 					NetworkManager.singleton.StartHost();
 				}
