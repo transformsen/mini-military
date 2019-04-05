@@ -29,7 +29,7 @@ public class SingleNetworkHUD : MonoBehaviour
 		GUIStyle style = new GUIStyle(GUI.skin.button);
         style.normal.textColor = Color.white;
         style.active.textColor = Color.white;
-        style.fontSize = 24;
+        style.fontSize = 35;
 		
 		if(!started){
 				GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));

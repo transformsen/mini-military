@@ -662,8 +662,8 @@ GameObject:
   - component: {fileID: 7531982971260596790}
   - component: {fileID: 7232538854812789500}
   - component: {fileID: 5308043897421950859}
-  - component: {fileID: 3340821285597921973}
-  - component: {fileID: 4805909642462364731}
+  - component: {fileID: 2278826849700649382}
+  - component: {fileID: 3313848172456484433}
   m_Layer: 11
   m_Name: PlayerA
   m_TagString: Player
@@ -751,16 +751,16 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: ea07086c63d532f4daca4abc8afdc721, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1.11
+  m_Volume: 0.179
+  m_Pitch: 0.12
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 100
+  Priority: 216
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 800
+  MaxDistance: 300
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -795,7 +795,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.709
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -810,7 +810,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.030555556
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -847,7 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a97cf5beebf6d42b5fae02679441b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 5
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 180
   m_MoveSpeedMultiplier: 1
@@ -865,8 +865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 2855937701172151199}
   damageImage: {fileID: 2855937701410028952}
-  deathClip: {fileID: 8300000, guid: 43e5aa475a8e83f4b9065a7d1ee86565, type: 3}
-  hurtClip: {fileID: 8300000, guid: ea07086c63d532f4daca4abc8afdc721, type: 3}
+  deathClip: {fileID: 8300000, guid: ea07086c63d532f4daca4abc8afdc721, type: 3}
+  hurtClip: {fileID: 8300000, guid: 43e5aa475a8e83f4b9065a7d1ee86565, type: 3}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
   deathParticlesGO: {fileID: 2829781770735854478}
@@ -5702,7 +5702,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &3340821285597921973
+--- !u!114 &2278826849700649382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5715,8 +5715,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTranform: {fileID: 4337207750312750365}
-  lerpRate: 5
---- !u!114 &4805909642462364731
+  lerpRate: 6
+--- !u!114 &3313848172456484433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

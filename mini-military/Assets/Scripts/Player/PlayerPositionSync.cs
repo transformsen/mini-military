@@ -19,7 +19,7 @@ public class PlayerPositionSync : NetworkBehaviour
     }
 
     void LerpPosition(){
-        if(!isLocalPlayer){
+        if(!hasAuthority){
             myTranform.position =  Vector3.Lerp(myTranform.position, syncPos, Time.deltaTime * lerpRate);
         }
     }
@@ -31,7 +31,7 @@ public class PlayerPositionSync : NetworkBehaviour
 
     [ClientCallback]
     void TransmitPosition(){
-        if(isLocalPlayer){
+        if(hasAuthority){
             CmdProvidePosotionToServer(myTranform.position);   
         }
     }

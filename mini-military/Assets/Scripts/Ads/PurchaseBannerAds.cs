@@ -34,6 +34,6 @@ public class PurchaseBannerAds : MonoBehaviour
     }
 
     public static void HideBanner(){
-        Advertisement.Banner.Hide (false);
+        Advertisement.Banner.Hide (true);
     }
 }

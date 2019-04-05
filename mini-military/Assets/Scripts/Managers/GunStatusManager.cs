@@ -16,6 +16,11 @@ public class GunStatusManager : MonoBehaviour
 	public Image gunStatusContainerImage;	
 	public Text myScore;
 	
+	public int mileStoneScore = 50;
+
+	public int mileStone = 2;
+	public GameObject floatingTextPrefab;
+	public Color floatingTextColor;
 
     // Update is called once per frame
     void Update()
@@ -28,9 +33,20 @@ public class GunStatusManager : MonoBehaviour
 			weapon2D.sprite = player.imageforWeanpon;
 			realoadingInText.text = player.realoadingInText;
 			myScore.text = "SCORE: "+player.score;
+			if(player.score + mileStoneScore >= mileStoneScore * mileStone){
+				mileStone ++;
+				showPopup();
+			}
 			
 		}else{
 			gunStatusContainerImage.gameObject.SetActive(false);
 		}
     }
+
+	void showPopup(){
+		GameObject floatingTextCanvas = Instantiate(floatingTextPrefab);
+		GameObject floatingText = floatingTextCanvas.transform.GetChild(0).gameObject;
+		floatingText.GetComponent<Text>().text = "Completed Milestone " + (mileStone-1);
+		floatingText.GetComponent<Text>().color = floatingTextColor;
+	}
 }

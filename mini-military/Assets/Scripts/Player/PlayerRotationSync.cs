@@ -18,7 +18,7 @@ public class PlayerRotationSync : NetworkBehaviour
     }
 
     void LerpRoration(){
-        if(!isLocalPlayer){           
+        if(!hasAuthority){           
             myTranform.rotation =  Quaternion.Lerp(myTranform.rotation , syncRotation, Time.deltaTime * lerpRate);
         }
     }
@@ -28,9 +28,9 @@ public class PlayerRotationSync : NetworkBehaviour
         syncRotation = pos;
     }
 
-    [Client]
+    [ClientCallback]
     void TransmitRotation(){
-        if(isLocalPlayer){
+        if(hasAuthority){
             CmdProvideRotationToServer(myTranform.rotation );   
         }
     }

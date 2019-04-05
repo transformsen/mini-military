@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.72673345, g: 0.78956056, b: 0.85233, a: 1}
+  m_IndirectSpecularColor: {r: 0.7302194, g: 0.7889753, b: 0.8498578, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1237,13 +1237,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641812527}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 0.37784937, z: -0, w: 0.92586714}
   m_LocalPosition: {x: -51.11, y: 0, z: -61.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1097605612}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 44.401, z: 0}
 --- !u!114 &641812529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1505,7 +1505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &708469489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1791,6 +1791,11 @@ MonoBehaviour:
   weapon2D: {fileID: 1736292883}
   gunStatusContainerImage: {fileID: 1033010384}
   myScore: {fileID: 1206366073}
+  mileStoneScore: 5
+  mileStone: 2
+  floatingTextPrefab: {fileID: 4737190669902936017, guid: ea402214577596f46990ca35da6477bc,
+    type: 3}
+  floatingTextColor: {r: 0.84857875, g: 0.8584906, b: 0.11743506, a: 0}
 --- !u!114 &773662715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1884,7 +1889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &854294430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2078,7 +2083,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-160108
+  m_Name: pb_Mesh-368554
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -3349,7 +3354,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-160084
+  m_Name: pb_Mesh-368530
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -3509,7 +3514,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-160090
+  m_Name: pb_Mesh-368536
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -3944,7 +3949,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-160102
+  m_Name: pb_Mesh-368548
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -4145,7 +4150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1331408983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5483,7 +5488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1373215443
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6853,7 +6858,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-160120
+  m_Name: pb_Mesh-368566
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
