@@ -33,13 +33,22 @@ public class ScoreBoard : MonoBehaviour
    [SerializeField]
    public RectTransform scoredBoardCanvas;
 
+   [SerializeField]
+   public RectTransform winnerContainer;
+
+   [SerializeField]
+   public Text winnerText;
+
 
    
-   void OnEnable(){	   
+   void OnEnable(){
+	   reSpawn.gameObject.SetActive(true);
+		gameOverText.gameObject.SetActive(false);
+		winnerContainer.gameObject.SetActive(false);	   
 	   StartCoroutine(UpdateScoreBoard());	
 	   if(GameManager.isGameOver){
 			reSpawn.gameObject.SetActive(false);
-			gameOverText.gameObject.SetActive(true);
+			gameOverText.gameObject.SetActive(true);			
 			StartCoroutine(GoToLobby());
 	   }
 	}
@@ -52,11 +61,16 @@ public class ScoreBoard : MonoBehaviour
 		
 		IComparer scoreComparator = new ScoreComparator();
 		players.Sort( scoreComparator );
-		
+		int i =0;
+		string winnerName = "";
 		foreach(GameObject p in players){
 			
 			if (p !=null){				
 				string name = p.GetComponent<PlayerHealth>().playerName;
+				if(i == 0){
+					winnerName = name;
+					i++;
+				}
 				int score = p.GetComponent<PlayerFire>().score;
 				int death = p.GetComponent<PlayerHealth>().death;
 			
@@ -68,9 +82,11 @@ public class ScoreBoard : MonoBehaviour
 				if("SL".Equals(gameType)){
 					int prevHighest = PlayerPrefs.GetInt("HighScore");
 					if(score > prevHighest){
-						highScoreImage.gameObject.SetActive(true);
-						highScoreText.text = ""+score;
-						PlayerPrefs.SetInt("HighScore",score);
+						if(GameManager.isGameOver){
+							highScoreImage.gameObject.SetActive(true);
+							highScoreText.text = ""+score;
+							PlayerPrefs.SetInt("HighScore",score);
+						}						
 					}else{
 						highScoreImage.gameObject.SetActive(false);
 					}
@@ -81,6 +97,10 @@ public class ScoreBoard : MonoBehaviour
 					}
 				}else{
 					highScoreImage.gameObject.SetActive(false);
+					if(GameManager.isGameOver){
+						winnerContainer.gameObject.SetActive(true);
+						winnerText.text = "#Winner "+winnerName;
+					}					
 				}
 			}				
 		}

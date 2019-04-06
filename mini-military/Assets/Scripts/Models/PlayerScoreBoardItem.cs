@@ -14,7 +14,7 @@ public class PlayerScoreBoardItem : MonoBehaviour
 	
 	public void SetUp(string playerName, int kills, int deaths){
 		if(playerName == null || playerName.Equals("")){
-			playerName = "Soldier";
+			playerName = "Minimi";
 		}
 		playerNameText.text = playerName;
 		killsText.text = "+"+kills;

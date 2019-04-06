@@ -2,26 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using Prototype.NetworkLobby;
 
 public class EnemyManager : NetworkBehaviour {
 
     PlayerHealth playerHealth;       // Reference to the player's heatlh.
     public GameObject[] enemies;                // The enemy prefab to be spawned.
-    public float spawnTime = 10f;            // How long between each spawn.
+    public float spawnTime = 11f;            // How long between each spawn.
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
     GameObject player;
-    
+    float timeRan = 0.0f;
 
 
     public override void OnStartServer()
     {
-        
+        bool needEnemy = true;
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-		string gameType = PlayerPrefs.GetString("GameType");
-	   if("SL".Equals(gameType)){
-		   spawnTime = spawnTime/3;
+	    string gameType = PlayerPrefs.GetString("GameType");
+	   if("SL".Equals(gameType)){           
+		   spawnTime = 3.3f;
 	   }
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+
+       if("DM".Equals(gameType)){
+		   if(LobbyManager.s_Singleton._playerNumber > 3){
+               needEnemy = false;
+           }
+	   }
+
+       if(needEnemy){
+           InvokeRepeating("Spawn", spawnTime, spawnTime);
+       }       
+    }
+
+    void Update(){
+        timeRan += Time.deltaTime;        
     }
 
 
@@ -43,8 +57,16 @@ public class EnemyManager : NetworkBehaviour {
             int spawnPointIndex = Random.Range(0, spawnPoints.Length);
 
             // Create an instance of the enemy prefab at the randomly selected spawn point's position and rotation.
-            GameObject e = (GameObject)Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
-            NetworkServer.Spawn(e);
+            
+            Debug.Log(timeRan);
+
+            if(!(timeRan > 100 && timeRan < 120 ) || (timeRan > 200 && timeRan < 230 ) 
+            || (timeRan > 400 && timeRan < 460 ) || (timeRan > 580 && timeRan < 640 ) ||
+            (timeRan > 700 && timeRan < 720 )){
+                GameObject e = (GameObject)Instantiate(enemy, spawnPoints[spawnPointIndex].position, spawnPoints[spawnPointIndex].rotation);
+                NetworkServer.Spawn(e);
+                Destroy(e, 200);
+            }            
         }
         
     }

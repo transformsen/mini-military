@@ -1813,9 +1813,9 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: b6457c24c7d7c4040869241919fd6d3d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.777
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -10936,14 +10936,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.110657215, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f04ff5784b2d1f242b0591c7978f4fc1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bbab069a68fbdf74290e001f6d3fe6fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13921,8 +13921,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 514, y: 116}
-  m_SizeDelta: {x: 247.00002, y: 185}
+  m_AnchoredPosition: {x: 486.86, y: 116}
+  m_SizeDelta: {x: 375.21, y: 185}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224950640596804395
 RectTransform:

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Monetization;
+using UnityEngine.Advertisements;
 
 [RequireComponent(typeof(Button))]
 public class UnityAdsButton : MonoBehaviour
@@ -8,15 +8,14 @@ public class UnityAdsButton : MonoBehaviour
 
     public string placementId = "rewardedVideo";
     public Button confirmButton;
-    private Button adButton;
+   
     //private string gameId = "1234567";
 	
 	private bool blink = false;
 	private int counter = 0;
 	private int blinkSpeed = 10;
+    public bool testMode = true;
 	
-	Animator anim;
-
     #if UNITY_IOS
       private string gameId = "3102447";
     #elif UNITY_ANDROID
@@ -31,69 +30,37 @@ public class UnityAdsButton : MonoBehaviour
 
     void Start()
     {
-        adButton = GetComponent<Button>();
-		anim = GetComponent<Animator>();
-        if (adButton)
-        {
-            adButton.onClick.AddListener(ShowAd);
-        }
-
-        if (Monetization.isSupported)
-        {
-            Monetization.Initialize(gameId, true);
-        }
+        
+		Advertisement.Initialize (gameId, testMode);
     }
 
     void Update()
     {
-        if (adButton)
-        {
-            adButton.interactable = Monetization.IsReady(placementId);
-        }
-		
-		if(counter > blinkSpeed)
-		 {
-			 blink = !blink;
-			 counter = 0;
-		 }
-		 
-		 counter++;
-    }
-
-    void ShowAd()
-    {
-        ShowAdCallbacks options = new ShowAdCallbacks();
-        options.finishCallback = HandleShowResult;
-        ShowAdPlacementContent ad = Monetization.GetPlacementContent(placementId) as ShowAdPlacementContent;
-        ad.Show(options);
-    }
-
-    void HandleShowResult(ShowResult result)
-    {
-        Debug.Log("Results show " + result.ToString());
-		confirmButton.enabled = true;
         
-        if (result == ShowResult.Finished)
-        {
-            confirmButton.enabled = true;
-        }
-        else if (result == ShowResult.Skipped)
-        {
-            Debug.LogWarning("The player skipped the video - DO NOT REWARD!");
-        }
-        else if (result == ShowResult.Failed)
-        {
-            Debug.LogError("Video failed to show");
-        }
     }
-	
-	void OnGUI()
-	{
-		  if(blink)
-			 //GetComponent<Image>().color = Color.red;
-			anim.SetBool("fadeIn", true);
-		  else 
-			anim.SetBool("fadeIn", false);
-			 //GetComponent<Image>().color = Color.green;
+
+    public void ShowAd()
+    {
+       if (Advertisement.IsReady("rewardedVideo"))
+		{
+		  ShowOptions options = new ShowOptions();
+		  options.resultCallback = HandleShowResult;
+		  Advertisement.Show("rewardedVideo", options);
+		}
+    }
+
+    
+    private void HandleShowResult(ShowResult result){
+		switch (result){
+		  case ShowResult.Finished:
+			confirmButton.enabled = true;
+			break;
+		  case ShowResult.Skipped:
+			Debug.LogWarning("The player skipped the video - DO NOT REWARD!");
+			break;
+		  case ShowResult.Failed:
+			Debug.LogError("Video failed to show");
+			break;
+		}
 	}
 }

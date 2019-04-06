@@ -227,6 +227,32 @@ public class PlayerFire : NetworkBehaviour
 	   activeWeaponName = weaponName;
 	   SetPower(activeWeaponName);             
     }
+
+    [ClientRpc]
+    public void RpcWeaponSwitch()
+    {
+	   
+	   activeWeaponName = "Pistel";	               
+    }
+
+    [ClientRpc]
+    public void RpcSetPower(string weaponName){
+		
+		barrelPreFab = weaponBareel[weaponName].barrelPreFab;                
+		timeBetweenBullets = weaponBareel[weaponName].timeBetweenBullets;   
+		totalNumberOfBullets = weaponBareel[weaponName].totalNumberOfBullets;
+		if(PlayerPrefs.GetInt("ExtraBullet") == 1 ){
+			totalNumberOfBullets = totalNumberOfBullets+5;
+		}
+		numberOfBulletsLeft	= totalNumberOfBullets;	
+		imageforWeanpon = weaponBareel[weaponName].imageforWeanpon;
+		range = weaponBareel[weaponName].range;		
+		maxZoom = weaponBareel[weaponName].maxZoom;
+		
+		if(maxZoom > 1 && PlayerPrefs.GetInt("ExtraZoom") == 1 ){
+			maxZoom = maxZoom+1;
+		}
+	}
 	
 	void OnActiveWeaponName(string weaponName){
 		foreach (Transform w in weaponObj.transform)

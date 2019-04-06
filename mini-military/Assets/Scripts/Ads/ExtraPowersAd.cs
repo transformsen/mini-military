@@ -8,17 +8,24 @@ using UnityEngine.UI;
 public class ExtraPowersAd : MonoBehaviour
 {
 	public string placementId = "rewardedVideo";
-    private string gameId = "1234567";	
+  //private string gameId = "1234567";	
 	bool testMode = true;
 	
 	public GameObject loadingScreen;
     public Slider loadingSlider;
 	
-    //#if UNITY_IOS
-    //   private string gameId = "1234567";
-    //#elif UNITY_ANDROID
-    //    private string gameId = "7654321";
-    //#endif
+    #if UNITY_IOS
+      private string gameId = "3102447";
+    #elif UNITY_ANDROID
+       private string gameId = "3102446";
+    #elif UNITY_EDITOR_WIN
+       private string gameId = "1234567";
+    #elif UNITY_STANDALONE_WIN
+       private string gameId = "1234567";
+    #else
+       private string gameId = "1234567";
+    #endif
+
 
 	
     // Start is called before the first frame update
@@ -150,7 +157,7 @@ public class ExtraPowersAd : MonoBehaviour
 		switch (result){
 		  case ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
-			PlayerPrefs.SetInt("ExtraBomb1", 1);
+			PlayerPrefs.SetInt("ExtraBomb", 1);
 			break;
 		  case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");

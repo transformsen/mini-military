@@ -40,7 +40,7 @@ public class PlayerHealth : NetworkBehaviour {
 	[SyncVar]
     public string team;
     [SyncVar]
-    public string playerName = "Soldier";
+    public string playerName = "Minimi";
 	[SyncVar]
     public int death = 0;
 	
@@ -157,9 +157,11 @@ public class PlayerHealth : NetworkBehaviour {
 		//Disable Player Effect on the Client
 		RpcDisablePlayer();
 		
-		//Heath Back To Normal
-		currentHealth = startingHealth;		
+		playerFire.RpcWeaponSwitch();
+		playerFire.RpcSetPower("Pistel");
 		
+		//Heath Back To Normal
+		currentHealth = startingHealth;
 		StartCoroutine(ReSpawn());
 		
     }
@@ -177,7 +179,8 @@ public class PlayerHealth : NetworkBehaviour {
 			playerFire.enabled = enable;
 			playerBombAttack.enabled = enable;
 			if(enable){
-				playerFire.WeaponSwitch("Pistel");
+				//playerFire.WeaponSwitch("Pistel");
+				//playerFire.RpcWeaponSwitch();
 			}
 			StartCoroutine(InformScoreManger(enable));		
 		}
