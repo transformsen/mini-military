@@ -6,7 +6,7 @@ using UnityEngine.Advertisements;
 public class PurchaseBannerAds : MonoBehaviour
 {
     public string bannerPlacement = "banner";
-    public bool testMode = true;
+    public bool testMode = false;
 
     #if UNITY_IOS
       private string gameId = "3102447";

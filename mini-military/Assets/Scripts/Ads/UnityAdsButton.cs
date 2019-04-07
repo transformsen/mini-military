@@ -14,7 +14,7 @@ public class UnityAdsButton : MonoBehaviour
 	private bool blink = false;
 	private int counter = 0;
 	private int blinkSpeed = 10;
-    public bool testMode = true;
+    public bool testMode = false;
 	
     #if UNITY_IOS
       private string gameId = "3102447";

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
+using Prototype.NetworkLobby;
 
 public class PlayerMovement : NetworkBehaviour {
-    public float speed = 6f;            // The speed that the player will move at.
+    public float speed = 5f;            // The speed that the player will move at.
 
     [SerializeField] float m_MovingTurnSpeed = 360;
     [SerializeField] float m_StationaryTurnSpeed = 180;
@@ -48,6 +49,18 @@ public class PlayerMovement : NetworkBehaviour {
 			transform. Find("HUDCanvas").gameObject.SetActive(true);
 
         }
+         string gameType = PlayerPrefs.GetString("GameType");
+         if("DM".Equals(gameType)){
+		   if(LobbyManager.s_Singleton._playerNumber > 3){
+              speed = 2.6f;
+              m_MovingTurnSpeed = 180;
+              m_StationaryTurnSpeed = 90;
+           }else{
+               speed = 4.8f;
+              m_MovingTurnSpeed = 360;
+              m_StationaryTurnSpeed = 180;
+           }
+	   }
     }
 
    

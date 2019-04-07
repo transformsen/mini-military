@@ -9,7 +9,7 @@ public class ExtraPowersAd : MonoBehaviour
 {
 	public string placementId = "rewardedVideo";
   //private string gameId = "1234567";	
-	bool testMode = true;
+	bool testMode = false;
 	
 	public GameObject loadingScreen;
     public Slider loadingSlider;
