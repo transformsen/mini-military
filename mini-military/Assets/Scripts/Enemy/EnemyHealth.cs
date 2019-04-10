@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour {
     public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
     public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
     public AudioClip deathClip;                 // The sound to play when the enemy dies.
+	public GameObject deathParticlesGO;         // Reference to the particle system that plays when the enemy is death.
 
 
     Animator anim;                              // Reference to the animator.
@@ -18,7 +19,8 @@ public class EnemyHealth : MonoBehaviour {
     CapsuleCollider capsuleCollider;            // Reference to the capsule collider.
     bool isDead;                                // Whether the enemy is dead.
     bool isSinking;                             // Whether the enemy has started sinking through the floor.
-
+	public int power = 1;
+	public Color poweredColor = Color.white;
 
     void Awake()
     {
@@ -43,7 +45,7 @@ public class EnemyHealth : MonoBehaviour {
     }
 
 
-    public void TakeDamage(int amount, Vector3 hitPoint)
+    public void TakeDamage(int amount, Vector3 hitPoint, GameObject fromPlayer)
     {
         
         // If the enemy is dead...
@@ -68,9 +70,16 @@ public class EnemyHealth : MonoBehaviour {
         if (currentHealth <= 0)
         {
             // ... the enemy is dead.
-            Death();
+            Death();	
+			fromPlayer.GetComponentInParent<PlayerFire>().AddScore(power, poweredColor);			
         }
     }
+	
+	public void TakeDamage(GameObject fromPlayer){
+		Debug.Log(fromPlayer);
+		Debug.Log(fromPlayer.GetComponentInParent<PlayerFire>());
+		fromPlayer.GetComponentInParent<PlayerFire>().AddScore(power, poweredColor);
+	}
 
 
     void Death()
@@ -80,16 +89,15 @@ public class EnemyHealth : MonoBehaviour {
 
         // Turn the collider into a trigger so shots can pass through it.
         capsuleCollider.isTrigger = true;
-
+		deathParticlesGO.SetActive(true);
+		enemyAudio.clip = deathClip;
+        enemyAudio.Play();
         // Tell the animator that the enemy is dead.
         anim.SetTrigger("Dead");
 
-        // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).
-        enemyAudio.clip = deathClip;
-        enemyAudio.Play();
+        // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).        
         StartSinking();
 
-        ScoreManager.score++;
     }
 
 

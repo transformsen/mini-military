@@ -4,22 +4,13 @@ using UnityEngine;
 
 public class FirstAidBoost : MonoBehaviour {
 
-    GameObject player;                          // Reference to the player GameObject.
-    PlayerHealth playerHealth;                  // Reference to the player's health.
-
-
-    void Awake()
-    {
-        // Setting up the references.
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerHealth = player.GetComponent<PlayerHealth>();
-    }
-
-    void OnTriggerEnter(Collider other)
+      void OnTriggerEnter(Collider collision)
     {
         // If the entering collider is the player...
-        
-        if (other.gameObject == player)
+        GameObject hit = collision.gameObject;
+        PlayerHealth playerHealth = hit.GetComponent<PlayerHealth>();
+		
+        if (playerHealth != null)
         {            
             playerHealth.currentHealth = playerHealth.startingHealth;
             playerHealth.healthSlider.value = playerHealth.startingHealth;
