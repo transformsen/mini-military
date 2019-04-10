@@ -19,32 +19,37 @@ public class EnemyAttack : MonoBehaviour {
     void Awake()
     {
         // Setting up the references.
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerHealth = player.GetComponent<PlayerHealth>();
+        //player = GameObject.FindGameObjectWithTag("Player");
+        //playerHealth = player.GetComponent<PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent<Animator>();
     }
 
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider collision)
     {
-        // If the entering collider is the player...
-        if (other.gameObject == player)
+		GameObject hit = collision.gameObject;
+        playerHealth = hit.GetComponent<PlayerHealth>();
+		
+        if (playerHealth != null)
         {
-            // ... the player is in range.
-            playerInRange = true;
-        }
+			 playerInRange = true;
+			
+		}
+        
     }
 
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider collision)
     {
-        // If the exiting collider is the player...
-        if (other.gameObject == player)
+        GameObject hit = collision.gameObject;
+        playerHealth = hit.GetComponent<PlayerHealth>();
+		
+        if (playerHealth != null)
         {
-            // ... the player is no longer in range.
-            playerInRange = false;
-        }
+			 playerInRange = false;
+			
+		}
     }
 
 
@@ -59,16 +64,16 @@ public class EnemyAttack : MonoBehaviour {
             // ... attack.
             Attack();
         }
-        else if(playerHealth.currentHealth > 0)
+        else if(playerHealth != null && playerHealth.currentHealth > 0)
         {
             anim.SetTrigger("EnemyWalk");
         }
 
         // If the player has zero or less health...
-        if (playerHealth.currentHealth <= 0)
+        if (playerHealth != null && playerHealth.currentHealth <= 0)
         {
             // ... tell the animator the player is dead.
-            anim.SetTrigger("PlayerDead");
+            //anim.SetTrigger("PlayerDead");
         }
     }
 
@@ -79,11 +84,11 @@ public class EnemyAttack : MonoBehaviour {
         timer = 0f;
 
         // If the player has health to lose...
-        if (playerHealth.currentHealth > 0)
+        if (playerHealth != null && playerHealth.currentHealth > 0)
         {
             // ... damage the player.
             anim.SetTrigger("Attack");
-            playerHealth.TakeDamage(attackDamage);            
+            playerHealth.TakeDamage(attackDamage, gameObject);            
         }
     }
 }

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.Networking;
+using Prototype.NetworkLobby;
 
-public class PlayerMovement : MonoBehaviour {
-    public float speed = 6f;            // The speed that the player will move at.
-
-    //TODO: weapon GameObject needs to created from prefab.
-    public GameObject weapon;           // The Weapon object for attaching to player.
+public class PlayerMovement : NetworkBehaviour {
+    public float speed = 5f;            // The speed that the player will move at.
 
     [SerializeField] float m_MovingTurnSpeed = 360;
     [SerializeField] float m_StationaryTurnSpeed = 180;
@@ -18,8 +17,7 @@ public class PlayerMovement : MonoBehaviour {
     Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
-    GameObject rightHandContainer;      // Right hand container to hold weapon
-    WeaponSwitch weaponSwitch;          // Reference to Weapon Switch Script
+    
 
     private Transform m_Cam;
     private Vector3 m_CamForward;             // The current forward direction of the camera
@@ -35,28 +33,45 @@ public class PlayerMovement : MonoBehaviour {
         // Set up references.
         anim = GetComponent<Animator>();
         playerRigidbody = GetComponent<Rigidbody>();
-        rightHandContainer = transform.
-                                Find("Bip001").
-                                Find("Bip001 Pelvis").
-                                Find("Bip001 Spine").
-                                Find("Bip001 R Clavicle").
-                                Find("Bip001 R UpperArm").
-                                Find("Bip001 R Forearm").
-                                Find("Bip001 R Hand").
-                                Find("R_hand_container").gameObject;
-
-        
-        weaponSwitch = weapon.GetComponent<WeaponSwitch>();
-
+        						
+								
         if (Camera.main != null)
         {
             m_Cam = Camera.main.transform;
         }
+        
     }
 
+    void Start(){
+         if (isLocalPlayer)
+        {
+            CameraFollow.target = transform;
+			transform. Find("HUDCanvas").gameObject.SetActive(true);
+
+        }
+         string gameType = PlayerPrefs.GetString("GameType");
+         if("DM".Equals(gameType)){
+		   if(LobbyManager.s_Singleton._playerNumber > 3){
+              speed = 2.6f;
+              m_MovingTurnSpeed = 180;
+              m_StationaryTurnSpeed = 90;
+           }else{
+               speed = 4.8f;
+              m_MovingTurnSpeed = 360;
+              m_StationaryTurnSpeed = 180;
+           }
+	   }
+    }
+
+   
 
     void FixedUpdate()
     {
+        if (!isLocalPlayer)
+        {
+            // exit from update if this is not the local player
+            return;
+        }
         // Store the input axes.
         float h = CrossPlatformInputManager.GetAxisRaw("Horizontal");
         float v = CrossPlatformInputManager.GetAxisRaw("Vertical");
@@ -84,8 +99,7 @@ public class PlayerMovement : MonoBehaviour {
         // Animate the player.
         Animating(h, v);
 
-        //Attaching weapon
-        AttachWeapon();
+       
     }
 
 
@@ -127,25 +141,4 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 
-    void AttachWeapon()
-    {
-        weapon.transform.SetParent(rightHandContainer.transform);        
-    }
-
-    public void DetachWeapon()
-    {
-        weapon.GetComponent<WeaponSwitch>().enableTrigger = true;
-        Destroy(weapon.gameObject, 10f);
-        rightHandContainer.transform.DetachChildren();         
-    }
-
-    public void ShootAnim(bool enable)
-    {
-        anim.SetBool("isShooting", enable);
-    }
-
-    public void SwitchWeapon(string weaponName)
-    {
-        weaponSwitch.SwitchWeapon(weaponName);
-    }
 }

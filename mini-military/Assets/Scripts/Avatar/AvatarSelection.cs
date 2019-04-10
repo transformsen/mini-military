@@ -6,25 +6,35 @@ using UnityEngine.UI;
 
 public class AvatarSelection : MonoBehaviour {
 
-    public Button confirmButton;
-
-    private GameObject[] avatars;
+    AudioSource uiAudio;
+	
+	public Button confirmButton;	
+	public Button adButton;
+	public AudioClip clickClip; 
+	
+	public GameObject loadingScreen;
+    public Slider loadingSlider;
+	
+    public GameObject[] playerAvatarsPrefab;
+	private GameObject[] avatars;
     private int index = 0;
 
 	void Awake() {
+		uiAudio = GetComponent<AudioSource>();
+		loadingScreen.SetActive(false);
         index = PlayerPrefs.GetInt("SelectedAvatar");
-        avatars = new GameObject[transform.childCount];
-        for(int i=0; i<transform.childCount; i++)
+		avatars = new GameObject[playerAvatarsPrefab.Length];
+		 
+        for(int i=0; i<playerAvatarsPrefab.Length; i++)
         {
-            GameObject avatar = transform.GetChild(i).gameObject;
-            avatar.SetActive(false);
-            avatars[i] = avatar;
+            GameObject p_a = Instantiate(playerAvatarsPrefab[i], new Vector3(0, 0, 0), Quaternion.Euler(0,50,0));
+			p_a.SetActive(false);
+			avatars[i] = p_a;
         }
         avatars[index].SetActive(true);
-        if(confirmButton != null){
-            confirmButton.enabled = false;
-        }
 	}
+	
+	
 
     public void ToggleLeft()
     {
@@ -34,7 +44,9 @@ public class AvatarSelection : MonoBehaviour {
         {
             index = avatars.Length - 1;
         }
-        avatars[index].SetActive(true);        
+        avatars[index].SetActive(true);
+		EnableRewardButton(index);       
+		playClickSound();
     }
 
     public void ToggleRight()
@@ -46,12 +58,56 @@ public class AvatarSelection : MonoBehaviour {
             index = 0;
         }
         avatars[index].SetActive(true);
+		EnableRewardButton(index);
+		playClickSound();
     }
+	
+	public void EnableRewardButton(int avatarIndex){
+		if(avatarIndex == 0){
+			confirmButton.enabled = true;
+			adButton.gameObject.SetActive(false);
+		}else{
+			confirmButton.enabled = false;
+			adButton.gameObject.SetActive(true);
+		}
+	}
 
     public void Confirm()
     {
+		playClickSound();
         PlayerPrefs.SetInt("SelectedAvatar", index);
-        SceneManager.LoadScene("StartScene");
+        StartCoroutine(Load("StartScene"));
+    }
+	
+	public void Back(){
+		playClickSound();
+        PurchaseBannerAds.HideBanner();
+		StartCoroutine(Load("StartScene"));
+	}
+	
+	
+    void playClickSound() {
+		uiAudio.clip = clickClip;
+		uiAudio.Play();	
+    }
+	
+	private IEnumerator Load(string senceName)
+    {
+        loadingScreen.SetActive(true);
+        AsyncOperation async = SceneManager.LoadSceneAsync(senceName);
+        async.allowSceneActivation = false;
+
+        while (!async.isDone)
+        {           
+            loadingSlider.value = async.progress;
+            if (async.progress == 0.9f)
+            {
+                loadingSlider.value = 1f;
+                async.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+
     }
 
 }

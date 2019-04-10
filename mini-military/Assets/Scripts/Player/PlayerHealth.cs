@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : NetworkBehaviour {
 
-    public int startingHealth = 100;                            // The amount of health the player starts the game with.
-    public int currentHealth;                                   // The current health the player has.
+	private NetworkStartPosition[] spawnPoints; 
+    
     public Slider healthSlider;                                 // Reference to the UI's health bar.
     public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
     public AudioClip deathClip;                                 // The audio clip to play when the player dies.
+	public AudioClip hurtClip;                                 // The audio clip to play when the player dies.
     public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 
@@ -17,87 +19,216 @@ public class PlayerHealth : MonoBehaviour {
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
     PlayerMovement playerMovement;                              // Reference to the player's movement.
-    //PlayerShooting playerShooting;                              // Reference to the PlayerShooting script.
+	PlayerBombAttack playerBombAttack;                              // Reference to the PlayerBombAttack.
+	ParticleSystem hitParticles;                // Reference to the particle system that plays when the player is damaged.
+	public GameObject deathParticlesGO;                // Reference to the particle system that plays when the player is death.
+	
+    PlayerFire playerFire;                              // Reference to the PlayerShooting script.
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
 
+	public bool destroyOnDeath = false;
+	
+	public int startingHealth = 100;                            // The amount of health the player starts the game with.
+	[SyncVar(hook = "OnChangeHealth")]
+    public int currentHealth;
+	
+	[SyncVar]
+	bool isSinking = false;                             // Whether the enemy has started sinking through the floor.
+	public float sinkSpeed = 2.5f;              // The speed at which the enemy sinks through the floor when dead.
+	
+	[SyncVar]
+    public string team;
+    [SyncVar]
+    public string playerName = "Minimi";
+	[SyncVar]
+    public int death = 0;
+	
+	public int power = 5;
+	public Color poweredColor = Color.green;
 
     void Awake()
     {
+		if (isLocalPlayer)
+        {            
+			if(PlayerPrefs.GetInt("ExtraHealth") == 1 ){
+				startingHealth = startingHealth + 50;
+			}
+        }
+		spawnPoints = FindObjectsOfType<NetworkStartPosition>();
         // Setting up the references.
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
-        playerMovement = GetComponent<PlayerMovement>();
-        //playerShooting = GetComponentInChildren<PlayerShooting>();
-
-        // Set the initial health of the player.
-        currentHealth = startingHealth;
+		playerMovement = GetComponent<PlayerMovement>();
+		playerBombAttack = GetComponent<PlayerBombAttack>();
+		playerFire = GetComponent<PlayerFire>();
+		hitParticles = GetComponentInChildren<ParticleSystem>();
+		
+		currentHealth = startingHealth;
     }
 
 
     void Update()
     {
-        // If the player has just been damaged...
-        if (damaged)
+		
+		// If the enemy should be sinking...
+        if (isSinking)
         {
-            // ... set the colour of the damageImage to the flash colour.
-            damageImage.color = flashColour;
-        }
-        // Otherwise...
-        else
-        {
-            // ... transition the colour back to clear.
-            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-        }
-
-        // Reset the damaged flag.
-        damaged = false;
+            // ... move the enemy down by the sinkSpeed per second.
+            transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
+        }		
+		
     }
 
-
-    public void TakeDamage(int amount)
+	void OnChangeHealth(int health){
+		healthSlider.value = health;		
+	}
+	
+	
+	
+	[Server]
+    public void TakeDamage(int amount, GameObject fromPlayer)
     {
-        // Set the damaged flag so the screen will flash.
-        damaged = true;
-
-        // Reduce the current health by the damage amount.
+		
+		if (!isServer)
+        {		
+            return;
+        }
+         // Reduce the current health by the damage amount.
         currentHealth -= amount;
 
-        // Set the health bar's value to the current health.
-        healthSlider.value = currentHealth;
-
-        // Play the hurt sound effect.
-        playerAudio.Play();
-
         // If the player has lost all it's health and the death flag hasn't been set yet...
-        if (currentHealth <= 0 && !isDead)
+        if (currentHealth <= 0)
         {
+			AddScore(fromPlayer);
             // ... it should die.
-            Death();
+            Death();			
         }
+		
+		RpcShowHitEffects();
+		
     }
-
-
+	
+	[ClientRpc]
+	void RpcShowHitEffects(){
+		//StartCoroutine(ShowHitEffects());
+		ShowHitEffects();
+	}
+	
+	
+	void ShowHitEffects(){
+		if (isLocalPlayer)
+        {
+			//damageImage.color = flashColour;
+			//yield return new WaitForSeconds(0.4f);
+			//damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+			
+			// Play the hurt sound effect.
+			hitParticles.Play();
+			playerAudio.clip = hurtClip;
+			playerAudio.Play();		
+		}
+		//playerAudio.clip = hurtClip;
+		//playerAudio.Play();		
+	}
+	
+	//Adding the score for the player object who fiered. This will run only in server.
+	[Server]
+	void AddScore(GameObject fromPlayer){
+		if(fromPlayer != gameObject){
+			PlayerFire playerFired = fromPlayer.GetComponentInParent<PlayerFire>();
+			if(playerFired != null){
+				playerFired.AddScore(power, poweredColor);
+			}
+		}		
+	}
+	
+	[Server]
     void Death()
-    {
-        // Set the death flag so this function won't be called again.
-        isDead = true;
-
-        // Turn off any remaining shooting effects.
-        //playerShooting.DisableEffects();
-
-        // Tell the animator that the player is dead.
-        anim.SetTrigger("death");
-
+    {   
+		death++;
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         playerAudio.clip = deathClip;
         playerAudio.Play();
-
-        // Turn off the movement and shooting scripts.
-        playerMovement.enabled = false;
-        //playerShooting.enabled = false;
-
-        //Drop weapon from hand
-        playerMovement.DetachWeapon();
+		//deathParticlesGO.SetActive(true);
+		
+		
+		EnableLocalPlayer(false);
+		//Disable Player Effect on the Client
+		RpcDisablePlayer();
+		
+		playerFire.RpcWeaponSwitch();
+		playerFire.RpcSetPower("Pistel");
+		
+		//Heath Back To Normal
+		currentHealth = startingHealth;
+		StartCoroutine(ReSpawn());
+		
     }
+	
+	[ClientRpc]
+	void RpcDisablePlayer(){
+		EnableLocalPlayer(false);
+	}
+	
+	void EnableLocalPlayer(bool enable){
+		if (isLocalPlayer)
+        {
+			deathParticlesGO.SetActive(!enable);
+			playerMovement.enabled = enable;
+			playerFire.enabled = enable;
+			playerBombAttack.enabled = enable;
+			if(enable){
+				//playerFire.WeaponSwitch("Pistel");
+				//playerFire.RpcWeaponSwitch();
+			}
+			StartCoroutine(InformScoreManger(enable));		
+		}
+		if(!enable){
+			transform.position = new Vector3(0, -20f, 0);			
+		}
+	}
+	
+	IEnumerator InformScoreManger(bool enable){
+		yield return new WaitForSeconds(0.1f);
+		ScoreManager.isPlayerDeath = !enable;
+	}
+	
+	IEnumerator ReSpawn(){
+		yield return new WaitForSeconds(6f);
+		EnableLocalPlayer(true);
+		RpcRespawn();
+	}
+	
+	[ClientRpc]
+    void RpcRespawn()
+    {
+		EnableLocalPlayer(true);
+		
+        if (isLocalPlayer)
+        {
+           RespawnLocalPlayer();
+        }
+    }
+	
+	void RespawnLocalPlayer(){
+		Debug.Log("RespawnLocalPlayer"+spawnPoints);
+	
+		// Set the spawn point to origin as a default value
+		Vector3 spawnPoint = Vector3.zero;
+
+		// If there is a spawn point array and the array is not empty, pick a spawn point at random
+		if (spawnPoints != null && spawnPoints.Length > 0)
+		{
+			spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+		}
+
+		// Set the player’s position to the chosen spawn point
+		transform.position = spawnPoint;
+	}
+		
+	
+	public override void OnStartClient() {
+		GameManager.RegisterPlayer(gameObject);
+	}
 }

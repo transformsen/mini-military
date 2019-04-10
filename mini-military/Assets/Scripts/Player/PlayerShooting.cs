@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityStandardAssets.CrossPlatformInput;
+//using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerShooting : MonoBehaviour {
 
@@ -55,7 +55,7 @@ public class PlayerShooting : MonoBehaviour {
         //TODO: How will this work in multi player Networking?
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
-
+        
         if(crossHiarPrefab!= null)
         {
             
@@ -74,7 +74,7 @@ public class PlayerShooting : MonoBehaviour {
         timer += Time.deltaTime;
 
         // If the Fire2 button is being press and it's time to fire...
-        if (CrossPlatformInputManager.GetButton("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
+        /*if (Input.GetButton("Fire2")   && timer >= timeBetweenBullets && isActiveWeapon)
         {
             playerMovement.ShootAnim(true);
             // ... shoot the gun only if it has bullets.
@@ -86,7 +86,7 @@ public class PlayerShooting : MonoBehaviour {
         else
         {
             playerMovement.ShootAnim(false);
-        }
+        }*/
 
         // If the timer has exceeded the proportion of timeBetweenBullets that the effects should be displayed for...
         if (timer >= timeBetweenBullets * effectsDisplayTime)
@@ -100,11 +100,18 @@ public class PlayerShooting : MonoBehaviour {
             if (numberOfBullets >= 0)
             {
                 //TODO: How to get the reference If this beacme prefab? 
-                currentBulletsText.text = "" + numberOfBullets;
+                if(currentBulletsText != null){
+                    currentBulletsText.text = "" + numberOfBullets;
+                }
+                
             }
 
-            totalBulletsText.text = "" + totalBullets;
+            if(totalBulletsText != null){
+                totalBulletsText.text = "" + totalBullets;
 
+            }
+
+            
             //TODO: How to get the reference If this beacme prefab? 
             if (weapon2D != null)
             {
@@ -165,6 +172,13 @@ public class PlayerShooting : MonoBehaviour {
         gunLine.enabled = false;
         gunLight.enabled = false;
     }
+	
+	public void PShoot(){
+		
+		if(timer >= timeBetweenBullets && isActiveWeapon){
+			Shoot();
+		}
+	}
 
     void Shoot()
     {
@@ -205,15 +219,30 @@ public class PlayerShooting : MonoBehaviour {
             if (enemyHealth != null)
             {
                 // ... the enemy should take damage.
-                enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+                //enemyHealth.TakeDamage(damagePerShot, shootHit.point);
             }
-
+			
+			// Try and find an EnemyHealth script on the gameobject hit.
+            PlayerHealth playerHealth = shootHit.collider.GetComponent<PlayerHealth>();
+			Debug.Log("Player playerHealth"+playerHealth);
+            // If the EnemyHealth component exist...
+            if (playerHealth != null)
+            {
+                Debug.Log("Player InRange");
+				// ... the enemy should take damage.
+                //playerHealth.TakeDamage(damagePerShot);
+				
+            }else{
+				Debug.Log("Player NULL");
+			}
+			
             // Set the second position of the line renderer to the point the raycast hit.
             gunLine.SetPosition(1, shootHit.point);
         }
         // If the raycast didn't hit anything on the shootable layer...
         else
         {
+			 Debug.Log("Player out of Range");
             // ... set the second position of the line renderer to the fullest extent of the gun's range.
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
         }
@@ -231,17 +260,21 @@ public class PlayerShooting : MonoBehaviour {
     {
         System.DateTime currentTime = System.DateTime.Now;
         int timeDiffBetweenReloads = (currentTime - reloadStartTime).Seconds;
-        Debug.Log(timeDiffBetweenReloads);
         if(numberOfBullets <= 0)
         {
-            realoadingInText.text = "RELOADING IN " + (reloadIntervel - timeDiffBetweenReloads);
+            if(realoadingInText != null){
+                realoadingInText.text = "RELOADING IN " + (reloadIntervel - timeDiffBetweenReloads);
+            }
+            
         }
         
         if (timeDiffBetweenReloads > reloadIntervel)
         {
             numberOfBullets = totalBullets;
             reloadStartTime = currentTime;
-            realoadingInText.text = "";
+            if(realoadingInText != null){
+                realoadingInText.text = "";
+            }
         }        
     }
 }

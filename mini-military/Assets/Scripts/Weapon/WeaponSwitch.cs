@@ -4,32 +4,26 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour {
 
-    public string weaponName = null;
-    public bool enableTrigger = false;
-
-    GameObject player;                          // Reference to the player GameObject.
-    PlayerMovement playerMovement;
-
-    void Awake()
+	AudioSource pickupAudio;                     // Reference to the audio source.
+	void Start(){
+		pickupAudio = GetComponent<AudioSource>();
+	}
+	
+	public string gunName = "";
+    
+    void OnTriggerEnter(Collider collision)
     {
-        //TODO: How this will work in Multi player Networking?
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerMovement = player.GetComponent<PlayerMovement>();
-        SwitchWeapon(weaponName);
-    }
-
-   
-
-    void OnTriggerEnter(Collider other)
-    {
-        // If the entering collider is the player...
-        
-        if (enableTrigger && other.gameObject == player)
+        GameObject hit = collision.gameObject;
+        PlayerFire playerFire = hit.GetComponent<PlayerFire>();
+		
+        if (playerFire != null)
         {
-            string activeWeapon = GetActiveWeaponName();
-            playerMovement.SwitchWeapon(activeWeapon);
-            Destroy(gameObject);
-        }
+			pickupAudio.Play();
+			string activeWeapon = gunName;
+			playerFire.WeaponSwitch(activeWeapon);
+			Destroy(gameObject, 0.2f);
+			
+		}
     }
 
     string GetActiveWeaponName()
@@ -47,36 +41,12 @@ public class WeaponSwitch : MonoBehaviour {
     }
 
 
-    public void SwitchWeapon(string weaponName)
-    {
-        if(weaponName != null)
-        {
-            foreach (Transform w in transform)
-            {                
-                if (weaponName.Equals(w.name))
-                {                    
-                    w.gameObject.SetActive(true);
-                    w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = true;
-                    w.Find("Rings").gameObject.SetActive(false);
-                }
-                else
-                {
-                    w.gameObject.SetActive(false);
-                    w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
-                    w.Find("Rings").gameObject.SetActive(true);
-                }
-
-            }
-        }        
-    }
-
     public void resetSelection()
     {
         foreach (Transform w in transform)
         {
-           w.gameObject.SetActive(false);
-            w.Find("BarrelEnd").GetComponent<PlayerShooting>().isActiveWeapon = false;
-        }
-
+			w.gameObject.SetActive(false);
+            
+		}
     }
 }
