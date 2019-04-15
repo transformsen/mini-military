@@ -244,12 +244,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 2
-  explosionEffectPreFab: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
+  explosionEffectPreFab: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
     type: 3}
-  radius: 3.5
+  radius: 5
   fource: 250
   lifeTime: 0.8
   myparent: {fileID: 0}
+  damageValue: 300
 --- !u!82 &82897282717616164
 AudioSource:
   m_ObjectHideFlags: 0

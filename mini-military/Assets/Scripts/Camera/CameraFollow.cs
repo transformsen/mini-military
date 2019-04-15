@@ -53,8 +53,8 @@ public class CameraFollow : MonoBehaviour {
 			resetZoom();
 		}
         
-
-        camaraAngle += touchField.TouchDist.x * caramaAngleSpeed;
+        //FP Disbaled
+        //camaraAngle += touchField.TouchDist.x * caramaAngleSpeed;
 
         if(target != null){
             transform.position = target.position + Quaternion.AngleAxis(camaraAngle, Vector3.up) * new Vector3(0, y, z);

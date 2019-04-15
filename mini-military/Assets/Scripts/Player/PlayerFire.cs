@@ -27,6 +27,12 @@ public class PlayerFire : NetworkBehaviour
 	GameObject rightHandContainer;      			// Right hand container to hold weapon
 	GameObject weaponObj;
 	GameObject crossHair;
+    public GameObject staticCrossHairPistel;
+    public GameObject staticCrossHairAk47;
+    public GameObject staticCrossHairFT;
+    public GameObject staticCrossHairMM4;
+    public GameObject staticCrossHairSX;
+    public GameObject staticCrossHairAWP;
 	
 	int shootableMask;                              // A layer mask so the raycast only hits things on the shootable layer.
 	Animator anim;                      			// Reference to the animator component.
@@ -38,6 +44,7 @@ public class PlayerFire : NetworkBehaviour
 	public int score = 0;
 	
 	public GameObject floatingTextPrefab;
+    public Camera cam;
 
 	
 	[SerializeField] public int maxZoom = 1;
@@ -72,7 +79,6 @@ public class PlayerFire : NetworkBehaviour
         if (isLocalPlayer)
         {
             GunStatusManager.playerGO = gameObject;
-			CameraFollow.targetPower = gameObject;
         }
     }
 
@@ -147,6 +153,13 @@ public class PlayerFire : NetworkBehaviour
         if (crossHair != null)
         {
             crossHair.SetActive(enabled);
+    
+            staticCrossHairPistel.SetActive(!enabled);
+            staticCrossHairAk47.SetActive(!enabled);
+            staticCrossHairFT.SetActive(!enabled);
+            staticCrossHairMM4.SetActive(!enabled);
+            staticCrossHairSX.SetActive(!enabled);
+            staticCrossHairAWP.SetActive(!enabled);
         }
     }
 
@@ -184,7 +197,7 @@ public class PlayerFire : NetworkBehaviour
             {
                 ToggleCrossHair(true);
                 crossHair.transform.position = hit.point;
-                crossHair.transform.LookAt(Camera.main.transform);
+                crossHair.transform.LookAt(cam.transform);
             }
         }
         else

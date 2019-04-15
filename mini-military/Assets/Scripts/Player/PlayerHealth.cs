@@ -18,7 +18,7 @@ public class PlayerHealth : NetworkBehaviour {
 
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
-    PlayerMovement playerMovement;                              // Reference to the player's movement.
+    PlayerFPMovement playerMovement;                              // Reference to the player's movement.
 	PlayerBombAttack playerBombAttack;                              // Reference to the PlayerBombAttack.
 	ParticleSystem hitParticles;                // Reference to the particle system that plays when the player is damaged.
 	public GameObject deathParticlesGO;                // Reference to the particle system that plays when the player is death.
@@ -59,7 +59,7 @@ public class PlayerHealth : NetworkBehaviour {
         // Setting up the references.
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
-		playerMovement = GetComponent<PlayerMovement>();
+		playerMovement = GetComponent<PlayerFPMovement>();
 		playerBombAttack = GetComponent<PlayerBombAttack>();
 		playerFire = GetComponent<PlayerFire>();
 		hitParticles = GetComponentInChildren<ParticleSystem>();
