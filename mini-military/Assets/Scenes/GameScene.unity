@@ -1061,6 +1061,7 @@ MonoBehaviour:
   - {fileID: 2103763405}
   - {fileID: 884782958}
   - {fileID: 471861612}
+  scoredBoardCanvas: {fileID: 568313081}
 --- !u!114 &608818578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3914,7 +3915,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guiOffset: 0
-  scoredBoardCanvas: {fileID: 568313081}
 --- !u!114 &1179221016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7118,7 +7118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guiOffset: 0
-  scoredBoardCanvas: {fileID: 0}
 --- !u!1 &1873559312
 GameObject:
   m_ObjectHideFlags: 0

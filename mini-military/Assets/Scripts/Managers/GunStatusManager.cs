@@ -16,7 +16,7 @@ public class GunStatusManager : MonoBehaviour
 	public Image gunStatusContainerImage;	
 	public Text myScore;
 	
-	public int mileStoneScore = 50;
+	public int mileStoneScore = 3;
 
 	public int mileStone = 2;
 	public GameObject floatingTextPrefab;

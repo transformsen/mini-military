@@ -12,19 +12,25 @@ public class EnemyManager : NetworkBehaviour {
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
     GameObject player;
     float timeRan = 0.0f;
-
+    [SerializeField]
+    public RectTransform scoredBoardCanvas;
 
     public override void OnStartServer()
     {
+        scoredBoardCanvas.gameObject.SetActive(false);
+        ScoreManager.isPlayerDeath = false;
+        GameManager.isGameOver = false;
+        
         bool needEnemy = true;
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 	    string gameType = PlayerPrefs.GetString("GameType");
+        timeRan = 0.0f;
 	   if("SL".Equals(gameType)){           
 		   spawnTime = 3.3f;
 	   }
 
        if("DM".Equals(gameType)){
-		   if(LobbyManager.s_Singleton._playerNumber > 3){
+		   if(LobbyManager.s_Singleton._playerNumber > 2){
                needEnemy = false;
            }
 	   }

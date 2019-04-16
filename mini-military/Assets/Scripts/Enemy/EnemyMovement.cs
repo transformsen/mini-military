@@ -42,7 +42,7 @@ public class EnemyMovement : MonoBehaviour {
 				}
 			}
 			// Otherwise...
-			else
+			else if(playerHealth.currentHealth <= 0)
 			{
 				// ... disable the nav mesh agent.
 				//nav.enabled = false;

@@ -9,8 +9,7 @@ public class SingleNetworkHUD : MonoBehaviour
 {
 	public float guiOffset;
 	public static bool started;
-	 [SerializeField]
-   public RectTransform scoredBoardCanvas;
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -42,8 +41,7 @@ public class SingleNetworkHUD : MonoBehaviour
 				GUI.backgroundColor = Color.magenta;
 				if(GUILayout.Button("Play!" , style , GUILayout.Width(200), GUILayout.Height(100))){
 					started = true;
-					NetworkManager.singleton.StartHost();
-					scoredBoardCanvas.gameObject.SetActive(false);
+					NetworkManager.singleton.StartHost();					
 				}
 				GUILayout.FlexibleSpace();
 				GUILayout.EndHorizontal();
