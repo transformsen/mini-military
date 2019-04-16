@@ -67,9 +67,16 @@ public class PlayerFPMovement : NetworkBehaviour
 			transform. Find("HUDCanvas").gameObject.SetActive(true);
             PlayerFire = GetComponent<PlayerFire>();
             miniMapId.GetComponent<Renderer>().material = localPlayerMaterialRef;
+            Init(transform, cam.transform);
+		    ZoomManager.playerGO = gameObject;
+
+            if (!cam.enabled){
+                cam.enabled = true;
+            }
+        }else{
+            cam.enabled = false;
         }
-        Init(transform, cam.transform);
-		ZoomManager.playerGO = gameObject;
+        
     }
 	
 
