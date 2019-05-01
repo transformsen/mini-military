@@ -43,7 +43,7 @@ public class GunStatusManager : MonoBehaviour
 		}
     }
 
-	void showPopup(){
+	void showPopup(){		
 		GameObject floatingTextCanvas = Instantiate(floatingTextPrefab);
 		GameObject floatingText = floatingTextCanvas.transform.GetChild(0).gameObject;
 		floatingText.GetComponent<Text>().text = "Completed Milestone " + (mileStone-1);
