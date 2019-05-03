@@ -100,7 +100,11 @@ public class PlayerFPMovement : NetworkBehaviour
 
         // Animate the player.
         Animating(h, v);
-
+		
+		if(transform.position.y < -0.2 || transform.position.y > 0.2){
+			Debug.Log("Goign below or Up");
+			transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+		}
        
     }
 	

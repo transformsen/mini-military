@@ -32,7 +32,7 @@ public class GunStatusManager : MonoBehaviour
 			numberOfBulletsLeftText.text = "" + player.numberOfBulletsLeft;
 			weapon2D.sprite = player.imageforWeanpon;
 			realoadingInText.text = player.realoadingInText;
-			myScore.text = "SCORE: "+player.score;
+			myScore.text = "KILLS: "+player.score;
 			if(player.score + mileStoneScore >= mileStoneScore * mileStone){
 				mileStone ++;
 				showPopup();

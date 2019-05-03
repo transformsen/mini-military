@@ -287,7 +287,7 @@ Transform:
   m_GameObject: {fileID: 1321073517112112}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4992273352840538}
   - {fileID: 4438485374127766}
@@ -5235,10 +5235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e460b358d5daab14ebeebae81578d784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 200
   currentHealth: 0
   sinkSpeed: 2.5
-  scoreValue: 10
+  scoreValue: 1
   deathClip: {fileID: 8300000, guid: 7563b0812863c484bbf07b405cd7fc0a, type: 3}
   deathParticlesGO: {fileID: 435773343645470272}
   power: 1
