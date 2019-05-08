@@ -15,6 +15,7 @@ public class GunStatusManager : MonoBehaviour
 	
 	public Image gunStatusContainerImage;	
 	public Text myScore;
+	public Text coins;
 	
 	public int mileStoneScore = 3;
 
@@ -41,6 +42,7 @@ public class GunStatusManager : MonoBehaviour
 		}else{
 			gunStatusContainerImage.gameObject.SetActive(false);
 		}
+		coins.text = "COINS :"+ PlayerPrefs.GetInt("Coins");
     }
 
 	void showPopup(){		
