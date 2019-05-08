@@ -1,20 +1,18 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class UnityAdsButton : MonoBehaviour
+public class CoinAd : MonoBehaviour
 {
-
     public string placementId = "rewardedVideo";
-	public AvatarSelection avatarSelection;
-   
-    //private string gameId = "1234567";
-	
-	private bool blink = false;
-	private int counter = 0;
-	private int blinkSpeed = 10;
+    
+	public int freeCoins = 10;
     public bool testMode = false;
+	public Button freeCoinButton;
+	public GameObject warningScreen;
+	public Text coinsLeft;
 	
     #if UNITY_IOS
       private string gameId = "3102447";
@@ -32,15 +30,29 @@ public class UnityAdsButton : MonoBehaviour
     {
         
 		Advertisement.Initialize (gameId, testMode);
+		
     }
 
     void Update()
     {
-        
+        int LastCoinsCollected = PlayerPrefs.GetInt("LastCoinsCollected");
+		if(System.DateTime.Now.Day != LastCoinsCollected){
+			freeCoinButton.gameObject.SetActive(true);
+		}else{
+			freeCoinButton.gameObject.SetActive(true);
+		}
+		int coins = PlayerPrefs.GetInt("Coins");
+		coinsLeft.text = "coins: "+coins;
     }
+	
+	public void Close(){
+		warningScreen.gameObject.SetActive(false);
+	}
 
     public void ShowAd()
     {
+		int collectedDay = System.DateTime.Now.Day;
+		PlayerPrefs.SetInt("LastCoinsCollected", collectedDay);
        if (Advertisement.IsReady("rewardedVideo"))
 		{
 		  ShowOptions options = new ShowOptions();
@@ -53,7 +65,12 @@ public class UnityAdsButton : MonoBehaviour
     private void HandleShowResult(ShowResult result){
 		switch (result){
 		  case ShowResult.Finished:
-			avatarSelection.Confirm();
+			int coins = PlayerPrefs.GetInt("Coins");
+			if(coins < 0){
+				coins = 0;
+			}			
+			coins = coins + freeCoins;
+			PlayerPrefs.SetInt("Coins", coins);
 			break;
 		  case ShowResult.Skipped:
 			Debug.LogWarning("The player skipped the video - DO NOT REWARD!");

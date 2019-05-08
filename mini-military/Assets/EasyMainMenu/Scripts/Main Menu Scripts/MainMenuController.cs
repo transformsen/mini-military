@@ -151,6 +151,12 @@ public class MainMenuController : MonoBehaviour {
 	}
 	
 	public void goToPurChase(){
+		PlayerPrefs.SetString("BoostMode", "EX");
+		StartCoroutine(Load("PurchaseScene"));
+	}
+	
+	public void goToStore(){
+		PlayerPrefs.SetString("BoostMode", "CO");
 		StartCoroutine(Load("PurchaseScene"));
 	}
 	

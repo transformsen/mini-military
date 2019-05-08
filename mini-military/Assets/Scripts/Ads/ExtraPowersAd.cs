@@ -12,6 +12,11 @@ public class ExtraPowersAd : MonoBehaviour
 	public bool testMode = false;
 	
 	public GameObject loadingScreen;
+	public GameObject coinScreen;
+	public GameObject extraPowerScreen;
+	public GameObject warningScreen;
+	public Text coinsLeft;
+	
     public Slider loadingSlider;
 	
     #if UNITY_IOS
@@ -32,14 +37,34 @@ public class ExtraPowersAd : MonoBehaviour
     void Start()
     {
 		loadingScreen.SetActive(false);
+		warningScreen.SetActive(false);
 		Advertisement.Initialize (gameId, testMode);
-        
+		string boostMode = PlayerPrefs.GetString("BoostMode");        
+		if("CO".Equals(boostMode)){
+			coinScreen.SetActive(true);
+			extraPowerScreen.SetActive(false);
+		}else{
+			coinScreen.SetActive(false);
+			extraPowerScreen.SetActive(true);
+		}
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        SoldOut("X95");
+		SoldOut("M4A1");
+		SoldOut("AWP");
+		
+		Unlocked("Zoom");
+		Unlocked("Bullets");
+		Unlocked("Health");
+		Unlocked("FirstAid");
+		Unlocked("Bomb");
+		
+		int coins = PlayerPrefs.GetInt("Coins");
+		coinsLeft.text = "coins: "+coins;
+		
     }
 	
 	public void ExtraZoom(){
@@ -88,6 +113,48 @@ public class ExtraPowersAd : MonoBehaviour
 		}			
 	}
 	
+	public void buyX95(){
+		ReduceCoin(500, "X95");
+	}
+	
+	public void buyM4A1(){
+		ReduceCoin(5, "M4A1");
+	}
+	
+	public void buyAWP(){
+		ReduceCoin(5, "AWP");
+	}
+	
+	private void ReduceCoin(int coinsPay, string weapon){
+		int coins = PlayerPrefs.GetInt("Coins");
+		Debug.Log("coins="+coins+" coinsPay="+coinsPay);
+		if(coins < coinsPay){
+			warningScreen.SetActive(true);
+		}else{
+			coins = coins - coinsPay;
+			PlayerPrefs.SetInt("Coins", coins);
+			PlayerPrefs.SetInt("CollectTo"+weapon, 1);			
+		}
+	}
+	
+	private void SoldOut(string weapon){
+		bool isSold = false;
+		if(PlayerPrefs.GetInt("CollectTo"+weapon) == 1){
+			isSold = true;
+		}
+		coinScreen.transform.Find(weapon).transform.Find("Sold").gameObject.SetActive(isSold);
+		coinScreen.transform.Find(weapon).transform.Find("Button").gameObject.SetActive(!isSold);
+	}
+	
+	private void Unlocked(string powerName){
+		bool isUnloakced = false;
+		if(PlayerPrefs.GetInt("Extra"+powerName) == 1){
+			isUnloakced = true;
+		}
+		extraPowerScreen.transform.Find(powerName).transform.Find("Unlocked").gameObject.SetActive(isUnloakced);
+		extraPowerScreen.transform.Find(powerName).transform.Find("Button").gameObject.SetActive(!isUnloakced);
+	}
+	
 	public void Back(){
 		StartCoroutine(Load("StartScene"));
 		PurchaseBannerAds.HideBanner();
@@ -112,7 +179,7 @@ public class ExtraPowersAd : MonoBehaviour
 		switch (result){
 		  case ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
-			PlayerPrefs.SetInt("ExtraBullet", 1);
+			PlayerPrefs.SetInt("ExtraBullets", 1);
 			break;
 		  case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");

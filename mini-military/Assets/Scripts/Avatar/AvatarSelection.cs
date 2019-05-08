@@ -8,12 +8,15 @@ public class AvatarSelection : MonoBehaviour {
 
     AudioSource uiAudio;
 	
-	public Button confirmButton;	
+	public Button coinButton;	
 	public Button adButton;
 	public AudioClip clickClip; 
 	
 	public GameObject loadingScreen;
     public Slider loadingSlider;
+	public int coinsPay = 1000;
+	public GameObject warningScreen;
+	public Text coinsLeft;
 	
     public GameObject[] playerAvatarsPrefab;
 	private GameObject[] avatars;
@@ -22,6 +25,7 @@ public class AvatarSelection : MonoBehaviour {
 	void Awake() {
 		uiAudio = GetComponent<AudioSource>();
 		loadingScreen.SetActive(false);
+		warningScreen.SetActive(false);
         index = PlayerPrefs.GetInt("SelectedAvatar");
 		avatars = new GameObject[playerAvatarsPrefab.Length];
 		 
@@ -34,6 +38,11 @@ public class AvatarSelection : MonoBehaviour {
         avatars[index].SetActive(true);
 	}
 	
+	void Update(){
+		EnableCoinButton(index);
+		int coins = PlayerPrefs.GetInt("Coins");
+		coinsLeft.text = "coins: "+coins;
+	}
 	
 
     public void ToggleLeft()
@@ -44,8 +53,7 @@ public class AvatarSelection : MonoBehaviour {
         {
             index = avatars.Length - 1;
         }
-        avatars[index].SetActive(true);
-		EnableRewardButton(index);       
+        avatars[index].SetActive(true);		       
 		playClickSound();
     }
 
@@ -58,18 +66,29 @@ public class AvatarSelection : MonoBehaviour {
             index = 0;
         }
         avatars[index].SetActive(true);
-		EnableRewardButton(index);
 		playClickSound();
     }
 	
-	public void EnableRewardButton(int avatarIndex){
-		if(avatarIndex == 0){
-			confirmButton.enabled = true;
+	public void EnableCoinButton(int avatarIndex){
+		if(avatarIndex == 2){
+			coinButton.gameObject.SetActive(true);
 			adButton.gameObject.SetActive(false);
 		}else{
-			confirmButton.enabled = false;
+			coinButton.gameObject.SetActive(false);
 			adButton.gameObject.SetActive(true);
 		}
+	}
+	
+	public void pickByCoin(){
+		int coins = PlayerPrefs.GetInt("Coins");
+		if(coins < coinsPay){
+			warningScreen.SetActive(true);
+		}else{
+			coins = coins - coinsPay;
+			PlayerPrefs.SetInt("Coins", coins);
+			Confirm();
+		}
+		
 	}
 
     public void Confirm()
