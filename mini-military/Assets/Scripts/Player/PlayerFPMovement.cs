@@ -27,6 +27,8 @@ public class PlayerFPMovement : NetworkBehaviour
     public Material localPlayerMaterialRef;
     public GameObject miniMapId;
 	
+	public AudioClip[] footStep;                                 // The audio clip to play when the player dies.
+	
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     Animator anim;                      // Reference to the animator component.
@@ -218,5 +220,12 @@ public class PlayerFPMovement : NetworkBehaviour
         anim.SetBool("isRunning", running);
 		
     }
+	
+	void Step(){
+		Debug.Log("Step");
+		AudioClip clip = footStep[Random.Range(0, footStep.Length)];
+		zoomSound.clip = clip;
+        zoomSound.Play();
+	}
 
 }

@@ -18,6 +18,7 @@ public class ExtraPowersAd : MonoBehaviour
 	public Text coinsLeft;
 	
     public Slider loadingSlider;
+	public static string weapomConstName = "CollectToo";
 	
     #if UNITY_IOS
       private string gameId = "3102447";
@@ -47,6 +48,7 @@ public class ExtraPowersAd : MonoBehaviour
 			coinScreen.SetActive(false);
 			extraPowerScreen.SetActive(true);
 		}
+		
     }
 
     // Update is called once per frame
@@ -114,15 +116,15 @@ public class ExtraPowersAd : MonoBehaviour
 	}
 	
 	public void buyX95(){
-		ReduceCoin(500, "X95");
+		ReduceCoin(500, "SX95");
 	}
 	
 	public void buyM4A1(){
-		ReduceCoin(5, "M4A1");
+		ReduceCoin(5, "SM4A1");
 	}
 	
 	public void buyAWP(){
-		ReduceCoin(5, "AWP");
+		ReduceCoin(5, "SAWP");
 	}
 	
 	private void ReduceCoin(int coinsPay, string weapon){
@@ -133,13 +135,13 @@ public class ExtraPowersAd : MonoBehaviour
 		}else{
 			coins = coins - coinsPay;
 			PlayerPrefs.SetInt("Coins", coins);
-			PlayerPrefs.SetInt("CollectTo"+weapon, 1);			
+			PlayerPrefs.SetInt(weapomConstName+weapon, 1);			
 		}
 	}
 	
 	private void SoldOut(string weapon){
 		bool isSold = false;
-		if(PlayerPrefs.GetInt("CollectTo"+weapon) == 1){
+		if(PlayerPrefs.GetInt(weapomConstName+weapon) == 1){
 			isSold = true;
 		}
 		coinScreen.transform.Find(weapon).transform.Find("Sold").gameObject.SetActive(isSold);

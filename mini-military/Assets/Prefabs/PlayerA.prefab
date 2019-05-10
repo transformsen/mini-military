@@ -5683,13 +5683,13 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 43e5aa475a8e83f4b9065a7d1ee86565, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.275
+  m_Volume: 0.714
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 95
+  Priority: 38
   DopplerLevel: 1.24
   MinDistance: 1
   MaxDistance: 500
@@ -5796,6 +5796,11 @@ MonoBehaviour:
   localPlayerMaterialRef: {fileID: 2100000, guid: 7c09861601f37ea479d21ed6f17f6d68,
     type: 2}
   miniMapId: {fileID: 8964222080824270154}
+  footStep:
+  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
+  - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
+  - {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
+  - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
   cam_currentZoom: 1
 --- !u!114 &6012343056913808740
 MonoBehaviour:
