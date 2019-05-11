@@ -13,7 +13,7 @@ public class FirstAidManager : NetworkBehaviour {
     public override void OnStartServer()
     {
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-		if(PlayerPrefs.GetInt("ExtraFirstAid") == 1 ){
+		if(PlayerPrefs.GetInt(ExtraPowersAd.exPowerConstName+"FirstAid") == 1 ){
 			spawnTime = spawnTime - 5f;
 		}
         InvokeRepeating("Spawn", spawnTime, spawnTime);

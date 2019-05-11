@@ -36,13 +36,16 @@ public class CoinAd : MonoBehaviour
     void Update()
     {
         int LastCoinsCollected = PlayerPrefs.GetInt("LastCoinsCollected");
+		
 		if(System.DateTime.Now.Day != LastCoinsCollected){
 			freeCoinButton.gameObject.SetActive(true);
 		}else{
-			freeCoinButton.gameObject.SetActive(true);
+			freeCoinButton.gameObject.SetActive(false);
 		}
 		int coins = PlayerPrefs.GetInt("Coins");
-		coinsLeft.text = "coins: "+coins;
+		if(coinsLeft != null){
+			coinsLeft.text = "coins: "+coins;
+		}		
     }
 	
 	public void Close(){

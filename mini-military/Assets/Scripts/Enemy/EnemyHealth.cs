@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour {
     public int scoreValue = 10;                 // The amount added to the player's score when the enemy dies.
     public AudioClip deathClip;                 // The sound to play when the enemy dies.
 	public GameObject deathParticlesGO;         // Reference to the particle system that plays when the enemy is death.
-
+	public bool isGod = false;
 
     Animator anim;                              // Reference to the animator.
     AudioSource enemyAudio;                     // Reference to the audio source.
@@ -61,8 +61,9 @@ public class EnemyHealth : MonoBehaviour {
 
 
         if(hitPoint != Vector3.zero)
-        {   
-            hitParticles.Play();
+        {   if(!isGod){
+				hitParticles.Play();
+			}
         }
         
 
@@ -96,7 +97,13 @@ public class EnemyHealth : MonoBehaviour {
         anim.SetTrigger("Dead");
 
         // Change the audio clip of the audio source to the death clip and play it (this will stop the hurt clip playing).        
-        StartSinking();
+        if(isGod){
+			hitParticles.Play();
+			PlayerPrefs.SetInt("Mission5", 1);
+			Destroy(gameObject, 7f);
+		}else{
+			StartSinking();
+		}		
 
     }
 

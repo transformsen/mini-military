@@ -170,9 +170,19 @@ public class MainMenuController : MonoBehaviour {
         }                       
 	}
 	
+	public void Mission()
+    {
+        StartCoroutine(Load("Mission"));
+    }
+	
 	public void Survival(){
-		PlayerPrefs.SetString("GameType", "SL");
-		playGame("GameScene");
+		
+		if(PlayerPrefs.GetInt("MissionSeen") != 1){
+			StartCoroutine(Load("Mission"));
+		}else{
+			PlayerPrefs.SetString("GameType", "SL");
+			playGame("GameScene");
+		}		
 	}
 
     public void playGame(string gameType)

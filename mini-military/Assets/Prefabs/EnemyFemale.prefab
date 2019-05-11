@@ -786,18 +786,18 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: a962f7b965031c540bcadf1a372afcd2,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 397ee264c2f63a14b827cb123f92c64f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9cb4c1a351ce3e042a4c1cd6156b1c96, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.596
+  m_Volume: 0.548
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 95
-  DopplerLevel: 1.24
-  MinDistance: 1
-  MaxDistance: 500
+  Priority: 43
+  DopplerLevel: 1.16
+  MinDistance: 100
+  MaxDistance: 700
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -847,7 +847,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.03888889
+      value: 0.1388889
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -890,7 +890,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fb0f4297b291a034bb4f9a9eada50640, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -942,7 +942,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667292058322722}
   serializedVersion: 6
-  lengthInSec: 0.4
+  lengthInSec: 0.9
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 1
@@ -1070,7 +1070,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1124,7 +1124,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0, b: 0.96968555, a: 1}
+      maxColor: {r: 0.94698536, g: 1, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1186,7 +1186,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1502,7 +1502,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 10000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -5658,6 +5658,7 @@ MonoBehaviour:
   scoreValue: 1
   deathClip: {fileID: 8300000, guid: 7563b0812863c484bbf07b405cd7fc0a, type: 3}
   deathParticlesGO: {fileID: 7906467726382994207}
+  isGod: 0
   power: 1
   poweredColor: {r: 0.7169812, g: 0.20630117, b: 0.62369883, a: 1}
 --- !u!114 &622475870075492030
@@ -6326,6 +6327,21 @@ PrefabInstance:
         type: 3}
       propertyPath: UVModule.flipV
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198220379293217532, guid: d8f0099df63275647a8bcf646df1ca00,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198220379293217532, guid: d8f0099df63275647a8bcf646df1ca00,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198220379293217532, guid: d8f0099df63275647a8bcf646df1ca00,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 199791721206961466, guid: d8f0099df63275647a8bcf646df1ca00,
         type: 3}

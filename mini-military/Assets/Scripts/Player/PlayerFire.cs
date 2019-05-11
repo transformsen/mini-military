@@ -254,7 +254,7 @@ public class PlayerFire : NetworkBehaviour
 		barrelPreFab = weaponBareel[weaponName].barrelPreFab;                
 		timeBetweenBullets = weaponBareel[weaponName].timeBetweenBullets;   
 		totalNumberOfBullets = weaponBareel[weaponName].totalNumberOfBullets;
-		if(PlayerPrefs.GetInt("ExtraBullet") == 1 ){
+		if(PlayerPrefs.GetInt(ExtraPowersAd.exPowerConstName+"Bullets") == 1 ){
 			totalNumberOfBullets = totalNumberOfBullets+5;
 		}
 		numberOfBulletsLeft	= totalNumberOfBullets;	
@@ -262,7 +262,7 @@ public class PlayerFire : NetworkBehaviour
 		range = weaponBareel[weaponName].range;		
 		maxZoom = weaponBareel[weaponName].maxZoom;
 		
-		if(maxZoom > 1 && PlayerPrefs.GetInt("ExtraZoom") == 1 ){
+		if(maxZoom > 1 && PlayerPrefs.GetInt(ExtraPowersAd.exPowerConstName+"Zoom") == 1 ){
 			maxZoom = maxZoom+1;
 		}
 	}

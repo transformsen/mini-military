@@ -15,7 +15,7 @@ public class GateOpener : MonoBehaviour
     // Update is called once per frame
 	void Start(){
 		gate.SetActive(true);
-		gateText.SetActive(true);
+		gateText.SetActive(true);		
 	}
 	
     void Update()
@@ -32,18 +32,23 @@ public class GateOpener : MonoBehaviour
 				}
 			}
 			if(pl != null){
-				int score = pl.GetComponent<PlayerFire>().score;				
-				if(score >= maxKills){
+				if(PlayerPrefs.GetInt("Mission3") == 1){
 					gate.SetActive(false);
-					gateText.SetActive(false);					
+					gateText.SetActive(false);
 				}else{
-					gate.SetActive(true);
-					gateText.SetActive(true);
-				}
-				if(!isGateOpen && (score >= maxKills)){
-					isGateOpen = true;
-					showPopup();
-				}
+					int score = pl.GetComponent<PlayerFire>().score;				
+					if(score >= maxKills){
+						gate.SetActive(false);
+						gateText.SetActive(false);					
+					}else{
+						gate.SetActive(true);
+						gateText.SetActive(true);
+					}
+					if(!isGateOpen && (score >= maxKills)){
+						isGateOpen = true;
+						showPopup();
+					}
+				}				
 			}			
 		}else{
 			int totalPlayer = 0;
@@ -64,8 +69,9 @@ public class GateOpener : MonoBehaviour
     }
 	
 	void showPopup(){
+		PlayerPrefs.SetInt("Mission3", 1);
 		GameObject floatingTextCanvas = Instantiate(floatingTextPrefab);
 		GameObject floatingText = floatingTextCanvas.transform.GetChild(0).gameObject;
-		floatingText.GetComponent<Text>().text = "Completed Your Mission! Gate Open! Seacrch your Teasure...";
+		floatingText.GetComponent<Text>().text = "Mission-3 Completed! Gate Open!";
 	}
 }

@@ -51,7 +51,7 @@ public class PlayerHealth : NetworkBehaviour {
     {
 		if (isLocalPlayer)
         {            
-			if(PlayerPrefs.GetInt("ExtraHealth") == 1 ){
+			if(PlayerPrefs.GetInt(ExtraPowersAd.exPowerConstName+"Health") == 1 ){
 				startingHealth = startingHealth + 50;
 			}
         }

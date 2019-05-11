@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterText: {fileID: 4482218391989159500}
-  timeLeft: 720
+  timeLeft: 1800
   masterTimer: 0
 --- !u!114 &684724803785167169
 MonoBehaviour:
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4482218393194071343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Script: {fileID: 11500000, guid: f8258ea15b8f74c4889ce485d21cbbb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneId:

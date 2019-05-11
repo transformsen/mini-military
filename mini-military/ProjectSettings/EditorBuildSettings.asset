@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PurchaseScene.unity
     guid: 332013dc35b4a7f4d851f014392c0b71
+  - enabled: 1
+    path: Assets/Scenes/Mission.unity
+    guid: b2f81eacba15ce940bb01becdac88ac4
   m_configObjects: {}

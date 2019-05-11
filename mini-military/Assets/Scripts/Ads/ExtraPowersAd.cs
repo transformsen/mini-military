@@ -19,6 +19,7 @@ public class ExtraPowersAd : MonoBehaviour
 	
     public Slider loadingSlider;
 	public static string weapomConstName = "CollectToo";
+	public static string exPowerConstName = "Exp";
 	
     #if UNITY_IOS
       private string gameId = "3102447";
@@ -116,7 +117,7 @@ public class ExtraPowersAd : MonoBehaviour
 	}
 	
 	public void buyX95(){
-		ReduceCoin(500, "SX95");
+		ReduceCoin(5, "SX95");
 	}
 	
 	public void buyM4A1(){
@@ -141,7 +142,7 @@ public class ExtraPowersAd : MonoBehaviour
 	
 	private void SoldOut(string weapon){
 		bool isSold = false;
-		if(PlayerPrefs.GetInt(weapomConstName+weapon) == 1){
+		if(PlayerPrefs.GetInt(weapomConstName+"S"+weapon) == 1){
 			isSold = true;
 		}
 		coinScreen.transform.Find(weapon).transform.Find("Sold").gameObject.SetActive(isSold);
@@ -150,7 +151,7 @@ public class ExtraPowersAd : MonoBehaviour
 	
 	private void Unlocked(string powerName){
 		bool isUnloakced = false;
-		if(PlayerPrefs.GetInt("Extra"+powerName) == 1){
+		if(PlayerPrefs.GetInt(exPowerConstName+powerName) == 1){
 			isUnloakced = true;
 		}
 		extraPowerScreen.transform.Find(powerName).transform.Find("Unlocked").gameObject.SetActive(isUnloakced);
@@ -166,7 +167,7 @@ public class ExtraPowersAd : MonoBehaviour
 		switch (result){
 		  case ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
-			PlayerPrefs.SetInt("ExtraZoom", 1);
+			PlayerPrefs.SetInt(exPowerConstName+"Zoom", 1);
 			break;
 		  case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");
@@ -181,7 +182,7 @@ public class ExtraPowersAd : MonoBehaviour
 		switch (result){
 		  case ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
-			PlayerPrefs.SetInt("ExtraBullets", 1);
+			PlayerPrefs.SetInt(exPowerConstName+"Bullets", 1);
 			break;
 		  case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");
@@ -196,7 +197,7 @@ public class ExtraPowersAd : MonoBehaviour
 		switch (result){
 		  case ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
-			PlayerPrefs.SetInt("ExtraHealth", 1);
+			PlayerPrefs.SetInt(exPowerConstName+"Health", 1);
 			break;
 		  case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");
@@ -211,7 +212,7 @@ public class ExtraPowersAd : MonoBehaviour
 		switch (result){
 		  case ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
-			PlayerPrefs.SetInt("ExtraFirstAid", 1);
+			PlayerPrefs.SetInt(exPowerConstName+"FirstAid", 1);
 			break;
 		  case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");
@@ -226,7 +227,7 @@ public class ExtraPowersAd : MonoBehaviour
 		switch (result){
 		  case ShowResult.Finished:
 			Debug.Log("The ad was successfully shown.");
-			PlayerPrefs.SetInt("ExtraBomb", 1);
+			PlayerPrefs.SetInt(exPowerConstName+"Bomb", 1);
 			break;
 		  case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");
