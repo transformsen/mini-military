@@ -19,7 +19,7 @@ public class ExtraPowersAd : MonoBehaviour
 	
     public Slider loadingSlider;
 	public static string weapomConstName = "CollectToo";
-	public static string exPowerConstName = "Exp";
+	public static string exPowerConstName = "Expo";
 	
     #if UNITY_IOS
       private string gameId = "3102447";

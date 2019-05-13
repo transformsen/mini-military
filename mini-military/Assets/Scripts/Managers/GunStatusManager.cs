@@ -22,6 +22,8 @@ public class GunStatusManager : MonoBehaviour
 	public int mileStone = 2;
 	public GameObject floatingTextPrefab;
 	public Color floatingTextColor;
+	public Button freeCoinButton; 
+	public GameObject demoScreen;
 
     // Update is called once per frame
     void Update()
@@ -43,6 +45,14 @@ public class GunStatusManager : MonoBehaviour
 			gunStatusContainerImage.gameObject.SetActive(false);
 		}
 		coins.text = "COINS :"+ PlayerPrefs.GetInt("Coins");
+		if(SingleNetworkHUD.started){
+			freeCoinButton.gameObject.SetActive(false);
+			demoScreen.SetActive(false);
+		}
+		if("DM".Equals(PlayerPrefs.GetString("GameType"))){
+			freeCoinButton.gameObject.SetActive(false);
+			demoScreen.SetActive(false);
+		}
     }
 
 	void showPopup(){		

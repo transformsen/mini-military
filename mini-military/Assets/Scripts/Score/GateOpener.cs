@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GateOpener : MonoBehaviour
 {
-	public int maxKills = 2;
+	public int maxKills = 200;
 	public int maxPlayer = 3;
 	public GameObject gate;
 	public GameObject gateText;
@@ -32,7 +32,7 @@ public class GateOpener : MonoBehaviour
 				}
 			}
 			if(pl != null){
-				if(PlayerPrefs.GetInt("Mission3") == 1){
+				if(PlayerPrefs.GetInt("Mission3Done") == 1){
 					gate.SetActive(false);
 					gateText.SetActive(false);
 				}else{
@@ -69,7 +69,7 @@ public class GateOpener : MonoBehaviour
     }
 	
 	void showPopup(){
-		PlayerPrefs.SetInt("Mission3", 1);
+		PlayerPrefs.SetInt("Mission3Done", 1);
 		GameObject floatingTextCanvas = Instantiate(floatingTextPrefab);
 		GameObject floatingText = floatingTextCanvas.transform.GetChild(0).gameObject;
 		floatingText.GetComponent<Text>().text = "Mission-3 Completed! Gate Open!";

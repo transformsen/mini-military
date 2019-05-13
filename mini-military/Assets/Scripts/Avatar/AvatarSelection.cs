@@ -70,7 +70,7 @@ public class AvatarSelection : MonoBehaviour {
     }
 	
 	public void EnableCoinButton(int avatarIndex){
-		if(avatarIndex == 2){
+		if(avatarIndex == 4){
 			coinButton.gameObject.SetActive(true);
 			adButton.gameObject.SetActive(false);
 		}else{
@@ -94,6 +94,7 @@ public class AvatarSelection : MonoBehaviour {
     public void Confirm()
     {
 		playClickSound();
+		Debug.Log("Picked Avatar=" + index);
         PlayerPrefs.SetInt("SelectedAvatar", index);
         StartCoroutine(Load("StartScene"));
     }
