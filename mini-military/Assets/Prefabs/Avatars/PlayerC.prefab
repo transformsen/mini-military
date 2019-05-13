@@ -4070,6 +4070,21 @@ PrefabInstance:
       propertyPath: m_Text
       value: 'Name:      FOP Hero'
       objectReference: {fileID: 0}
+    - target: {fileID: 8882780162817757517, guid: b3265b6dc06f8c24e9338c17e7bf414b,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Power:     2X'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916768443167846338, guid: b3265b6dc06f8c24e9338c17e7bf414b,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Speed:     16m/h'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143289277972475287, guid: b3265b6dc06f8c24e9338c17e7bf414b,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Life:          250 hearts'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3265b6dc06f8c24e9338c17e7bf414b, type: 3}
 --- !u!224 &1251635826223129994 stripped

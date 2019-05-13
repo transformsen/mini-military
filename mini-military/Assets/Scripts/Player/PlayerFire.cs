@@ -45,6 +45,7 @@ public class PlayerFire : NetworkBehaviour
 	
 	public GameObject floatingTextPrefab;
     public Camera cam;
+	public bool isGod = false;
 
 	
 	[SerializeField] public int maxZoom = 1;

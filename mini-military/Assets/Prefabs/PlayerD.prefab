@@ -5802,6 +5802,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 4737190669902936017, guid: ea402214577596f46990ca35da6477bc,
     type: 3}
   cam: {fileID: 2642017337184192377}
+  isGod: 1
   maxZoom: 1
 --- !u!1 &2450792265655384972
 GameObject:
