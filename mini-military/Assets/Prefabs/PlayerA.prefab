@@ -5683,7 +5683,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 43e5aa475a8e83f4b9065a7d1ee86565, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.714
+  m_Volume: 0.887
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5727,7 +5727,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.619
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5895,6 +5895,7 @@ MonoBehaviour:
   floatingTextPrefab: {fileID: 4737190669902936017, guid: ea402214577596f46990ca35da6477bc,
     type: 3}
   cam: {fileID: 3484279346455369976}
+  isGod: 0
   maxZoom: 1
 --- !u!1 &6638081211310776152
 GameObject:

@@ -195,7 +195,7 @@ public class PlayerHealth : NetworkBehaviour {
 	}
 	
 	IEnumerator ReSpawn(){
-		yield return new WaitForSeconds(6f);
+		yield return new WaitForSeconds(2f);
 		EnableLocalPlayer(true);
 		RpcRespawn();
 	}
