@@ -10,10 +10,14 @@ public class CoinSpwnManager : NetworkBehaviour
 	public Transform[] spawnPointsGateOpen;         // An array of the spawn points this enemy can spawn from.
     public GameObject coinPrfab;                // The enemy prefab to be spawned.
     public float lifeTime = 10f;
-
+	bool spawnStart = false;
+	
     public override void OnStartServer()
-    {       
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+    {   
+		if(!spawnStart){    
+			InvokeRepeating("Spawn", spawnTime, spawnTime);
+			spawnStart = true;
+		}
     }
 
 
@@ -37,5 +41,10 @@ public class CoinSpwnManager : NetworkBehaviour
 			NetworkServer.Spawn(coin);
 			Destroy(coin, lifeTime);
 		}
+    }
+	
+	public void OnStopServer()
+    {       
+        CancelInvoke();
     }
 }

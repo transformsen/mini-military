@@ -11,14 +11,19 @@ public class WeaponManager : NetworkBehaviour {
     public float lifeTime = 8f;             // Life Time of the Gun wait for player to pick.
 	public GameObject[] gunPrefabs;
 	
-
+	bool spawnStart = false;
+	
+   
     public override void OnStartServer()
     {
 		PlayerPrefs.SetInt(ExtraPowersAd.weapomConstName+"SAK47", 1);
 		PlayerPrefs.SetInt(ExtraPowersAd.weapomConstName+"SFlameThrower", 1);
 		PlayerPrefs.SetInt(ExtraPowersAd.weapomConstName+"SPistel", 1);
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+       if(!spawnStart){    
+			InvokeRepeating("Spawn", spawnTime, spawnTime);
+			spawnStart = true;
+		}
     }
 
 

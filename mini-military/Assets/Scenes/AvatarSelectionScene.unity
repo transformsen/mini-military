@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -44.300003, y: 0.3000002}
+  m_AnchoredPosition: {x: -47.8, y: 0.29999924}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &308847762
@@ -386,8 +386,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 570.6, y: 102.100006}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 592.51, y: 88.96}
+  m_SizeDelta: {x: 181.91, y: 43.14}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &692640639
 MonoBehaviour:
@@ -841,9 +841,12 @@ MonoBehaviour:
   clickClip: {fileID: 8300000, guid: 9756fade22286cf4f84782de1d6b3dd9, type: 3}
   loadingScreen: {fileID: 1222564961}
   loadingSlider: {fileID: 1222564960}
-  coinsPay: 1000
+  coinsPayFBI: 12
+  coinsPayFOP: 35
+  coinsPayGOD: 50
   warningScreen: {fileID: 793682703}
   coinsLeft: {fileID: 458687686}
+  coinsNeededToPick: {fileID: 978602241}
   playerAvatarsPrefab:
   - {fileID: 3240578876880460552, guid: ce9a3718e61b23c4485d3ba579da490d, type: 3}
   - {fileID: 7714085709903501136, guid: 127e566f04a4b0041ac6ca41c3bcec11, type: 3}
@@ -2636,8 +2639,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 381, y: 96.5}
-  m_SizeDelta: {x: 150, y: 35}
+  m_AnchoredPosition: {x: 626, y: 79.00008}
+  m_SizeDelta: {x: 156.7, y: 52.5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!224 &3365701930466360148
 RectTransform:

@@ -13,6 +13,8 @@ public class EnemyManager : NetworkBehaviour {
 	public Transform[] spawnPointsGateOpen;         // An array of the spawn points this enemy can spawn from.
     GameObject player;
     float timeRan = 0.0f;
+	bool spawnStart = false;
+	
     [SerializeField]
     public RectTransform scoredBoardCanvas;
 
@@ -26,15 +28,16 @@ public class EnemyManager : NetworkBehaviour {
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
 	    string gameType = PlayerPrefs.GetString("GameType");
         timeRan = 0.0f;
-	   
+		 
        if("DM".Equals(gameType)){
 		   if(LobbyManager.s_Singleton._playerNumber > 2){
                needEnemy = false;
            }
 	   }
 
-       if(needEnemy){
-           InvokeRepeating("Spawn", spawnTime, spawnTime);
+       if(needEnemy && !spawnStart){
+		   InvokeRepeating("Spawn", spawnTime, spawnTime);
+		   spawnStart = true;
        }       
     }
 
@@ -45,6 +48,7 @@ public class EnemyManager : NetworkBehaviour {
 
     void Spawn()
     {
+			 
         player = GameObject.FindGameObjectWithTag("Player");
         if(player!= null){
             playerHealth = player.GetComponent<PlayerHealth>();

@@ -17,8 +17,12 @@ public class ExtraPowersAd : MonoBehaviour
 	public GameObject warningScreen;
 	public Text coinsLeft;
 	
+	public int x95Price =  1000;
+	public int m4A1Price =  4000;
+	public int awpPrice =  50000;
+	
     public Slider loadingSlider;
-	public static string weapomConstName = "CollectToo";
+	public static string weapomConstName = "CollectWeap";
 	public static string exPowerConstName = "Expo";
 	
     #if UNITY_IOS
@@ -117,15 +121,15 @@ public class ExtraPowersAd : MonoBehaviour
 	}
 	
 	public void buyX95(){
-		ReduceCoin(5, "SX95");
+		ReduceCoin(x95Price, "SX95");
 	}
 	
 	public void buyM4A1(){
-		ReduceCoin(5, "SM4A1");
+		ReduceCoin(m4A1Price, "SM4A1");
 	}
 	
 	public void buyAWP(){
-		ReduceCoin(5, "SAWP");
+		ReduceCoin(awpPrice, "SAWP");
 	}
 	
 	private void ReduceCoin(int coinsPay, string weapon){
