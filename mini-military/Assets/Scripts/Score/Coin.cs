@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+	public int count = 1;
     // Start is called before the first frame update
    AudioSource pickupAudio;                     // Reference to the audio source.
 	void Start(){
@@ -22,10 +23,10 @@ public class Coin : MonoBehaviour
         if (playerBombAttack != null)
         {
 			pickupAudio.Play();
-			int coins = PlayerPrefs.GetInt("Coins");	
-			coins++;
+			int coins = PlayerPrefs.GetInt("Coins");				
+			coins = coins + count;
 			PlayerPrefs.SetInt("Coins", coins);
-			Destroy(gameObject, 0.2f);
+			Destroy(gameObject, 0.25f);
 			
 		}
     }

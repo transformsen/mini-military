@@ -59,7 +59,7 @@ public class EnemyManager : NetworkBehaviour {
 			
 			int spawnPointIndex = 0;	
 			Transform spawnPoint = transform;
-			if(PlayerPrefs.GetInt("Mission3Done") == 1){
+			if(PlayerPrefs.GetInt(GateOpener.GateOpenMission) == 1){
 				// Find a random index between zero and one less than the number of spawn points.
 				spawnPointIndex = Random.Range(0, spawnPointsGateOpen.Length);
 				spawnPoint = spawnPointsGateOpen[spawnPointIndex];

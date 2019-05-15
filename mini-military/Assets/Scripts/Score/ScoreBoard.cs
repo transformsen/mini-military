@@ -29,6 +29,9 @@ public class ScoreBoard : MonoBehaviour
 
    [SerializeField]
    public RectTransform gameOverText;
+   
+   [SerializeField]
+   public RectTransform bonus;
 
    [SerializeField]
    public RectTransform scoredBoardCanvas;
@@ -39,16 +42,19 @@ public class ScoreBoard : MonoBehaviour
    [SerializeField]
    public Text winnerText;
 
+   public static int myscore = 0;
 
    
    void OnEnable(){
 	   reSpawn.gameObject.SetActive(true);
 		gameOverText.gameObject.SetActive(false);
+		bonus.gameObject.SetActive(false);
 		winnerContainer.gameObject.SetActive(false);	   
 	   StartCoroutine(UpdateScoreBoard());	
 	   if(GameManager.isGameOver){
 			reSpawn.gameObject.SetActive(false);
-			gameOverText.gameObject.SetActive(true);			
+			gameOverText.gameObject.SetActive(true);
+			bonus.gameObject.SetActive(true);			
 			StartCoroutine(GoToLobby());
 	   }
 	}
@@ -79,6 +85,7 @@ public class ScoreBoard : MonoBehaviour
 				if(item != null){
 					item.SetUp(name, score, death);
 				}
+				myscore = score;
 				if("SL".Equals(gameType)){
 					int prevHighest = PlayerPrefs.GetInt("HighScore");
 					if(score > prevHighest){
@@ -118,6 +125,7 @@ public class ScoreBoard : MonoBehaviour
 	   ScoreManager.isPlayerDeath = false;
 	   scoredBoardCanvas.gameObject.SetActive(false);	
 	   gameOverText.gameObject.SetActive(false);
+	   bonus.gameObject.SetActive(false);
 	   string gameType = PlayerPrefs.GetString("GameType");
 	   if("DM".Equals(gameType)){ //if(true){
 		   LobbyManager.s_Singleton.ServerReturnToLobby();

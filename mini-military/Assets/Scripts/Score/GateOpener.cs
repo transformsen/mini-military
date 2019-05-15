@@ -12,6 +12,8 @@ public class GateOpener : MonoBehaviour
 	public bool isGateOpen = false;
 	public GameObject floatingTextPrefab;
 	
+	public static string GateOpenMission = "Mission3G123";
+	
     // Update is called once per frame
 	void Start(){
 		gate.SetActive(true);
@@ -32,7 +34,7 @@ public class GateOpener : MonoBehaviour
 				}
 			}
 			if(pl != null){
-				if(PlayerPrefs.GetInt("Mission3Done") == 1){
+				if(PlayerPrefs.GetInt(GateOpenMission) == 1){
 					gate.SetActive(false);
 					gateText.SetActive(false);
 				}else{
@@ -69,7 +71,7 @@ public class GateOpener : MonoBehaviour
     }
 	
 	void showPopup(){
-		PlayerPrefs.SetInt("Mission3Done", 1);
+		PlayerPrefs.SetInt(GateOpenMission, 1);
 		GameObject floatingTextCanvas = Instantiate(floatingTextPrefab);
 		GameObject floatingText = floatingTextCanvas.transform.GetChild(0).gameObject;
 		floatingText.GetComponent<Text>().text = "Mission-3 Completed! Gate Open!";

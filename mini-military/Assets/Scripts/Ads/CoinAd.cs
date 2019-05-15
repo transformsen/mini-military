@@ -13,6 +13,7 @@ public class CoinAd : MonoBehaviour
 	public Button freeCoinButton;
 	public GameObject warningScreen;
 	public Text coinsLeft;
+	public bool isBonus = false;
 	
     #if UNITY_IOS
       private string gameId = "3102447";
@@ -35,17 +36,19 @@ public class CoinAd : MonoBehaviour
 
     void Update()
     {
-        int LastCoinsCollected = PlayerPrefs.GetInt("LastCoinsCollected");
-		
-		if(System.DateTime.Now.Day != LastCoinsCollected){
-			freeCoinButton.gameObject.SetActive(true);
-		}else{
-			freeCoinButton.gameObject.SetActive(false);
-		}
-		int coins = PlayerPrefs.GetInt("Coins");
-		if(coinsLeft != null){
-			coinsLeft.text = "coins: "+coins;
-		}		
+		if(!isBonus){
+			int LastCoinsCollected = PlayerPrefs.GetInt("LastCoinsCollected");
+			
+			if(System.DateTime.Now.Day != LastCoinsCollected){
+				freeCoinButton.gameObject.SetActive(true);
+			}else{
+				freeCoinButton.gameObject.SetActive(false);
+			}
+			int coins = PlayerPrefs.GetInt("Coins");
+			if(coinsLeft != null){
+				coinsLeft.text = "coins: "+coins;
+			}	
+		}			
     }
 	
 	public void Close(){
@@ -54,8 +57,10 @@ public class CoinAd : MonoBehaviour
 
     public void ShowAd()
     {
-		int collectedDay = System.DateTime.Now.Day;
-		PlayerPrefs.SetInt("LastCoinsCollected", collectedDay);
+		if(!isBonus){
+			int collectedDay = System.DateTime.Now.Day;
+			PlayerPrefs.SetInt("LastCoinsCollected", collectedDay);
+		}
        if (Advertisement.IsReady("rewardedVideo"))
 		{
 		  ShowOptions options = new ShowOptions();
@@ -71,8 +76,13 @@ public class CoinAd : MonoBehaviour
 			int coins = PlayerPrefs.GetInt("Coins");
 			if(coins < 0){
 				coins = 0;
-			}			
-			coins = coins + freeCoins;
+			}
+			if(isBonus){
+				coins = coins + ScoreBoard.myscore/2;
+			}else{
+				coins = coins + freeCoins;
+			}		
+			
 			PlayerPrefs.SetInt("Coins", coins);
 			break;
 		  case ShowResult.Skipped:
