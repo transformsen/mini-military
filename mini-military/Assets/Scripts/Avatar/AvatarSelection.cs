@@ -25,7 +25,7 @@ public class AvatarSelection : MonoBehaviour {
     public GameObject[] playerAvatarsPrefab;
 	private GameObject[] avatars;
     private int index = 0;
-	private static string avatarPickConstant = "PickedIndex";
+	private static string avatarPickConstant = "AvatarPickIndx";
 
 	void Awake() {
 		PlayerPrefs.SetInt(avatarPickConstant+0, 1);

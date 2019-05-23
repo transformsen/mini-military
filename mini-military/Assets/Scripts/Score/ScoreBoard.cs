@@ -98,7 +98,7 @@ public class ScoreBoard : MonoBehaviour
 						highScoreImage.gameObject.SetActive(false);
 					}
 					if(score < 1500){
-						purchaseText.gameObject.SetActive(true);
+						purchaseText.gameObject.SetActive(false);
 					}else{
 						purchaseText.gameObject.SetActive(false);
 					}

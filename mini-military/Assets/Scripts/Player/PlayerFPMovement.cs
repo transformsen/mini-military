@@ -46,6 +46,7 @@ public class PlayerFPMovement : NetworkBehaviour
 	private bool isSide = false;
 	private float speed = 5f;
     private PlayerFire PlayerFire;
+	private bool isFoucus = false;
     AudioSource zoomSound;
 	 
 	
@@ -123,7 +124,12 @@ public class PlayerFPMovement : NetworkBehaviour
         if (CrossPlatformInputManager.GetButtonDown("Jump") ){
             zoomSound.clip = zoomClip;
             zoomSound.Play();
-            if(cam_currentZoom <= cam_maxZoom){
+			if(cam_currentZoom == 0 ){
+				Vector3 newPos = new Vector3();
+				newPos.Set(0, cam_init_y, -cam_init_z);
+				cam.transform.localPosition = newPos;
+				cam_currentZoom = 1;
+			}else if(cam_currentZoom <= cam_maxZoom){
 				Vector3 newPos = new Vector3();
 				newPos.Set(0, cam_delta_y, -cam_delta_z);
 				cam.transform.localPosition  = cam.transform.localPosition  + newPos;
@@ -141,6 +147,21 @@ public class PlayerFPMovement : NetworkBehaviour
             cam.transform.localPosition = newPos;
             cam_currentZoom = 1;
         }
+		if (CrossPlatformInputManager.GetButtonDown("Fire1") ){
+			isFoucus = !isFoucus;
+			if(isFoucus){
+				Vector3 newPos = new Vector3();
+				newPos.Set(0.3f, 1.3f, 1f);
+				cam.transform.localPosition = newPos;
+				cam_currentZoom = 0;
+			}else{
+				Vector3 newPos = new Vector3();
+				newPos.Set(0, cam_init_y, -cam_init_z);
+				cam.transform.localPosition = newPos;
+				cam_currentZoom = 1;
+			}
+			
+		}
 
 	}
 		

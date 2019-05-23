@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterText: {fileID: 4482218391989159500}
-  timeLeft: 25
+  timeLeft: 1200
   masterTimer: 0
 --- !u!114 &684724803785167169
 MonoBehaviour:

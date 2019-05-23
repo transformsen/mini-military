@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -47.8, y: 0.29999924}
+  m_AnchoredPosition: {x: -47.800003, y: 0.29999924}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &308847762
@@ -386,7 +386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 592.51, y: 88.96}
+  m_AnchoredPosition: {x: 592.51, y: 88.95999}
   m_SizeDelta: {x: 181.91, y: 43.14}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &692640639
@@ -528,7 +528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.800003, y: 0}
+  m_AnchoredPosition: {x: 12, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &978602241
@@ -841,9 +841,9 @@ MonoBehaviour:
   clickClip: {fileID: 8300000, guid: 9756fade22286cf4f84782de1d6b3dd9, type: 3}
   loadingScreen: {fileID: 1222564961}
   loadingSlider: {fileID: 1222564960}
-  coinsPayFBI: 12
-  coinsPayFOP: 35
-  coinsPayGOD: 50
+  coinsPayFBI: 1200
+  coinsPayFOP: 3500
+  coinsPayGOD: 50000
   warningScreen: {fileID: 793682703}
   coinsLeft: {fileID: 458687686}
   coinsNeededToPick: {fileID: 978602241}
@@ -2358,7 +2358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bannerPlacement: banner
-  testMode: 1
+  testMode: 0
 --- !u!1 &3291088777957987640
 GameObject:
   m_ObjectHideFlags: 0
@@ -2968,5 +2968,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1356310867}
+    - target: {fileID: 4089782620750837945, guid: 7fe4b93a619b2e9459dc191db32ec10c,
+        type: 3}
+      propertyPath: testMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fe4b93a619b2e9459dc191db32ec10c, type: 3}
