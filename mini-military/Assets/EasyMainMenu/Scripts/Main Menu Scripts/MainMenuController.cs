@@ -181,7 +181,8 @@ public class MainMenuController : MonoBehaviour {
 			StartCoroutine(Load("Mission"));
 		}else{
 			PlayerPrefs.SetString("GameType", "SL");
-			playGame("GameScene");
+			//playGame("GameScene");
+			StartCoroutine(Load("Mission"));
 		}		
 	}
 

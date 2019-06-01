@@ -439,7 +439,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4568
+  m_Name: pb_Mesh-4682
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1237,7 +1237,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4574
+  m_Name: pb_Mesh-4688
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2400,7 +2400,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 1667292058322722, guid: 52bc305cf30f201458a19e3ebf4b1e0e, type: 3}
   - {fileID: 1321073517112112, guid: e48723de349ae244b873ffea4066c9fd, type: 3}
-  spawnTime: 2.5
+  spawnTime: 3.2
   spawnPoints:
   - {fileID: 1873559313}
   - {fileID: 516859382}
@@ -2520,9 +2520,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 2
-  m_Text: ' Collect Bonus
-
-    2 Kills = 1Coin'
+  m_Text: "Click Here! \nCollect Bonus\n2 Kills = 1Coin"
 --- !u!222 &619536612
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4907,7 +4905,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4020
+  m_Name: pb_Mesh-4268
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6729,7 +6727,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4578
+  m_Name: pb_Mesh-4692
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6920,8 +6918,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: -56}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 75.64, y: 45.5}
+  m_SizeDelta: {x: 50.87, y: 40.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252411685
 MonoBehaviour:
@@ -6936,7 +6934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9528302, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -7219,7 +7217,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 93, y: -23}
+  m_AnchoredPosition: {x: 93, y: -47.8}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1332437570
@@ -12287,6 +12285,12 @@ PrefabInstance:
       propertyPath: m_FontStyle
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1554144845207884369, guid: 9134333a6e21a714b8f52b8fafeeea5c,
+        type: 3}
+      propertyPath: m_Text
+      value: "Kill 90 Zombies in 6 Mins\n     to break \n             This door -
+        MISSION 3"
+      objectReference: {fileID: 0}
     - target: {fileID: 1752896719, guid: 9134333a6e21a714b8f52b8fafeeea5c, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -12959,6 +12963,10 @@ PrefabInstance:
     - target: {fileID: 416222424, guid: 9134333a6e21a714b8f52b8fafeeea5c, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985683197, guid: 9134333a6e21a714b8f52b8fafeeea5c, type: 3}
+      propertyPath: maxKills
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9134333a6e21a714b8f52b8fafeeea5c, type: 3}
@@ -15332,7 +15340,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4570
+  m_Name: pb_Mesh-4684
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
