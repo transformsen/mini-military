@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [HideInInspector]
-    public Vector2 TouchDist;
+    public static Vector2 TouchDist;
     [HideInInspector]
     public Vector2 PointerOld;
     [HideInInspector]

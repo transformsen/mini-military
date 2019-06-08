@@ -43,5 +43,9 @@ public class ScoreManager : MonoBehaviour {
 		#endif
     }
 
+	public void goToBoosters(){
+		SceneManager.LoadScene("PurchaseScene");
+	}
+
 	
 }

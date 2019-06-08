@@ -8,20 +8,30 @@ public class AvatarSelection : MonoBehaviour {
 
     AudioSource uiAudio;
 	
-	public Button confirmButton;	
+	public Button coinButton;	
 	public Button adButton;
 	public AudioClip clickClip; 
 	
 	public GameObject loadingScreen;
     public Slider loadingSlider;
+	public int coinsPayFBI = 1000;
+	public int coinsPayFOP = 1000;
+	public int coinsPayGOD = 1000;
+	
+	public GameObject warningScreen;
+	public Text coinsLeft;
+	public Text coinsNeededToPick;
 	
     public GameObject[] playerAvatarsPrefab;
 	private GameObject[] avatars;
     private int index = 0;
+	private static string avatarPickConstant = "AvatarPickIndx";
 
 	void Awake() {
+		PlayerPrefs.SetInt(avatarPickConstant+0, 1);
 		uiAudio = GetComponent<AudioSource>();
 		loadingScreen.SetActive(false);
+		warningScreen.SetActive(false);
         index = PlayerPrefs.GetInt("SelectedAvatar");
 		avatars = new GameObject[playerAvatarsPrefab.Length];
 		 
@@ -34,6 +44,13 @@ public class AvatarSelection : MonoBehaviour {
         avatars[index].SetActive(true);
 	}
 	
+	void Update(){
+		EnableCoinButton(index);
+		int coins = PlayerPrefs.GetInt("Coins");
+		coinsLeft.text = "coins: "+coins;
+		int coinToPay = GetCoinsToBePayed();
+		coinsNeededToPick.text = coinToPay.ToString("#,##0");
+	}
 	
 
     public void ToggleLeft()
@@ -44,8 +61,7 @@ public class AvatarSelection : MonoBehaviour {
         {
             index = avatars.Length - 1;
         }
-        avatars[index].SetActive(true);
-		EnableRewardButton(index);       
+        avatars[index].SetActive(true);		       
 		playClickSound();
     }
 
@@ -58,24 +74,54 @@ public class AvatarSelection : MonoBehaviour {
             index = 0;
         }
         avatars[index].SetActive(true);
-		EnableRewardButton(index);
 		playClickSound();
     }
 	
-	public void EnableRewardButton(int avatarIndex){
-		if(avatarIndex == 0){
-			confirmButton.enabled = true;
-			adButton.gameObject.SetActive(false);
-		}else{
-			confirmButton.enabled = false;
-			adButton.gameObject.SetActive(true);
+	public void EnableCoinButton(int avatarIndex){
+		int isPickedInt = PlayerPrefs.GetInt(avatarPickConstant+avatarIndex);
+		bool isPicked = false;
+		if(isPickedInt == 1){
+			isPicked = true;
 		}
+		NotPicked(isPicked);
+	}
+	
+	private void NotPicked(bool isPicked){
+		coinButton.gameObject.SetActive(!isPicked);
+		adButton.gameObject.SetActive(isPicked);
+	}
+	
+	private int GetCoinsToBePayed(){
+		int coinsPay = 0;
+		if(index == 1){
+			coinsPay = coinsPayFBI;
+		}else if(index == 2){
+			coinsPay = coinsPayFOP;
+		}else{
+			coinsPay = coinsPayGOD;
+		}
+		return coinsPay;
+	}
+	
+	public void pickByCoin(){
+		int coins = PlayerPrefs.GetInt("Coins");
+		int coinsPay = GetCoinsToBePayed();
+		if(coins < coinsPay){
+			warningScreen.SetActive(true);
+		}else{
+			coins = coins - coinsPay;
+			PlayerPrefs.SetInt("Coins", coins);
+			Confirm();
+		}
+		
 	}
 
     public void Confirm()
     {
 		playClickSound();
+		Debug.Log("Picked Avatar=" + index);
         PlayerPrefs.SetInt("SelectedAvatar", index);
+		PlayerPrefs.SetInt(avatarPickConstant+index, 1);
         StartCoroutine(Load("StartScene"));
     }
 	

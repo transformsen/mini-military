@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AvatarSelectionScene.unity
     guid: 9b138ae6a7f138748afe52cd5907105e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LobbyScene.unity
     guid: 51ad6df2e43d730489223f77b1e8166d
   - enabled: 1
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PurchaseScene.unity
     guid: 332013dc35b4a7f4d851f014392c0b71
+  - enabled: 1
+    path: Assets/Scenes/Mission.unity
+    guid: b2f81eacba15ce940bb01becdac88ac4
   m_configObjects: {}

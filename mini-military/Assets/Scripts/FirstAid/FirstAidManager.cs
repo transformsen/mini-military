@@ -9,14 +9,18 @@ public class FirstAidManager : NetworkBehaviour {
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
     public GameObject firstAid;                // The enemy prefab to be spawned.
     public float lifeTime = 8f;
-
+	bool spawnStart = false;
+	
     public override void OnStartServer()
     {
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-		if(PlayerPrefs.GetInt("ExtraFirstAid") == 1 ){
+		if(PlayerPrefs.GetInt(ExtraPowersAd.exPowerConstName+"FirstAid") == 1 ){
 			spawnTime = spawnTime - 5f;
 		}
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+        if(!spawnStart){    
+			InvokeRepeating("Spawn", spawnTime, spawnTime);
+			spawnStart = true;
+		}
     }
 
 
