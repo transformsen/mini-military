@@ -18,4 +18,8 @@ public class AvatarAnimations : MonoBehaviour
     {
          anim.SetBool("isRunning", true);
     }
+	
+	void Step(){
+		
+	}
 }

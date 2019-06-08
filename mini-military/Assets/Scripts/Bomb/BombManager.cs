@@ -9,12 +9,14 @@ public class BombManager : NetworkBehaviour
     public Transform[] spawnPoints;         // An array of the spawn points this enemy can spawn from.
     public GameObject bombPrefab;         // The enemy prefab to be spawned.
     public float lifeTime = 8f;             // Life Time of the Gun wait for player to pick.	
-
+	bool spawnStart = false;
+	
     public override void OnStartServer()
-    {
-		
-        // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time.
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
+    {   
+		if(!spawnStart){    
+			InvokeRepeating("Spawn", spawnTime, spawnTime);
+			spawnStart = true;
+		}
     }
 
 

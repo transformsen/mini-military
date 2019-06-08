@@ -8,7 +8,7 @@ public class BombExplosion : MonoBehaviour {
     public GameObject explosionEffectPreFab;
     public float radius = 5f;
     public float fource = 300f;
-    public float lifeTime = 0.8f;
+    public float lifeTime = 1.2f;
 	public GameObject myparent;
     public int damageValue = 300;
 

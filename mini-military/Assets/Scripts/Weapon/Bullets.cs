@@ -7,6 +7,7 @@ public class Bullets : MonoBehaviour
 	
 	public int damagePerShot = 20;                  // The damage inflicted by each bullet.
     public float range = 100f;                      // The distance the gun can fire.   
+	public bool isKillWeapon = false;
    
    
 	Ray shootRay;                                   // A ray from the gun end forwards.
@@ -60,6 +61,9 @@ public class Bullets : MonoBehaviour
             // If the EnemyHealth component exist...
             if (enemyHealth != null)
             {
+				if(myparent != null && myparent.GetComponent<PlayerFire>().isGod && isKillWeapon){
+					damagePerShot = 100000;
+				}
                 // ... the enemy should take damage.
                 enemyHealth.TakeDamage(damagePerShot, shootHit.point, myparent);
 				//enemyHealth.TakeDamage(gameObject);
@@ -74,6 +78,7 @@ public class Bullets : MonoBehaviour
             {
                 Debug.Log("Player InRange");
 				// ... the enemy should take damage.
+				
                 playerHealth.TakeDamage(damagePerShot, myparent);
 				//playerHealth.TakeDamage(myparent);
 				

@@ -15,12 +15,15 @@ public class GunStatusManager : MonoBehaviour
 	
 	public Image gunStatusContainerImage;	
 	public Text myScore;
+	public Text coins;
 	
-	public int mileStoneScore = 50;
+	public int mileStoneScore = 3;
 
 	public int mileStone = 2;
 	public GameObject floatingTextPrefab;
 	public Color floatingTextColor;
+	public Button freeCoinButton; 
+	public GameObject demoScreen;
 
     // Update is called once per frame
     void Update()
@@ -32,7 +35,7 @@ public class GunStatusManager : MonoBehaviour
 			numberOfBulletsLeftText.text = "" + player.numberOfBulletsLeft;
 			weapon2D.sprite = player.imageforWeanpon;
 			realoadingInText.text = player.realoadingInText;
-			myScore.text = "SCORE: "+player.score;
+			myScore.text = "KILLS: "+player.score;
 			if(player.score + mileStoneScore >= mileStoneScore * mileStone){
 				mileStone ++;
 				showPopup();
@@ -41,9 +44,18 @@ public class GunStatusManager : MonoBehaviour
 		}else{
 			gunStatusContainerImage.gameObject.SetActive(false);
 		}
+		coins.text = "COINS :"+ PlayerPrefs.GetInt("Coins");
+		if(SingleNetworkHUD.started){
+			freeCoinButton.gameObject.SetActive(false);
+			demoScreen.SetActive(false);
+		}
+		if("DM".Equals(PlayerPrefs.GetString("GameType"))){
+			freeCoinButton.gameObject.SetActive(false);
+			demoScreen.SetActive(false);
+		}
     }
 
-	void showPopup(){
+	void showPopup(){		
 		GameObject floatingTextCanvas = Instantiate(floatingTextPrefab);
 		GameObject floatingText = floatingTextCanvas.transform.GetChild(0).gameObject;
 		floatingText.GetComponent<Text>().text = "Completed Milestone " + (mileStone-1);

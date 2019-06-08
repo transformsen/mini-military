@@ -19,7 +19,7 @@ public class PlayerBombAttack : NetworkBehaviour {
 		if (isLocalPlayer)
 		{
 			BoombCountManager.playerGO = gameObject;	
-			if(PlayerPrefs.GetInt("ExtraBomb") == 1 ){
+			if(PlayerPrefs.GetInt(ExtraPowersAd.exPowerConstName+"Bomb") == 1 ){
 				numberOfBombs = numberOfBombs + 10;
 			}
 		}

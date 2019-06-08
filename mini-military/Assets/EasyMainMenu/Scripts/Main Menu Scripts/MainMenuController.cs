@@ -151,6 +151,12 @@ public class MainMenuController : MonoBehaviour {
 	}
 	
 	public void goToPurChase(){
+		PlayerPrefs.SetString("BoostMode", "EX");
+		StartCoroutine(Load("PurchaseScene"));
+	}
+	
+	public void goToStore(){
+		PlayerPrefs.SetString("BoostMode", "CO");
 		StartCoroutine(Load("PurchaseScene"));
 	}
 	
@@ -164,9 +170,20 @@ public class MainMenuController : MonoBehaviour {
         }                       
 	}
 	
+	public void Mission()
+    {
+        StartCoroutine(Load("Mission"));
+    }
+	
 	public void Survival(){
-		PlayerPrefs.SetString("GameType", "SL");
-		playGame("GameScene");
+		
+		if(PlayerPrefs.GetInt("MissionSeen") != 1){
+			StartCoroutine(Load("Mission"));
+		}else{
+			PlayerPrefs.SetString("GameType", "SL");
+			//playGame("GameScene");
+			StartCoroutine(Load("Mission"));
+		}		
 	}
 
     public void playGame(string gameType)

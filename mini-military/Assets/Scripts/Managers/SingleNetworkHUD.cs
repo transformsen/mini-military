@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 public class SingleNetworkHUD : MonoBehaviour
 {
 	public float guiOffset;
-	public static bool started;
+	public static bool started;	
+	
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,7 @@ public class SingleNetworkHUD : MonoBehaviour
 		if (Input.GetKey(KeyCode.Escape))
 		{
 			exitToStart();
-		}
+		}		
 	}
 	
 
@@ -39,8 +40,8 @@ public class SingleNetworkHUD : MonoBehaviour
 
 				GUI.backgroundColor = Color.magenta;
 				if(GUILayout.Button("Play!" , style , GUILayout.Width(200), GUILayout.Height(100))){
-					started = true;
-					NetworkManager.singleton.StartHost();
+					started = true;					
+					NetworkManager.singleton.StartHost();					
 				}
 				GUILayout.FlexibleSpace();
 				GUILayout.EndHorizontal();

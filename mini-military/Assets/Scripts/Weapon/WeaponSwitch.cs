@@ -9,6 +9,10 @@ public class WeaponSwitch : MonoBehaviour {
 		pickupAudio = GetComponent<AudioSource>();
 	}
 	
+	void Update () {
+        transform.Rotate(new Vector3(45,0,0) * Time.deltaTime);
+	}
+	
 	public string gunName = "";
     
     void OnTriggerEnter(Collider collision)

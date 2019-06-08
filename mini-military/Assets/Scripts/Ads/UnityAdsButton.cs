@@ -7,7 +7,7 @@ public class UnityAdsButton : MonoBehaviour
 {
 
     public string placementId = "rewardedVideo";
-    public Button confirmButton;
+	public AvatarSelection avatarSelection;
    
     //private string gameId = "1234567";
 	
@@ -53,7 +53,7 @@ public class UnityAdsButton : MonoBehaviour
     private void HandleShowResult(ShowResult result){
 		switch (result){
 		  case ShowResult.Finished:
-			confirmButton.enabled = true;
+			avatarSelection.Confirm();
 			break;
 		  case ShowResult.Skipped:
 			Debug.LogWarning("The player skipped the video - DO NOT REWARD!");

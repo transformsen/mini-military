@@ -18,7 +18,7 @@ public class PlayerHealth : NetworkBehaviour {
 
     Animator anim;                                              // Reference to the Animator component.
     AudioSource playerAudio;                                    // Reference to the AudioSource component.
-    PlayerMovement playerMovement;                              // Reference to the player's movement.
+    PlayerFPMovement playerMovement;                              // Reference to the player's movement.
 	PlayerBombAttack playerBombAttack;                              // Reference to the PlayerBombAttack.
 	ParticleSystem hitParticles;                // Reference to the particle system that plays when the player is damaged.
 	public GameObject deathParticlesGO;                // Reference to the particle system that plays when the player is death.
@@ -51,7 +51,7 @@ public class PlayerHealth : NetworkBehaviour {
     {
 		if (isLocalPlayer)
         {            
-			if(PlayerPrefs.GetInt("ExtraHealth") == 1 ){
+			if(PlayerPrefs.GetInt(ExtraPowersAd.exPowerConstName+"Health") == 1 ){
 				startingHealth = startingHealth + 50;
 			}
         }
@@ -59,7 +59,7 @@ public class PlayerHealth : NetworkBehaviour {
         // Setting up the references.
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
-		playerMovement = GetComponent<PlayerMovement>();
+		playerMovement = GetComponent<PlayerFPMovement>();
 		playerBombAttack = GetComponent<PlayerBombAttack>();
 		playerFire = GetComponent<PlayerFire>();
 		hitParticles = GetComponentInChildren<ParticleSystem>();
@@ -195,7 +195,7 @@ public class PlayerHealth : NetworkBehaviour {
 	}
 	
 	IEnumerator ReSpawn(){
-		yield return new WaitForSeconds(6f);
+		yield return new WaitForSeconds(2f);
 		EnableLocalPlayer(true);
 		RpcRespawn();
 	}
